@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - EarthenKnot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar" id="main-nav">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="EarthenKnot Logo">
+      EarthenKnot
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="collections.html" class="dropbtn">Collections ▾</a>
+        <div class="dropdown-content">
+          <a href="collections.html">All Collections</a>
+          <a href="home-decor.html">Home Decor</a>
+          <a href="tops.html">Tops</a>
+          <a href="hair-accessories.html">Hair Accessories</a>
+          <a href="bags.html">Bags</a>
+        </div>
+      </div>
+      <a href="about.html" class="active">About</a>
+    </div>
+    <div class="nav-actions">
+      <div class="global-search-container" style="position: relative; display: flex; align-items: center;">
+        <input type="text" id="global-search-input" class="search-input-expand" placeholder="Search products...">
+        <button class="search-btn" id="global-search-btn" aria-label="Search" style="background: none; border: none; cursor: pointer; color: var(--text); padding: 0.5rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text)'">
+          <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          </svg>
+        </button>
+        <div id="search-results-dropdown" class="search-results-dropdown"></div>
+      </div>
+      <div class="user-auth-container" style="position: relative;">
+        <button class="user-btn" id="user-auth-btn" aria-label="Account" onclick="window.location.href='auth.html'">
+          <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="user-btn-label">Sign In</span>
+        </button>
+        <div class="user-dropdown" id="user-dropdown"></div>
+      </div>
+      <button class="cart-btn" onclick="window.location.href='checkout.html'" aria-label="View Cart">
+        <svg viewBox="0 0 24 24">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main-wrapper" style="display: flex; align-items: center; justify-content: center;">
+    <section class="container" style="max-width: 800px; padding: 4rem 5%; text-align: center;">
+      <h1 class="fade-in" style="font-size: 3rem; margin-bottom: 2rem; color: var(--primary-dark);">Our Story</h1>
+      
+      <div class="glass-panel fade-in delay-1" style="padding: 3rem; border-radius: 24px;">
+        <p style="font-size: 1.15rem; margin-bottom: 1.5rem; text-align: left; color: var(--text);">
+          EarthenKnot was born out of a profound love for the simple, organic textures found in nature. We believe that your home should be a sanctuary, and the items you surround yourself with should reflect warmth, comfort, and sustainability.
+        </p>
+        <p style="font-size: 1.15rem; margin-bottom: 2rem; text-align: left; color: var(--text);">
+          Every piece is meticulously handcrafted using premium, ethically sourced yarns. Whether it's a chunky mocha throw or an intricate amigurumi friend, our creations are designed to bring a touch of earthy elegance to your daily life.
+        </p>
+        
+        <div style="display: flex; flex-direction: column; align-items: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 2rem;">
+          <img src="assets/logo.png" alt="EarthenKnot Logo" style="width: 90px; height: 90px; border-radius: 50%; box-shadow: var(--shadow-sm); margin-bottom: 1rem;">
+          <p style="font-family: 'Outfit'; font-weight: 600; font-size: 1.2rem; color: var(--primary);">Lovingly woven for you.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">EarthenKnot</div>
+      <div class="social-links">
+        <a href="https://www.instagram.com/earthenknot?igsh=MWgxZDl1OHk4azIwYg%3D%3D&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn3Fqxs9jquHzp9iJtX1-huufqHVpgfH1q6_JRTV1o7bSn4U84IYB3O2SXjVo_aem__3HvmuUOTBEClDd3VL_dmw" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/@CardignOfficial/shorts" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2rem; color: var(--text-light); font-size: 0.9rem;">
+      &copy; 2026 EarthenKnot. Designed to wow.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+</body>
+</html>

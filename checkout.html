@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - EarthenKnot</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.8);
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108, 120, 92, 0.1);
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    @media (max-width: 768px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <!-- EmailJS SDK Integration -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      // Initialize EmailJS with Public Key placeholder
+      emailjs.init({
+        publicKey: "lC9nEwf9szxI7rDZy",
+      });
+    })();
+  </script>
+</head>
+<body>
+  <nav class="navbar" id="main-nav">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="EarthenKnot Logo">
+      EarthenKnot
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="collections.html" class="dropbtn">Collections ▾</a>
+        <div class="dropdown-content">
+          <a href="collections.html">All Collections</a>
+          <a href="home-decor.html">Home Decor</a>
+          <a href="tops.html">Tops</a>
+          <a href="hair-accessories.html">Hair Accessories</a>
+          <a href="bags.html">Bags</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-actions">
+      <div class="global-search-container" style="position: relative; display: flex; align-items: center;">
+        <input type="text" id="global-search-input" class="search-input-expand" placeholder="Search products...">
+        <button class="search-btn" id="global-search-btn" aria-label="Search" style="background: none; border: none; cursor: pointer; color: var(--text); padding: 0.5rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text)'">
+          <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          </svg>
+        </button>
+        <div id="search-results-dropdown" class="search-results-dropdown"></div>
+      </div>
+      <div class="user-auth-container" style="position: relative;">
+        <button class="user-btn" id="user-auth-btn" aria-label="Account" onclick="window.location.href='auth.html'">
+          <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="user-btn-label">Sign In</span>
+        </button>
+        <div class="user-dropdown" id="user-dropdown"></div>
+      </div>
+      <button class="cart-btn" onclick="window.location.href='checkout.html'" aria-label="View Cart">
+        <svg viewBox="0 0 24 24">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main-wrapper" style="padding: 4rem 5%;">
+    <section class="container" style="max-width: 1000px;">
+      <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 3rem; color: var(--primary-dark); text-align: center;">Secure Checkout</h1>
+      
+      <div class="checkout-grid">
+        <!-- Payment Form -->
+        <div class="glass-panel fade-in delay-1" style="padding: 2.5rem;">
+          <h2 style="font-size: 1.5rem; margin-bottom: 2rem;">Payment Details</h2>
+          <form id="payment-form">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="customer-email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>Name on Card</label>
+              <input type="text" id="customer-name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label>Card Number</label>
+              <input type="text" placeholder="0000 0000 0000 0000" pattern="\d{4} \d{4} \d{4} \d{4}|\d{16}" required>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+              <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="text" placeholder="MM/YY" required>
+              </div>
+              <div class="form-group">
+                <label>CVC</label>
+                <input type="text" placeholder="123" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.2rem; border-radius: 12px; margin-top: 1rem;">Process Payment</button>
+          </form>
+          
+          <div id="payment-success" style="display: none; margin-top: 2rem; padding: 1.5rem; background-color: rgba(74, 84, 62, 0.1); color: var(--primary-dark); border-radius: 12px; text-align: center; border: 1px solid rgba(74, 84, 62, 0.2);">
+            <svg viewBox="0 0 24 24" style="width: 40px; height: 40px; stroke: var(--primary-dark); fill: none; margin-bottom: 1rem;">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <h3 style="margin-bottom: 0.5rem;">Payment Successful!</h3>
+            <p>Thank you for your order. We're knitting it with love.</p>
+          </div>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="glass-panel fade-in delay-2" style="background: rgba(144, 118, 97, 0.05); padding: 2.5rem; display: flex; flex-direction: column;">
+          <h2 style="font-size: 1.5rem; margin-bottom: 2rem;">Order Summary</h2>
+          
+          <div style="flex-grow: 1;">
+            <div class="summary-row">
+              <span>Items in Cart (<span id="checkout-cart-count">0</span>)</span>
+              <span id="checkout-total">--</span>
+            </div>
+            <div class="summary-row" style="color: var(--text-light);">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1.5rem; margin-top: 1.5rem;">
+            <div class="summary-row" style="font-weight: 600; font-size: 1.3rem;">
+              <span>Total</span>
+              <span id="checkout-final-total">--</span>
+            </div>
+          </div>
+          
+          <div style="margin-top: 2rem; text-align: center;">
+            <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: var(--text-light); fill: none; stroke-width: 2;">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;">Payments are secure and encrypted.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">EarthenKnot</div>
+      <div class="social-links">
+        <a href="https://www.instagram.com/earthenknot?igsh=MWgxZDl1OHk4azIwYg%3D%3D&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn3Fqxs9jquHzp9iJtX1-huufqHVpgfH1q6_JRTV1o7bSn4U84IYB3O2SXjVo_aem__3HvmuUOTBEClDd3VL_dmw" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/@CardignOfficial/shorts" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2rem; color: var(--text-light); font-size: 0.9rem;">
+      &copy; 2026 EarthenKnot. Designed to wow.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Populate summary based on dummy data
+      let count = sessionStorage.getItem('cartCount') ? parseInt(sessionStorage.getItem('cartCount')) : 0;
+      
+      // Safety bounds for UX
+      if (document.referrer.includes('index.html') || document.referrer.includes('collections.html')) {
+          if(count === 0) {
+             // For purely a demo if they went straight to checkout
+             // we'll leave it as 0 to show empty state handling
+             // actually, let's just make it look good for a portfolio piece
+          }
+      }
+
+      document.getElementById('checkout-cart-count').textContent = count;
+      let dummyTotal = '₹0.00';
+      
+      if (count > 0) {
+        // Dummy average price INR 6999
+        dummyTotal = '₹' + (count * 6999).toFixed(2);
+        document.getElementById('checkout-total').textContent = dummyTotal;
+        document.getElementById('checkout-final-total').textContent = dummyTotal;
+      } else {
+        document.getElementById('checkout-total').textContent = '₹0.00';
+        document.getElementById('checkout-final-total').textContent = '₹0.00';
+        document.querySelector('button[type="submit"]').disabled = true;
+        document.querySelector('button[type="submit"]').style.opacity = '0.5';
+        document.querySelector('button[type="submit"]').textContent = 'Cart is empty';
+      }
+
+      const form = document.getElementById('payment-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const btn = form.querySelector('button');
+        btn.textContent = 'Processing...';
+        btn.style.opacity = '0.7';
+        btn.disabled = true;
+        
+        const customerName = document.getElementById('customer-name').value;
+        const customerEmail = document.getElementById('customer-email').value;
+        
+        // Simulate network request
+        setTimeout(() => {
+          
+          // Dispatch Order Confirmation Email via EmailJS
+          const templateParams = {
+            to_name: customerName,
+            to_email: customerEmail,
+            order_total: dummyTotal
+          };
+          
+          emailjs.send('service_353knts', 'template_7d5b2gq', templateParams)
+            .then(() => {
+              console.log('SUCCESS! Order confirmation email sent.');
+            }, (error) => {
+              console.log('FAILED... EmailJS not fully configured yet.', error);
+            });
+
+          document.getElementById('payment-success').style.display = 'block';
+          btn.style.display = 'none';
+          
+          sessionStorage.setItem('cartCount', '0');
+          document.getElementById('cart-count').textContent = '0';
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+FROM --platform=arm64
+WORKDIR /app
+COPY . /app
+EXPOSE 8080
+CMD ["npm", "start"]
+                
