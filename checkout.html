@@ -42,9 +42,83 @@
       margin-bottom: 1rem;
       font-size: 1.05rem;
     }
+    .payment-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+      background: rgba(0,0,0,0.04);
+      padding: 0.35rem;
+      border-radius: 14px;
+    }
+    .payment-tab-btn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .payment-tab-btn.active {
+      background: white;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .qr-card {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(108, 120, 92, 0.25);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .qr-image-box {
+      background: white;
+      padding: 0.75rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .copy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(108, 120, 92, 0.12);
+      color: var(--primary-dark);
+      border: 1px solid rgba(108, 120, 92, 0.25);
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .copy-pill:hover {
+      background: var(--primary);
+      color: white;
+    }
     @media (max-width: 768px) {
       .checkout-grid {
         grid-template-columns: 1fr;
+      }
+      .qr-card {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
     }
   </style>
@@ -119,32 +193,110 @@
       <div class="checkout-grid">
         <!-- Payment Form -->
         <div class="glass-panel fade-in delay-1" style="padding: 2.5rem;">
-          <h2 style="font-size: 1.5rem; margin-bottom: 2rem;">Payment Details</h2>
-          <form id="payment-form">
-            <div class="form-group">
-              <label>Email Address</label>
-              <input type="email" id="customer-email" placeholder="you@example.com" required>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.5rem; margin: 0;">Payment Details</h2>
+            <button type="button" onclick="configureStoreDetails()" style="background: none; border: none; color: var(--primary-dark); font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+              ⚙️ Edit Store Phone/UPI
+            </button>
+          </div>
+
+          <!-- Payment Method Tabs -->
+          <div class="payment-tabs">
+            <button type="button" class="payment-tab-btn active" id="tab-upi" onclick="switchPaymentMethod('upi')">
+              <span>📱</span> UPI QR / Phone Number
+            </button>
+            <button type="button" class="payment-tab-btn" id="tab-card" onclick="switchPaymentMethod('card')">
+              <span>💳</span> Credit / Debit Card
+            </button>
+          </div>
+
+          <!-- UPI & Phone Number Section -->
+          <div id="section-upi">
+            <div class="qr-card">
+              <div class="qr-image-box">
+                <img id="store-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi%3A%2F%2Fpay%3Fpa%3Dearthenknot%40upi%26pn%3DEarthenKnot" alt="Payment QR Code" style="width: 150px; height: 150px; border-radius: 8px;">
+                <span style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.4rem;">Scan with any UPI App</span>
+              </div>
+              <div>
+                <div style="margin-bottom: 1.1rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Pay via Phone Number (GPay/PhonePe/Paytm)</span>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <strong id="display-phone" style="font-size: 1.25rem; color: var(--primary-dark);">+91 98765 43210</strong>
+                    <button type="button" class="copy-pill" onclick="copyText('display-phone', this)">
+                      Copy Phone
+                    </button>
+                  </div>
+                </div>
+                <div style="margin-bottom: 1.1rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Merchant UPI ID</span>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <strong id="display-upi" style="font-size: 1.1rem; color: var(--text);">earthenknot@upi</strong>
+                    <button type="button" class="copy-pill" onclick="copyText('display-upi', this)">
+                      Copy UPI ID
+                    </button>
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-light); margin: 0; line-height: 1.4;">
+                  💡 Send the total amount and enter your 12-digit UTR/Transaction ID below to confirm your order.
+                </p>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Name on Card</label>
-              <input type="text" id="customer-name" placeholder="John Doe" required>
-            </div>
-            <div class="form-group">
-              <label>Card Number</label>
-              <input type="text" placeholder="0000 0000 0000 0000" pattern="\d{4} \d{4} \d{4} \d{4}|\d{16}" required>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+
+            <form id="upi-payment-form">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label>Your Name</label>
+                  <input type="text" id="upi-customer-name" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" id="upi-customer-email" placeholder="you@example.com" required>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label>Contact Number</label>
+                  <input type="tel" id="upi-customer-phone" placeholder="+91 90000 00000" required>
+                </div>
+                <div class="form-group">
+                  <label>12-Digit UTR / Transaction ID</label>
+                  <input type="text" id="upi-utr" placeholder="e.g. 419283746512" pattern="[A-Za-z0-9]{8,25}" title="Enter your UTR or Transaction Reference Number" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.2rem; border-radius: 12px; margin-top: 0.5rem;">
+                Confirm Payment & Place Order
+              </button>
+            </form>
+          </div>
+
+          <!-- Card Payment Section (Hidden by default) -->
+          <div id="section-card" style="display: none;">
+            <form id="card-payment-form">
               <div class="form-group">
-                <label>Expiry Date</label>
-                <input type="text" placeholder="MM/YY" required>
+                <label>Email Address</label>
+                <input type="email" id="customer-email" placeholder="you@example.com" required>
               </div>
               <div class="form-group">
-                <label>CVC</label>
-                <input type="text" placeholder="123" required>
+                <label>Name on Card</label>
+                <input type="text" id="customer-name" placeholder="John Doe" required>
               </div>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.2rem; border-radius: 12px; margin-top: 1rem;">Process Payment</button>
-          </form>
+              <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" placeholder="0000 0000 0000 0000" pattern="\d{4} \d{4} \d{4} \d{4}|\d{16}" required>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="form-group">
+                  <label>Expiry Date</label>
+                  <input type="text" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                  <label>CVC</label>
+                  <input type="text" placeholder="123" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.2rem; border-radius: 12px; margin-top: 1rem;">Process Card Payment</button>
+            </form>
+          </div>
           
           <div id="payment-success" style="display: none; margin-top: 2rem; padding: 1.5rem; background-color: rgba(74, 84, 62, 0.1); color: var(--primary-dark); border-radius: 12px; text-align: center; border: 1px solid rgba(74, 84, 62, 0.2);">
             <svg viewBox="0 0 24 24" style="width: 40px; height: 40px; stroke: var(--primary-dark); fill: none; margin-bottom: 1rem;">
@@ -243,42 +395,126 @@
         document.querySelector('button[type="submit"]').textContent = 'Cart is empty';
       }
 
-      const form = document.getElementById('payment-form');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const btn = form.querySelector('button');
-        btn.textContent = 'Processing...';
-        btn.style.opacity = '0.7';
-        btn.disabled = true;
-        
-        const customerName = document.getElementById('customer-name').value;
-        const customerEmail = document.getElementById('customer-email').value;
-        
-        // Simulate network request
-        setTimeout(() => {
-          
-          // Dispatch Order Confirmation Email via EmailJS
-          const templateParams = {
-            to_name: customerName,
-            to_email: customerEmail,
-            order_total: dummyTotal
-          };
-          
-          emailjs.send('service_353knts', 'template_7d5b2gq', templateParams)
-            .then(() => {
-              console.log('SUCCESS! Order confirmation email sent.');
-            }, (error) => {
-              console.log('FAILED... EmailJS not fully configured yet.', error);
-            });
+      // Load store settings from localStorage or defaults
+      const storePhone = localStorage.getItem('storePhone') || '+91 98765 43210';
+      const storeUpi = localStorage.getItem('storeUpi') || 'earthenknot@upi';
+      document.getElementById('display-phone').textContent = storePhone;
+      document.getElementById('display-upi').textContent = storeUpi;
 
-          document.getElementById('payment-success').style.display = 'block';
-          btn.style.display = 'none';
+      // Update QR code with exact amount
+      const numericAmount = count > 0 ? (count * 6999) : 0;
+      const upiUrl = `upi://pay?pa=${encodeURIComponent(storeUpi)}&pn=EarthenKnot&am=${numericAmount}&cu=INR`;
+      document.getElementById('store-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiUrl)}`;
+
+      // Switch payment method tabs
+      window.switchPaymentMethod = function(method) {
+        const tabUpi = document.getElementById('tab-upi');
+        const tabCard = document.getElementById('tab-card');
+        const secUpi = document.getElementById('section-upi');
+        const secCard = document.getElementById('section-card');
+        
+        if (method === 'upi') {
+          tabUpi.classList.add('active');
+          tabCard.classList.remove('active');
+          secUpi.style.display = 'block';
+          secCard.style.display = 'none';
+        } else {
+          tabCard.classList.add('active');
+          tabUpi.classList.remove('active');
+          secCard.style.display = 'block';
+          secUpi.style.display = 'none';
+        }
+      };
+
+      // Copy text utility with feedback
+      window.copyText = function(elementId, btn) {
+        const text = document.getElementById(elementId).textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          const origText = btn.textContent;
+          btn.textContent = 'Copied! ✓';
+          btn.style.background = 'var(--primary)';
+          btn.style.color = 'white';
+          setTimeout(() => {
+            btn.textContent = origText;
+            btn.style.background = '';
+            btn.style.color = '';
+          }, 2000);
+        });
+      };
+
+      // Configure store phone & UPI ID on the fly
+      window.configureStoreDetails = function() {
+        const newPhone = prompt('Enter your Store Phone Number for payments:', localStorage.getItem('storePhone') || '+91 98765 43210');
+        if (newPhone !== null && newPhone.trim() !== '') {
+          localStorage.setItem('storePhone', newPhone.trim());
+          document.getElementById('display-phone').textContent = newPhone.trim();
+        }
+        const newUpi = prompt('Enter your Store UPI ID:', localStorage.getItem('storeUpi') || 'earthenknot@upi');
+        if (newUpi !== null && newUpi.trim() !== '') {
+          localStorage.setItem('storeUpi', newUpi.trim());
+          document.getElementById('display-upi').textContent = newUpi.trim();
+          const updatedUpiUrl = `upi://pay?pa=${encodeURIComponent(newUpi.trim())}&pn=EarthenKnot&am=${numericAmount}&cu=INR`;
+          document.getElementById('store-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(updatedUpiUrl)}`;
+        }
+      };
+
+      const handleOrderSuccess = (customerName, customerEmail, utrReference = null) => {
+        const templateParams = {
+          to_name: customerName,
+          to_email: customerEmail,
+          order_total: dummyTotal,
+          utr_reference: utrReference || 'Card Payment'
+        };
+        
+        emailjs.send('service_353knts', 'template_7d5b2gq', templateParams)
+          .then(() => console.log('SUCCESS! Order email sent.'),
+                (err) => console.log('EmailJS note:', err));
+
+        const successDiv = document.getElementById('payment-success');
+        if (utrReference) {
+          successDiv.querySelector('p').innerHTML = `Thank you for your order! Your UTR reference <strong>#${utrReference}</strong> has been received. We're knitting your order with love.`;
+        }
+        successDiv.style.display = 'block';
+        document.querySelector('.payment-tabs').style.display = 'none';
+        document.getElementById('section-upi').style.display = 'none';
+        document.getElementById('section-card').style.display = 'none';
+        
+        sessionStorage.setItem('cartCount', '0');
+        document.getElementById('cart-count').textContent = '0';
+      };
+
+      const upiForm = document.getElementById('upi-payment-form');
+      if (upiForm) {
+        upiForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const btn = upiForm.querySelector('button[type="submit"]');
+          btn.textContent = 'Verifying Order...';
+          btn.style.opacity = '0.7';
+          btn.disabled = true;
           
-          sessionStorage.setItem('cartCount', '0');
-          document.getElementById('cart-count').textContent = '0';
-        }, 1500);
-      });
+          const name = document.getElementById('upi-customer-name').value;
+          const email = document.getElementById('upi-customer-email').value;
+          const utr = document.getElementById('upi-utr').value;
+          
+          setTimeout(() => handleOrderSuccess(name, email, utr), 1000);
+        });
+      }
+
+      const cardForm = document.getElementById('card-payment-form');
+      if (cardForm) {
+        cardForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const btn = cardForm.querySelector('button[type="submit"]');
+          btn.textContent = 'Processing...';
+          btn.style.opacity = '0.7';
+          btn.disabled = true;
+          
+          const name = document.getElementById('customer-name').value;
+          const email = document.getElementById('customer-email').value;
+          
+          setTimeout(() => handleOrderSuccess(name, email, null), 1200);
+        });
+      }
     });
   </script>
 </body>
