@@ -222,15 +222,9 @@
                 <input type="email" id="upi-customer-email" placeholder="you@example.com" required>
               </div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-              <div class="form-group">
-                <label>Contact Number</label>
-                <input type="tel" id="upi-customer-phone" placeholder="+91 98765 43210" required>
-              </div>
-              <div class="form-group">
-                <label>12-Digit UTR / Transaction ID</label>
-                <input type="text" id="upi-utr" placeholder="e.g. 419283746512" pattern="[A-Za-z0-9]{8,25}" title="Enter your UTR or Transaction Reference Number" required>
-              </div>
+            <div class="form-group">
+              <label>Contact Number</label>
+              <input type="tel" id="upi-customer-phone" placeholder="+91 98765 43210" required>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.2rem; border-radius: 12px; margin-top: 0.75rem;">
               Confirm Payment & Place Order
@@ -364,9 +358,7 @@
                 (err) => console.log('EmailJS note:', err));
 
         const successDiv = document.getElementById('payment-success');
-        if (utrReference) {
-          successDiv.querySelector('p').innerHTML = `Thank you for your order! Your UTR reference <strong>#${utrReference}</strong> has been received. We're knitting your order with love.`;
-        }
+        successDiv.querySelector('p').innerHTML = `Thank you for your order! We have received your request and will contact you within 3 hours to confirm your payment and delivery details.`;
         successDiv.style.display = 'block';
         document.getElementById('payment-panel-main').style.display = 'none';
         
@@ -385,9 +377,9 @@
           
           const name = document.getElementById('upi-customer-name').value;
           const email = document.getElementById('upi-customer-email').value;
-          const utr = document.getElementById('upi-utr').value;
+          const phone = document.getElementById('upi-customer-phone').value;
           
-          setTimeout(() => handleOrderSuccess(name, email, utr), 1000);
+          setTimeout(() => handleOrderSuccess(name, email, null), 1000);
         });
       }
     });
