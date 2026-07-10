@@ -216,6 +216,14 @@ const productsData = {
     videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
     filter: 'grayscale(0.5) sepia(1)',
     story: "Durable, fashionable, and incredibly spacious. This handcrafted macrame tote bag is your perfect companion for farmers markets or leisurely beach days, combining utility with rustic bohemian flair."
+  },
+  'ivory-lace-crochet-pillow': {
+    name: 'Ivory Lace Crochet Pillow Cover',
+    price: '₹3,200.00',
+    image: 'assets/pillow-1.jpg',
+    images: ['assets/pillow-1.jpg', 'assets/pillow-2.jpg', 'assets/pillow-3.jpg'],
+    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
+    story: "Handcrafted with intricate vintage lace motifs in natural ivory cotton yarn, this artisan crochet cushion cover brings timeless texture and warmth to your living sanctuary. Each pillow cover features exquisite shell stitches, dimensional floral clusters, and delicate openwork lacework inspired by heirloom crochet artistry. Soft to the touch yet beautifully structured with a crisp cotton lining, it adds instant cozy elegance to any sofa, armchair, or bedroom retreat."
   }
 };
 
@@ -234,9 +242,10 @@ function renderProductPage() {
     if (imagesToUse.length > 1) {
       thumbnailsHTML = '<div class="thumbnails">';
       imagesToUse.forEach((imgUrl, index) => {
-        // As a visual trick for duplicate images, adding small brightness drops
+        // Only apply brightness drop if it is a duplicate placeholder image
         const filterStr = product.filter ? product.filter : '';
-        const thumbFilter = index > 0 ? `${filterStr} brightness(${1 - (index * 0.1)})` : filterStr;
+        const isDuplicate = imgUrl === imagesToUse[0] && index > 0;
+        const thumbFilter = isDuplicate ? `${filterStr} brightness(${1 - (index * 0.1)})` : filterStr;
         thumbnailsHTML += `<img src="${imgUrl}" alt="${product.name} angle ${index + 1}" class="thumbnail ${index === 0 ? 'active' : ''}" style="filter: ${thumbFilter};" data-index="${index}" data-filter="${thumbFilter}">`;
       });
       thumbnailsHTML += '</div>';
