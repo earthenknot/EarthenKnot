@@ -64,6 +64,70 @@ const observer = new IntersectionObserver((entries, observer) => {
 document.addEventListener('DOMContentLoaded', () => {
   const animatedElements = document.querySelectorAll('.animate-on-scroll');
   animatedElements.forEach(el => observer.observe(el));
+
+  // ===== Responsive Mobile Navigation Toggle =====
+  const navbar = document.getElementById('main-nav') || document.querySelector('.navbar');
+  const navLinks = document.querySelector('.nav-links');
+  const navActions = document.querySelector('.nav-actions');
+
+  if (navbar && navLinks && navActions && !document.querySelector('.mobile-menu-btn')) {
+    const menuBtn = document.createElement('button');
+    menuBtn.className = 'mobile-menu-btn';
+    menuBtn.setAttribute('aria-label', 'Toggle Navigation Menu');
+    menuBtn.innerHTML = `
+      <svg viewBox="0 0 24 24">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    `;
+    navActions.appendChild(menuBtn);
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.innerHTML = isOpen ? `
+        <svg viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      ` : `
+        <svg viewBox="0 0 24 24">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      `;
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-menu-btn')) {
+        navLinks.classList.remove('open');
+        menuBtn.innerHTML = `
+          <svg viewBox="0 0 24 24">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        `;
+      }
+    });
+
+    // Handle dropdown inside mobile menu
+    const dropdownContainers = document.querySelectorAll('.dropdown');
+    dropdownContainers.forEach(drop => {
+      const dropBtn = drop.querySelector('.dropbtn');
+      if (dropBtn) {
+        dropBtn.addEventListener('click', (e) => {
+          if (window.innerWidth <= 850) {
+            e.preventDefault();
+            drop.classList.toggle('open');
+          }
+        });
+      }
+    });
+  }
   
   // Dropdown Menu Click Toggle
   const dropBtns = document.querySelectorAll('.dropbtn');
