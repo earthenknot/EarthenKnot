@@ -8,8 +8,8 @@
   <style>
     .checkout-grid {
       display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(360px, 1fr);
-      gap: 3.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 3rem;
       align-items: start;
     }
     .form-group {
@@ -189,17 +189,17 @@
     </div>
   </nav>
 
-  <main class="main-wrapper" style="padding: 4rem 4%;">
-    <section class="container" style="max-width: 1440px; width: 94%;">
+  <main class="main-wrapper" style="padding: 4rem 5%;">
+    <section class="container" style="max-width: 1280px;">
       <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 3rem; color: var(--primary-dark); text-align: center;">Secure Checkout</h1>
       
       <div class="checkout-grid">
         <!-- Payment Form -->
-        <div class="glass-panel fade-in delay-1" style="padding: 3rem;" id="payment-panel-main">
+        <div class="glass-panel fade-in delay-1" style="padding: 2.75rem;" id="payment-panel-main">
           <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--primary-dark);">Choose Payment Method</h2>
 
           <!-- Interactive Payment Option Selector Cards -->
-          <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+          <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
             <!-- Option 1: Cash on Delivery (COD) -->
             <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; padding: 1.3rem 1.4rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 16px; transition: all 0.3s; box-shadow: var(--shadow-sm);">
               <div style="display: flex; align-items: center; gap: 1rem;">
@@ -308,7 +308,7 @@
         </div>
         
         <!-- Order Summary -->
-        <div class="glass-panel fade-in delay-2" style="background: rgba(144, 118, 97, 0.05); padding: 2.5rem; display: flex; flex-direction: column;">
+        <div class="glass-panel fade-in delay-2" style="background: rgba(144, 118, 97, 0.05); padding: 2.75rem; display: flex; flex-direction: column;">
           <h2 style="font-size: 1.5rem; margin-bottom: 2rem;">Order Summary</h2>
           
           <div style="flex-grow: 1;">
