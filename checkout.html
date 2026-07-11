@@ -199,29 +199,29 @@
           <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--primary-dark);">Choose Payment Method</h2>
 
           <!-- Interactive Payment Option Selector Cards -->
-          <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-bottom: 1.75rem;">
+          <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem;">
             <!-- Option 1: Cash on Delivery (COD) -->
-            <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.9rem; padding: 0.9rem 1.1rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 12px; transition: all 0.3s; box-shadow: var(--shadow-sm);">
-              <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <input type="radio" name="payment_method" id="radio-cod" value="cod" checked style="width: 16px; height: 16px; accent-color: var(--primary);">
+            <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.65rem 0.85rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 10px; transition: all 0.3s; box-shadow: var(--shadow-sm);">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <input type="radio" name="payment_method" id="radio-cod" value="cod" checked style="width: 14px; height: 14px; accent-color: var(--primary);">
                 <div>
-                  <strong style="font-size: 1.02rem; color: var(--primary-dark); display: block;">Cash on Delivery (COD)</strong>
-                  <span style="font-size: 0.82rem; color: var(--text-light); line-height: 1.3; display: block; margin-top: 0.15rem;">Pay cash or scan UPI at your doorstep.</span>
+                  <strong style="font-size: 0.95rem; color: var(--primary-dark); display: block;">Cash on Delivery (COD)</strong>
+                  <span style="font-size: 0.76rem; color: var(--text-light); line-height: 1.25; display: block; margin-top: 0.1rem;">Pay cash or scan UPI at doorstep.</span>
                 </div>
               </div>
-              <span style="background: var(--primary); color: white; font-size: 0.68rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 20px; letter-spacing: 0.3px; white-space: nowrap;">POPULAR</span>
+              <span style="background: var(--primary); color: white; font-size: 0.65rem; font-weight: 600; padding: 0.18rem 0.5rem; border-radius: 20px; letter-spacing: 0.3px; white-space: nowrap;">POPULAR</span>
             </label>
 
             <!-- Option 2: QR Code / Instant UPI -->
-            <label class="payment-option-card" id="card-upi" onclick="switchPaymentMethod('upi')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.9rem; padding: 0.9rem 1.1rem; border: 1px solid rgba(0,0,0,0.15); background: var(--surface); border-radius: 12px; transition: all 0.3s;">
-              <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <input type="radio" name="payment_method" id="radio-upi" value="upi" style="width: 16px; height: 16px; accent-color: var(--primary);">
+            <label class="payment-option-card" id="card-upi" onclick="switchPaymentMethod('upi')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.65rem 0.85rem; border: 1px solid rgba(0,0,0,0.15); background: var(--surface); border-radius: 10px; transition: all 0.3s;">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <input type="radio" name="payment_method" id="radio-upi" value="upi" style="width: 14px; height: 14px; accent-color: var(--primary);">
                 <div>
-                  <strong style="font-size: 1.02rem; color: var(--primary-dark); display: block;">Pay via QR Code (UPI)</strong>
-                  <span style="font-size: 0.8rem; color: var(--secondary); font-weight: 500; display: block; margin-top: 0.15rem;">GPay • PhonePe • Paytm</span>
+                  <strong style="font-size: 0.95rem; color: var(--primary-dark); display: block;">Pay via QR Code (UPI)</strong>
+                  <span style="font-size: 0.75rem; color: var(--secondary); font-weight: 500; display: block; margin-top: 0.1rem;">GPay • PhonePe • Paytm</span>
                 </div>
               </div>
-              <span style="background: rgba(144, 118, 97, 0.12); color: var(--secondary); font-size: 0.68rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 20px; white-space: nowrap;">INSTANT</span>
+              <span style="background: rgba(144, 118, 97, 0.12); color: var(--secondary); font-size: 0.65rem; font-weight: 600; padding: 0.18rem 0.5rem; border-radius: 20px; white-space: nowrap;">INSTANT</span>
             </label>
           </div>
 
