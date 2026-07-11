@@ -196,38 +196,29 @@
         <div class="glass-panel fade-in delay-1" style="padding: 2.5rem;" id="payment-panel-main">
           <h2 style="font-size: 1.6rem; margin-bottom: 1.25rem; color: var(--primary-dark);">Choose Payment Method</h2>
 
-          <!-- Payment Method Tabs -->
-          <div class="payment-tabs">
-            <button type="button" class="payment-tab-btn active" id="tab-upi" onclick="switchPaymentMethod('upi')">
-              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="7" y1="7" x2="7" y2="7"/><line x1="17" y1="17" x2="17" y2="17"/><rect x="7" y="11" width="10" height="2"/></svg>
-              UPI / QR Code
-            </button>
-            <button type="button" class="payment-tab-btn" id="tab-cod" onclick="switchPaymentMethod('cod')">
-              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              Cash on Delivery
-            </button>
+          <!-- Interactive Payment Option Selector Cards -->
+          <div class="payment-option-cards" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.75rem;">
+            <!-- Option 1: Cash on Delivery (COD) -->
+            <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; gap: 1.2rem; padding: 1.25rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 14px; transition: all 0.3s;">
+              <input type="radio" name="payment_method" id="radio-cod" value="cod" checked style="width: 20px; height: 20px; accent-color: var(--primary);">
+              <div style="flex: 1;">
+                <strong style="font-size: 1.15rem; color: var(--primary-dark); display: block;">Cash on Delivery (COD)</strong>
+                <span style="font-size: 0.9rem; color: var(--text-light);">Pay cash or scan UPI when your package arrives at your doorstep.</span>
+              </div>
+            </label>
+
+            <!-- Option 2: QR Code / Instant UPI -->
+            <label class="payment-option-card" id="card-upi" onclick="switchPaymentMethod('upi')" style="cursor: pointer; display: flex; align-items: center; gap: 1.2rem; padding: 1.25rem; border: 1px solid rgba(0,0,0,0.15); background: var(--surface); border-radius: 14px; transition: all 0.3s;">
+              <input type="radio" name="payment_method" id="radio-upi" value="upi" style="width: 20px; height: 20px; accent-color: var(--primary);">
+              <div style="flex: 1;">
+                <strong style="font-size: 1.15rem; color: var(--primary-dark); display: block;">Pay Now via QR Code (UPI)</strong>
+                <span style="font-size: 0.9rem; color: var(--text-light);">Scan QR Code with Google Pay, PhonePe, or Paytm for instant online payment.</span>
+              </div>
+            </label>
           </div>
 
-          <!-- UPI Section -->
-          <div id="section-upi" class="payment-info-section">
-            <div class="qr-card">
-              <div class="qr-image-box">
-                <img src="assets/payment-qr.jpg?v=3" alt="Cardign Official Payment QR Code" style="width: 190px; height: 190px; object-fit: contain; border-radius: 10px;">
-              </div>
-              <div>
-                <div style="margin-bottom: 1rem;">
-                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Merchant Account</span>
-                  <strong style="font-size: 1.5rem; color: var(--primary-dark);">Cardign</strong>
-                </div>
-                <p style="font-size: 0.95rem; color: var(--text); margin: 0; line-height: 1.6;">
-                  Please scan the QR code to complete your payment. Once the payment is received, the merchant will contact you within 3 hours to confirm the transaction and collect any additional delivery details required to process your order.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- COD Section -->
-          <div id="section-cod" class="payment-info-section" style="display: none;">
+          <!-- COD Information Section (Shown by default) -->
+          <div id="section-cod" class="payment-info-section">
             <div class="qr-card" style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
               <div style="background: rgba(108, 120, 92, 0.15); border-radius: 14px; padding: 1.25rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                 <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; stroke: var(--primary-dark); fill: none; stroke-width: 1.8;">
@@ -238,11 +229,29 @@
               </div>
               <div style="flex: 1; min-width: 220px;">
                 <div style="margin-bottom: 0.5rem;">
-                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.2rem;">Payment Method</span>
+                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.2rem;">Selected Method</span>
                   <strong style="font-size: 1.35rem; color: var(--primary-dark);">Cash on Delivery (COD)</strong>
                 </div>
                 <p style="font-size: 0.95rem; color: var(--text); margin: 0; line-height: 1.6;">
-                  Pay conveniently with cash or UPI at your doorstep upon receiving your order. After placing your request, our artisan team will call you within 3 hours to verify your delivery address and schedule shipment.
+                  No advance payment required. After placing your request, our artisan team will call you within 3 hours to verify your delivery address and schedule dispatch.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI QR Code Section (Shown ONLY when QR Code is chosen) -->
+          <div id="section-upi" class="payment-info-section" style="display: none;">
+            <div class="qr-card">
+              <div class="qr-image-box">
+                <img src="assets/payment-qr.jpg?v=3" alt="Cardign Official Payment QR Code" style="width: 190px; height: 190px; object-fit: contain; border-radius: 10px;">
+              </div>
+              <div>
+                <div style="margin-bottom: 1rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Merchant Account</span>
+                  <strong style="font-size: 1.5rem; color: var(--primary-dark);">Cardign</strong>
+                </div>
+                <p style="font-size: 0.95rem; color: var(--text); margin: 0; line-height: 1.6;">
+                  Please scan the QR code above to complete your payment. Once the payment is received, our team will contact you within 3 hours to confirm your transaction and arrange delivery.
                 </p>
               </div>
             </div>
@@ -405,24 +414,40 @@
         document.getElementById('cart-count').textContent = '0';
       };
 
-      window.currentPaymentMethod = 'upi';
+      window.currentPaymentMethod = 'cod';
       window.switchPaymentMethod = function(method) {
         window.currentPaymentMethod = method;
-        const tabUpi = document.getElementById('tab-upi');
-        const tabCod = document.getElementById('tab-cod');
+        const cardCod = document.getElementById('card-cod');
+        const cardUpi = document.getElementById('card-upi');
+        const radioCod = document.getElementById('radio-cod');
+        const radioUpi = document.getElementById('radio-upi');
         const secUpi = document.getElementById('section-upi');
         const secCod = document.getElementById('section-cod');
         const submitBtn = document.getElementById('checkout-submit-btn');
 
         if (method === 'cod') {
-          if (tabUpi) tabUpi.classList.remove('active');
-          if (tabCod) tabCod.classList.add('active');
+          if (cardCod) {
+            cardCod.style.border = '2px solid var(--primary)';
+            cardCod.style.background = 'rgba(108, 120, 92, 0.08)';
+          }
+          if (cardUpi) {
+            cardUpi.style.border = '1px solid rgba(0,0,0,0.15)';
+            cardUpi.style.background = 'var(--surface)';
+          }
+          if (radioCod) radioCod.checked = true;
           if (secUpi) secUpi.style.display = 'none';
           if (secCod) secCod.style.display = 'block';
           if (submitBtn) submitBtn.textContent = 'Place Order (Cash on Delivery)';
         } else {
-          if (tabCod) tabCod.classList.remove('active');
-          if (tabUpi) tabUpi.classList.add('active');
+          if (cardUpi) {
+            cardUpi.style.border = '2px solid var(--primary)';
+            cardUpi.style.background = 'rgba(108, 120, 92, 0.08)';
+          }
+          if (cardCod) {
+            cardCod.style.border = '1px solid rgba(0,0,0,0.15)';
+            cardCod.style.background = 'var(--surface)';
+          }
+          if (radioUpi) radioUpi.checked = true;
           if (secCod) secCod.style.display = 'none';
           if (secUpi) secUpi.style.display = 'block';
           if (submitBtn) submitBtn.textContent = 'Confirm Payment & Place Order';
