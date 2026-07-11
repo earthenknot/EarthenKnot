@@ -229,57 +229,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Product Stories Data
 const productsData = {
-  'sage-mocha-throw': {
-    name: 'Sage Mocha Throw',
-    price: '₹9,999.00',
-    image: 'assets/blanket.png',
-    images: ['assets/blanket.png', 'assets/blanket.png', 'assets/blanket.png'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
-    story: "Woven during the quiet, misty mornings of early spring, the Sage Mocha Throw captures the essence of a serene forest floor. The interlocking mocha and sage green fibers symbolize the intertwining roots of ancient trees, bringing their grounding energy directly to your sanctuary. Every individual stitch acts as a whisper of nature, meticulously designed to wrap you in warmth and tranquility. This isn't just a blanket; it's a piece of the earth to hold you tight during chilly evenings."
-  },
-  'earthy-bear-amigurumi': {
-    name: 'Earthy Bear Amigurumi',
-    price: '₹2,999.00',
-    image: 'assets/amigurumi.png',
-    images: ['assets/amigurumi.png', 'assets/amigurumi.png', 'assets/amigurumi.png'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
-    story: "Meet your new companion, crafted gently from the softest, sustainably sourced earthy yarns. This little bear was inspired by the gentle creatures of the woodlands, who find comfort in the simplest of forest corners. Hand-stuffed with love and care over countless hours, it carries a deep-rooted story of woodland adventures and peaceful slumbers. He is designed not only as decor but as a sturdy, loving heirloom—perfect to pass down through generations of dreamers."
-  },
-  'olive-chunky-throw': {
-    name: 'Olive Chunky Throw',
-    price: '₹11,999.00',
-    image: 'assets/blanket.png',
-    images: ['assets/blanket.png', 'assets/blanket.png', 'assets/blanket.png'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
-    filter: 'hue-rotate(30deg)',
-    story: "Inspired by sprawling olive groves bathed in late afternoon sun, this chunky knit throw is the epitome of rustic luxury. The thick, incredibly plush yarn creates a comforting physical weight that feels like a warm embrace from a loved one. It’s more than just a blanket; it’s a tribute to the warmth of the Mediterranean and the gentle, slow pace of a mindful life."
-  },
   'granny-square-top': {
     name: 'Granny Square Crop Top',
     price: '₹4,500.00',
-    image: 'assets/blanket.png', // dummy reuse
+    image: 'assets/blanket.png',
     images: ['assets/blanket.png', 'assets/blanket.png'],
     videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
     filter: 'hue-rotate(150deg) saturate(1.5)',
     story: "A vintage-inspired crochet top bringing the nostalgia of summer festivals to life. Individually joined squares create a breathtaking geometric pattern in bright, sunny hues."
-  },
-  'sunflower-scrunchie': {
-    name: 'Sunflower Hair Scrunchie',
-    price: '₹899.00',
-    image: 'assets/amigurumi.png', // dummy reuse
-    images: ['assets/amigurumi.png'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
-    filter: 'hue-rotate(250deg) saturate(2)',
-    story: "Woven meticulously with soft organic cotton to protect your hair. This scrunchie is not only an accessory but a bright slice of sunshine that holds firm all day long."
-  },
-  'macrame-tote-bag': {
-    name: 'Boho Macrame Tote',
-    price: '₹3,400.00',
-    image: 'assets/blanket.png', // dummy reuse
-    images: ['assets/blanket.png'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
-    filter: 'grayscale(0.5) sepia(1)',
-    story: "Durable, fashionable, and incredibly spacious. This handcrafted macrame tote bag is your perfect companion for farmers markets or leisurely beach days, combining utility with rustic bohemian flair."
   },
   'ivory-lace-crochet-pillow': {
     name: 'Ivory Lace Crochet Pillow Cover',
@@ -288,6 +245,14 @@ const productsData = {
     images: ['assets/pillow-1.jpg', 'assets/pillow-2.jpg', 'assets/pillow-3.jpg'],
     videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
     story: "Handcrafted with intricate vintage lace motifs in natural ivory cotton yarn, this artisan crochet cushion cover brings timeless texture and warmth to your living sanctuary. Each pillow cover features exquisite shell stitches, dimensional floral clusters, and delicate openwork lacework inspired by heirloom crochet artistry. Soft to the touch yet beautifully structured with a crisp cotton lining, it adds instant cozy elegance to any sofa, armchair, or bedroom retreat."
+  },
+  'striped-crochet-sweatshirt': {
+    name: 'Ocean Blue Striped Crochet Sweatshirt',
+    price: '₹4,800.00',
+    image: 'assets/sweatshirt-1.jpg',
+    images: ['assets/sweatshirt-1.jpg', 'assets/sweatshirt-2.jpg'],
+    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
+    story: "Handcrafted with soft ocean blue and cream cotton yarn, this striped crochet sweatshirt blends relaxed coastal charm with heirloom craftsmanship. Designed with an effortless drop-shoulder silhouette and airy open-weave stitches, it is perfect for layering year-round. Featuring ribbed trim and artisanal stitching throughout, each sweatshirt is woven with meticulous attention to detail."
   }
 };
 
