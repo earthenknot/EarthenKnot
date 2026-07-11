@@ -354,7 +354,6 @@
             <div style="width: 70px; height: 70px; background: #e8f5e9; color: #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem auto;">
               <svg viewBox="0 0 24 24" style="width: 40px; height: 40px; stroke: currentColor; fill: none; stroke-width: 2.5;"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-            <span style="background: rgba(108, 120, 92, 0.15); color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; padding: 0.4rem 1rem; border-radius: 20px;">ORDER CONFIRMED & IN WORKFLOW</span>
             <h2 style="font-size: 2.4rem; color: var(--primary-dark); margin: 0.8rem 0 0.4rem 0; font-family: 'Playfair Display', serif;">Thank You for Your Order!</h2>
             <p style="color: var(--text-light); font-size: 1.05rem;" id="confirm-order-id-label">Order Reference: #EK-XXXXXX</p>
           </div>
@@ -379,17 +378,6 @@
             <div style="text-align: center; flex: 1;">
               <div style="width: 32px; height: 32px; background: #e2e8f0; color: #64748b; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem auto; font-weight: 700; font-size: 0.85rem;">4</div>
               <strong style="font-size: 0.85rem; color: #64748b;">Delivered</strong>
-            </div>
-          </div>
-
-          <!-- Automated Email Status Log -->
-          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 1.25rem; margin-bottom: 2rem;">
-            <h4 style="font-size: 0.95rem; color: #166534; margin: 0 0 0.6rem 0; display:flex; align-items:center; gap:0.5rem;">
-              <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              <span>Transactional Email Automation Log</span>
-            </h4>
-            <div style="font-size: 0.88rem; color: #15803d; line-height: 1.6;" id="email-automation-log">
-              <!-- Rendered dynamically -->
             </div>
           </div>
 
@@ -662,14 +650,6 @@
       screen.style.display = 'block';
 
       document.getElementById('confirm-order-id-label').textContent = `Order Reference: ${order.id} • Date: ${order.date}`;
-
-      const logEl = document.getElementById('email-automation-log');
-      logEl.innerHTML = `
-        <strong style="display:block; margin-bottom:0.4rem;">Transactional Email Engine Dispatch Report:</strong>
-        • <strong>Customer Confirmation Email:</strong> Formatted & dispatched to <code>${order.customer.email}</code><br>
-        • <strong>Merchant Notification Email:</strong> Order details sent to store admin email ID<br>
-        • <strong>Workflow Pipeline:</strong> Added to <strong>Order Management Dashboard</strong> with status <span style="background:#dcfce7; color:#166534; padding:0.15rem 0.5rem; border-radius:6px; font-weight:700;">Confirmed</span>
-      `;
 
       const itemsHtml = order.items.map(i => `
         <div style="display:flex; justify-content:space-between; padding:0.55rem 0; border-bottom:1px solid #f0f0f0;">
