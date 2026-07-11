@@ -478,27 +478,41 @@
         if (saved) items = JSON.parse(saved);
       } catch (e) {}
 
-      // If empty, preload a stunning sample cart so checkout testing is always seamless
+      // If empty, preload sample products linked directly to their product pages
       if (!items || items.length === 0) {
         items = [
           {
             id: 'ek-demo-1',
-            name: 'Earthen Heritage Handcrafted Blanket',
-            price: 3499,
+            name: 'Ivory Lace Crochet Pillow Cover',
+            price: 3200,
             qty: 1,
-            img: 'assets/hero-bag.jpg'
+            img: 'assets/pillow-1.jpg',
+            url: 'product.html?id=ivory-lace-crochet-pillow'
           },
           {
             id: 'ek-demo-2',
-            name: 'Boho Macrame Wall Knot Art',
-            price: 1899,
+            name: 'Ocean Blue Striped Crochet Sweatshirt',
+            price: 4800,
             qty: 1,
-            img: 'assets/pillow-main.jpg'
+            img: 'assets/sweatshirt-1.jpg',
+            url: 'product.html?id=striped-crochet-sweatshirt'
           }
         ];
         localStorage.setItem('earthenknot_cart', JSON.stringify(items));
       }
       return items;
+    }
+
+    function resolveItemLink(item) {
+      if (item && item.url) return item.url;
+      const name = (item && item.name) ? item.name.toLowerCase() : '';
+      if (name.includes('pillow') || name.includes('cushion') || name.includes('ivory')) {
+        return 'product.html?id=ivory-lace-crochet-pillow';
+      }
+      if (name.includes('sweatshirt') || name.includes('striped') || name.includes('ocean')) {
+        return 'product.html?id=striped-crochet-sweatshirt';
+      }
+      return 'collections.html';
     }
 
     function renderCheckoutCart() {
@@ -514,18 +528,21 @@
         const sub = (Number(item.price) || 0) * (Number(item.qty) || 1);
         total += sub;
         count += (Number(item.qty) || 1);
+        const itemHref = resolveItemLink(item);
 
         const row = document.createElement('div');
         row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding: 0.8rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); gap: 0.75rem;';
         row.innerHTML = `
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <div style="width:48px; height:48px; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); flex-shrink:0;">
-              <img src="${item.img || 'assets/hero-bag.jpg'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;">
-            </div>
-            <div>
-              <strong style="font-size:0.92rem; color:var(--text); display:block;">${item.name}</strong>
-              <span style="font-size:0.8rem; color:var(--text-light);">₹${Number(item.price).toLocaleString('en-IN')} each</span>
-            </div>
+          <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
+            <a href="${itemHref}" title="View ${item.name}" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:inherit; transition:opacity 0.2s; overflow:hidden;" onmouseover="this.style.opacity='0.78'" onmouseout="this.style.opacity='1'">
+              <div style="width:48px; height:48px; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); flex-shrink:0;">
+                <img src="${item.img || 'assets/hero-bag.jpg'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <div style="overflow:hidden;">
+                <strong style="font-size:0.92rem; color:var(--primary-dark); display:block; text-decoration:underline; text-underline-offset:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.name}</strong>
+                <span style="font-size:0.8rem; color:var(--text-light); display:block;">₹${Number(item.price).toLocaleString('en-IN')} each</span>
+              </div>
+            </a>
           </div>
           <div style="display:flex; align-items:center; gap:0.75rem;">
             <div style="display:flex; align-items:center; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
@@ -656,7 +673,7 @@
 
       const itemsHtml = order.items.map(i => `
         <div style="display:flex; justify-content:space-between; padding:0.55rem 0; border-bottom:1px solid #f0f0f0;">
-          <span>${i.name} × ${i.qty}</span>
+          <a href="${resolveItemLink(i)}" style="color:var(--primary-dark); text-decoration:underline; text-underline-offset:2px; font-weight:500;">${i.name} × ${i.qty}</a>
           <strong>₹${(i.price * i.qty).toLocaleString('en-IN')}</strong>
         </div>
       `).join('');

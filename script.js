@@ -23,22 +23,74 @@ let cartItems = getCartItems();
 let cartCount = cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
 updateCartBadge();
 
-function addToCart(name, price, img) {
+function resolveProductUrl(itemName, passedUrl) {
+  if (passedUrl && typeof passedUrl === 'string') return passedUrl;
+  if (!itemName) return 'collections.html';
+  const lower = itemName.toLowerCase();
+  for (const [id, prod] of Object.entries(productsData || {})) {
+    if (prod.name.toLowerCase() === lower) {
+      return `product.html?id=${id}`;
+    }
+  }
+  if (lower.includes('pillow') || lower.includes('cushion') || lower.includes('ivory')) {
+    return 'product.html?id=ivory-lace-crochet-pillow';
+  }
+  if (lower.includes('sweatshirt') || lower.includes('striped') || lower.includes('ocean')) {
+    return 'product.html?id=striped-crochet-sweatshirt';
+  }
+  return 'collections.html';
+}
+
+function addToCart(name, price, img, url) {
   cartItems = getCartItems();
-  const itemName = typeof name === 'string' && name ? name : 'Handcrafted Earth Crochet Creation';
-  const itemPrice = typeof price === 'number' ? price : 2499;
-  const itemImg = typeof img === 'string' && img ? img : 'assets/hero-bag.jpg';
+  let itemName = typeof name === 'string' && name ? name : null;
+  let itemPrice = typeof price === 'number' ? price : null;
+  let itemImg = typeof img === 'string' && img ? img : null;
+  let itemUrl = typeof url === 'string' && url ? url : null;
+
+  // Auto-detect from surrounding card if clicked inside a product card
+  if (window.event && window.event.target) {
+    const card = window.event.target.closest('.product-card');
+    if (card) {
+      if (!itemName) itemName = card.querySelector('h3')?.textContent?.trim();
+      if (!itemPrice) {
+        const priceTxt = card.querySelector('p')?.textContent?.trim();
+        if (priceTxt) itemPrice = Number(priceTxt.replace(/[^0-9.]/g, ''));
+      }
+      if (!itemImg) itemImg = card.querySelector('img')?.getAttribute('src');
+      if (!itemUrl) itemUrl = card.querySelector('a')?.getAttribute('href');
+    }
+  }
+
+  // Auto-detect from product page url if on product.html
+  if (window.location.pathname.includes('product.html')) {
+    const params = new URLSearchParams(window.location.search);
+    const pid = params.get('id');
+    if (pid && typeof productsData !== 'undefined' && productsData[pid]) {
+      if (!itemName) itemName = productsData[pid].name;
+      if (!itemPrice) itemPrice = Number(String(productsData[pid].price).replace(/[^0-9.]/g, '')) || 3200;
+      if (!itemImg) itemImg = productsData[pid].image;
+      if (!itemUrl) itemUrl = `product.html?id=${pid}`;
+    }
+  }
+
+  itemName = itemName || 'Handcrafted Earth Crochet Creation';
+  itemPrice = itemPrice || 2499;
+  itemImg = itemImg || 'assets/hero-bag.jpg';
+  itemUrl = resolveProductUrl(itemName, itemUrl);
 
   const existing = cartItems.find(item => item.name === itemName);
   if (existing) {
     existing.qty = (existing.qty || 1) + 1;
+    existing.url = itemUrl;
   } else {
     cartItems.push({
       id: 'ek-' + Date.now().toString(36),
       name: itemName,
       price: itemPrice,
       qty: 1,
-      img: itemImg
+      img: itemImg,
+      url: itemUrl
     });
   }
 
