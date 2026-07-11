@@ -229,15 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Product Stories Data
 const productsData = {
-  'granny-square-top': {
-    name: 'Granny Square Crop Top',
-    price: '₹4,500.00',
-    image: 'assets/blanket.png',
-    images: ['assets/blanket.png', 'assets/blanket.png'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
-    filter: 'hue-rotate(150deg) saturate(1.5)',
-    story: "A vintage-inspired crochet top bringing the nostalgia of summer festivals to life. Individually joined squares create a breathtaking geometric pattern in bright, sunny hues."
-  },
   'ivory-lace-crochet-pillow': {
     name: 'Ivory Lace Crochet Pillow Cover',
     price: '₹3,200.00',
