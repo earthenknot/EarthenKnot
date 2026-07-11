@@ -8,8 +8,9 @@
   <style>
     .checkout-grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 3rem;
+      grid-template-columns: 1.85fr 1.15fr;
+      gap: 3.5rem;
+      align-items: start;
     }
     .form-group {
       margin-bottom: 1.5rem;
@@ -112,9 +113,10 @@
       background: var(--primary);
       color: white;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
       .checkout-grid {
         grid-template-columns: 1fr;
+        gap: 2.5rem;
       }
       .qr-card {
         grid-template-columns: 1fr;
@@ -187,13 +189,13 @@
     </div>
   </nav>
 
-  <main class="main-wrapper" style="padding: 4rem 5%;">
-    <section class="container" style="max-width: 1000px;">
+  <main class="main-wrapper" style="padding: 4.5rem 5%;">
+    <section class="container" style="max-width: 1280px;">
       <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 3rem; color: var(--primary-dark); text-align: center;">Secure Checkout</h1>
       
       <div class="checkout-grid">
         <!-- Payment Form -->
-        <div class="glass-panel fade-in delay-1" style="padding: 2.5rem;" id="payment-panel-main">
+        <div class="glass-panel fade-in delay-1" style="padding: 3rem;" id="payment-panel-main">
           <h2 style="font-size: 1.6rem; margin-bottom: 1.25rem; color: var(--primary-dark);">Choose Payment Method</h2>
 
           <!-- Interactive Payment Option Selector Cards -->
