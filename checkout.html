@@ -196,11 +196,47 @@
     <section class="container" style="max-width: 1200px; margin: 0 auto;">
       <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 2.5rem; color: var(--primary-dark); text-align: center; font-family: 'Playfair Display', serif;">Secure Checkout & Order</h1>
       
-      <div class="checkout-grid" id="checkout-main-grid">
-        <!-- Left Column: Shipping & Payment Form -->
-        <div class="glass-panel fade-in delay-1" style="padding: 2.75rem;" id="payment-panel-main">
-          <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--primary-dark);">1. Customer Delivery Details</h2>
-          <form id="checkout-order-form">
+      <div class="checkout-vertical-stack" id="checkout-main-grid" style="max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- STEP 1: ORDER SUMMARY ON THE TOP -->
+        <div class="glass-panel fade-in delay-1" style="padding: 2.5rem; border: 1px solid rgba(108, 120, 92, 0.25); background: rgba(255, 255, 255, 0.9);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.55rem; color: var(--primary-dark); margin: 0; display: flex; align-items: center; gap: 0.6rem;">
+              <span>🛍️ Order Summary</span>
+            </h2>
+            <span style="background: rgba(108, 120, 92, 0.15); color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; padding: 0.35rem 0.9rem; border-radius: 20px;">
+              <span id="checkout-cart-count">0</span> Items
+            </span>
+          </div>
+
+          <!-- Dynamic Cart List -->
+          <div id="checkout-cart-items" style="max-height: 280px; overflow-y: auto; margin-bottom: 1.25rem; padding-right: 0.5rem;">
+            <!-- Rendered via JS -->
+          </div>
+
+          <div style="background: rgba(144, 118, 97, 0.05); border-radius: 12px; padding: 1.25rem;">
+            <div class="summary-row" style="margin-bottom: 0.6rem;">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">₹0.00</span>
+            </div>
+            <div class="summary-row" style="color: var(--primary-dark); font-weight: 600; margin-bottom: 0.8rem;">
+              <span>Artisan Express Shipping</span>
+              <span>FREE</span>
+            </div>
+            <div style="border-top: 1.5px solid rgba(0,0,0,0.08); padding-top: 0.8rem;">
+              <div class="summary-row" style="font-weight: 700; font-size: 1.35rem; color: var(--primary-dark); margin: 0;">
+                <span>Total Payable</span>
+                <span id="checkout-final-total">₹0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM WRAPPER FOR DELIVERY & PAYMENT -->
+        <form id="checkout-order-form" style="display: flex; flex-direction: column; gap: 2rem;">
+          <!-- STEP 2: CUSTOMER DELIVERY DETAILS -->
+          <div class="glass-panel fade-in delay-2" style="padding: 2.5rem;">
+            <h2 style="font-size: 1.55rem; margin-bottom: 1.5rem; color: var(--primary-dark);">📦 Customer Delivery Details</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
                 <label>Full Name *</label>
@@ -221,34 +257,37 @@
                 <input type="text" id="cust-pincode" placeholder="400001" required>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 0;">
               <label>Complete Street Address *</label>
               <input type="text" id="cust-address" placeholder="House/Flat No, Apartment, Street Name, Area / Landmark, City, State" required>
             </div>
+          </div>
 
-            <h2 style="font-size: 1.5rem; margin: 2rem 0 1.25rem 0; color: var(--primary-dark);">2. Select Payment Method</h2>
+          <!-- STEP 3: SELECT PAYMENT METHOD & ORDER PLACEMENT -->
+          <div class="glass-panel fade-in delay-3" style="padding: 2.5rem;">
+            <h2 style="font-size: 1.55rem; margin-bottom: 1.5rem; color: var(--primary-dark);">💳 Select Payment Method</h2>
 
-            <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem;">
-              <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.85rem 1rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 12px; transition: all 0.3s;">
-                <div style="display: flex; align-items: center; gap: 0.6rem;">
-                  <input type="radio" name="payment_method" id="radio-cod" value="cod" checked style="width: 16px; height: 16px; accent-color: var(--primary);">
+            <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+              <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 1rem 1.25rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 12px; transition: all 0.3s;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input type="radio" name="payment_method" id="radio-cod" value="cod" checked style="width: 18px; height: 18px; accent-color: var(--primary);">
                   <div>
-                    <strong style="font-size: 0.98rem; color: var(--primary-dark); display: block;">Cash on Delivery (COD)</strong>
-                    <span style="font-size: 0.78rem; color: var(--text-light); display: block;">Pay cash or UPI on delivery</span>
+                    <strong style="font-size: 1.05rem; color: var(--primary-dark); display: block;">Cash on Delivery (COD)</strong>
+                    <span style="font-size: 0.82rem; color: var(--text-light); display: block;">Pay cash or scan UPI at doorstep</span>
                   </div>
                 </div>
-                <span style="background: var(--primary); color: white; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 20px;">POPULAR</span>
+                <span style="background: var(--primary); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.22rem 0.65rem; border-radius: 20px;">POPULAR</span>
               </label>
 
-              <label class="payment-option-card" id="card-upi" onclick="switchPaymentMethod('upi')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.85rem 1rem; border: 1px solid rgba(0,0,0,0.15); background: var(--surface); border-radius: 12px; transition: all 0.3s;">
-                <div style="display: flex; align-items: center; gap: 0.6rem;">
-                  <input type="radio" name="payment_method" id="radio-upi" value="upi" style="width: 16px; height: 16px; accent-color: var(--primary);">
+              <label class="payment-option-card" id="card-upi" onclick="switchPaymentMethod('upi')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 1rem 1.25rem; border: 1px solid rgba(0,0,0,0.15); background: var(--surface); border-radius: 12px; transition: all 0.3s;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input type="radio" name="payment_method" id="radio-upi" value="upi" style="width: 18px; height: 18px; accent-color: var(--primary);">
                   <div>
-                    <strong style="font-size: 0.98rem; color: var(--primary-dark); display: block;">Pay via QR Code (UPI)</strong>
-                    <span style="font-size: 0.78rem; color: var(--secondary); display: block;">GPay • PhonePe • Paytm</span>
+                    <strong style="font-size: 1.05rem; color: var(--primary-dark); display: block;">Pay via QR Code (UPI)</strong>
+                    <span style="font-size: 0.82rem; color: var(--secondary); display: block;">GPay • PhonePe • Paytm</span>
                   </div>
                 </div>
-                <span style="background: rgba(144, 118, 97, 0.12); color: var(--secondary); font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 20px;">INSTANT</span>
+                <span style="background: rgba(144, 118, 97, 0.12); color: var(--secondary); font-size: 0.7rem; font-weight: 700; padding: 0.22rem 0.65rem; border-radius: 20px;">INSTANT</span>
               </label>
             </div>
 
@@ -290,50 +329,11 @@
               </div>
             </div>
 
-            <button type="submit" id="checkout-submit-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; font-weight: 600; padding: 1.1rem; border-radius: 14px; margin-top: 1.25rem; box-shadow: 0 4px 15px rgba(108, 120, 92, 0.25);">
+            <button type="submit" id="checkout-submit-btn" class="btn btn-primary" style="width: 100%; font-size: 1.15rem; font-weight: 600; padding: 1.15rem; border-radius: 14px; margin-top: 1.5rem; box-shadow: 0 4px 15px rgba(108, 120, 92, 0.25);">
               Complete Order & Send Confirmations
             </button>
-          </form>
-        </div>
-        
-        <!-- Right Column: Order Items Summary -->
-        <div class="glass-panel fade-in delay-2" style="background: rgba(144, 118, 97, 0.05); padding: 2.75rem; display: flex; flex-direction: column;">
-          <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--primary-dark);">Order Summary</h2>
-          
-          <!-- Dynamic Cart List -->
-          <div id="checkout-cart-items" style="max-height: 320px; overflow-y: auto; margin-bottom: 1.5rem; padding-right: 0.5rem;">
-            <!-- Rendered via JS -->
           </div>
-
-          <div style="flex-grow: 1;">
-            <div class="summary-row">
-              <span>Subtotal (<span id="checkout-cart-count">0</span> items)</span>
-              <span id="checkout-subtotal">₹0.00</span>
-            </div>
-            <div class="summary-row" style="color: var(--primary-dark); font-weight: 600;">
-              <span>Artisan Express Shipping</span>
-              <span>FREE</span>
-            </div>
-          </div>
-
-          <div style="border-top: 2px solid rgba(0,0,0,0.08); padding-top: 1.25rem; margin-top: 1rem;">
-            <div class="summary-row" style="font-weight: 700; font-size: 1.35rem; color: var(--primary-dark);">
-              <span>Total Payable</span>
-              <span id="checkout-final-total">₹0.00</span>
-            </div>
-          </div>
-          
-          <div style="margin-top: 1.75rem; background: rgba(255,255,255,0.7); border: 1px solid rgba(108, 120, 92, 0.2); padding: 1rem; border-radius: 12px;">
-            <div style="display:flex; align-items:center; gap:0.5rem; color:var(--primary-dark); font-weight:600; font-size:0.88rem; margin-bottom:0.3rem;">
-              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Automated Transactional Emails Active
-            </div>
-            <p style="font-size:0.8rem; color:var(--text-light); margin:0; line-height:1.4;">
-              • Customer receives instant Order Confirmation email.<br>
-              • Merchant receives live order notification email.
-            </p>
-          </div>
-        </div>
+        </form>
       </div>
 
       <!-- Order Confirmation Receipt Screen (Hidden until order is placed) -->
