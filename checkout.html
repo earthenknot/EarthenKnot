@@ -194,20 +194,57 @@
       <div class="checkout-grid">
         <!-- Payment Form -->
         <div class="glass-panel fade-in delay-1" style="padding: 2.5rem;" id="payment-panel-main">
-          <h2 style="font-size: 1.6rem; margin-bottom: 1.75rem; color: var(--primary-dark);">Payment via UPI & QR Code</h2>
+          <h2 style="font-size: 1.6rem; margin-bottom: 1.25rem; color: var(--primary-dark);">Choose Payment Method</h2>
 
-          <div class="qr-card">
-            <div class="qr-image-box">
-              <img src="assets/payment-qr.jpg?v=3" alt="Cardign Official Payment QR Code" style="width: 190px; height: 190px; object-fit: contain; border-radius: 10px;">
-            </div>
-            <div>
-              <div style="margin-bottom: 1rem;">
-                <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Merchant Account</span>
-                <strong style="font-size: 1.5rem; color: var(--primary-dark);">Cardign</strong>
+          <!-- Payment Method Tabs -->
+          <div class="payment-tabs">
+            <button type="button" class="payment-tab-btn active" id="tab-upi" onclick="switchPaymentMethod('upi')">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="7" y1="7" x2="7" y2="7"/><line x1="17" y1="17" x2="17" y2="17"/><rect x="7" y="11" width="10" height="2"/></svg>
+              UPI / QR Code
+            </button>
+            <button type="button" class="payment-tab-btn" id="tab-cod" onclick="switchPaymentMethod('cod')">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Cash on Delivery
+            </button>
+          </div>
+
+          <!-- UPI Section -->
+          <div id="section-upi" class="payment-info-section">
+            <div class="qr-card">
+              <div class="qr-image-box">
+                <img src="assets/payment-qr.jpg?v=3" alt="Cardign Official Payment QR Code" style="width: 190px; height: 190px; object-fit: contain; border-radius: 10px;">
               </div>
-              <p style="font-size: 0.95rem; color: var(--text); margin: 0; line-height: 1.6;">
-                Please scan the QR code to complete your payment. Once the payment is received, the merchant will contact you within 3 hours to confirm the transaction and collect any additional delivery details required to process your order.
-              </p>
+              <div>
+                <div style="margin-bottom: 1rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Merchant Account</span>
+                  <strong style="font-size: 1.5rem; color: var(--primary-dark);">Cardign</strong>
+                </div>
+                <p style="font-size: 0.95rem; color: var(--text); margin: 0; line-height: 1.6;">
+                  Please scan the QR code to complete your payment. Once the payment is received, the merchant will contact you within 3 hours to confirm the transaction and collect any additional delivery details required to process your order.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- COD Section -->
+          <div id="section-cod" class="payment-info-section" style="display: none;">
+            <div class="qr-card" style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+              <div style="background: rgba(108, 120, 92, 0.15); border-radius: 14px; padding: 1.25rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; stroke: var(--primary-dark); fill: none; stroke-width: 1.8;">
+                  <rect x="2" y="5" width="20" height="14" rx="2"/>
+                  <line x1="2" y1="10" x2="22" y2="10"/>
+                  <circle cx="12" cy="15" r="2"/>
+                </svg>
+              </div>
+              <div style="flex: 1; min-width: 220px;">
+                <div style="margin-bottom: 0.5rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-light); display: block; margin-bottom: 0.2rem;">Payment Method</span>
+                  <strong style="font-size: 1.35rem; color: var(--primary-dark);">Cash on Delivery (COD)</strong>
+                </div>
+                <p style="font-size: 0.95rem; color: var(--text); margin: 0; line-height: 1.6;">
+                  Pay conveniently with cash or UPI at your doorstep upon receiving your order. After placing your request, our artisan team will call you within 3 hours to verify your delivery address and schedule shipment.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -227,7 +264,7 @@
               <label>Contact Number</label>
               <input type="tel" id="upi-customer-phone" placeholder="+91 98765 43210" required>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.2rem; border-radius: 12px; margin-top: 0.75rem;">
+            <button type="submit" id="checkout-submit-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.2rem; border-radius: 12px; margin-top: 0.75rem;">
               Confirm Payment & Place Order
             </button>
           </form>
@@ -358,8 +395,9 @@
           .then(() => console.log('SUCCESS! Order email sent.'),
                 (err) => console.log('EmailJS note:', err));
 
+        const methodText = window.currentPaymentMethod === 'cod' ? 'Cash on Delivery order' : 'UPI payment';
         const successDiv = document.getElementById('payment-success');
-        successDiv.querySelector('p').innerHTML = `Thank you for your order! We have received your request and will contact you within 3 hours to confirm your payment and delivery details.`;
+        successDiv.querySelector('p').innerHTML = `Thank you for your order! We have received your ${methodText} request and will contact you within 3 hours to confirm your delivery address and schedule shipment.`;
         successDiv.style.display = 'block';
         document.getElementById('payment-panel-main').style.display = 'none';
         
@@ -367,11 +405,35 @@
         document.getElementById('cart-count').textContent = '0';
       };
 
+      window.currentPaymentMethod = 'upi';
+      window.switchPaymentMethod = function(method) {
+        window.currentPaymentMethod = method;
+        const tabUpi = document.getElementById('tab-upi');
+        const tabCod = document.getElementById('tab-cod');
+        const secUpi = document.getElementById('section-upi');
+        const secCod = document.getElementById('section-cod');
+        const submitBtn = document.getElementById('checkout-submit-btn');
+
+        if (method === 'cod') {
+          if (tabUpi) tabUpi.classList.remove('active');
+          if (tabCod) tabCod.classList.add('active');
+          if (secUpi) secUpi.style.display = 'none';
+          if (secCod) secCod.style.display = 'block';
+          if (submitBtn) submitBtn.textContent = 'Place Order (Cash on Delivery)';
+        } else {
+          if (tabCod) tabCod.classList.remove('active');
+          if (tabUpi) tabUpi.classList.add('active');
+          if (secCod) secCod.style.display = 'none';
+          if (secUpi) secUpi.style.display = 'block';
+          if (submitBtn) submitBtn.textContent = 'Confirm Payment & Place Order';
+        }
+      };
+
       const upiForm = document.getElementById('upi-payment-form');
       if (upiForm) {
         upiForm.addEventListener('submit', (e) => {
           e.preventDefault();
-          const btn = upiForm.querySelector('button[type="submit"]');
+          const btn = document.getElementById('checkout-submit-btn') || upiForm.querySelector('button[type="submit"]');
           btn.textContent = 'Verifying Order...';
           btn.style.opacity = '0.7';
           btn.disabled = true;
