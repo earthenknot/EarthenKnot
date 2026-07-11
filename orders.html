@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Management Dashboard - EarthenKnot</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --admin-surface: rgba(255, 255, 255, 0.85);
+      --badge-confirmed: #2d6a4f;
+      --badge-processing: #d97706;
+      --badge-shipped: #2563eb;
+      --badge-delivered: #16a34a;
+    }
+    .admin-header {
+      background: linear-gradient(135deg, rgba(74, 84, 62, 0.95), rgba(44, 53, 36, 0.95));
+      color: white;
+      padding: 3rem 5%;
+      border-radius: 0 0 24px 24px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: -3.5rem;
+      padding: 0 5%;
+      margin-bottom: 2.5rem;
+    }
+    .kpi-card {
+      background: var(--admin-surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .kpi-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+    .kpi-val {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .table-card {
+      background: var(--admin-surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      margin: 0 5% 4rem 5%;
+      overflow-x: auto;
+    }
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }
+    .orders-table th {
+      text-align: left;
+      padding: 1rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      border-bottom: 2px solid rgba(0,0,0,0.08);
+    }
+    .orders-table td {
+      padding: 1.2rem 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .orders-table tr:hover {
+      background: rgba(108, 120, 92, 0.04);
+    }
+    .status-select {
+      padding: 0.45rem 0.85rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .status-Confirmed { background: #e8f5e9; color: #2e7d32; }
+    .status-Processing { background: #fff8e1; color: #f57f17; }
+    .status-Shipped { background: #e3f2fd; color: #1565c0; }
+    .status-Delivered { background: #f1f8e9; color: #33691e; }
+    .status-Cancelled { background: #ffebee; color: #c62828; }
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      min-width: 280px;
+    }
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal-box {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 640px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="main-nav">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="EarthenKnot Logo">
+      EarthenKnot
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="collections.html">Collections</a>
+      <a href="orders.html" style="color: var(--primary); font-weight: 700;">Orders Admin</a>
+      <a href="checkout.html">Checkout</a>
+    </div>
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 8px;">Back to Store</a>
+    </div>
+  </nav>
+
+  <!-- Admin Header -->
+  <div class="admin-header">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8;">EarthenKnot Management</span>
+      <h1 style="font-size: 2.4rem; margin-top: 0.5rem; font-family: 'Playfair Display', serif;">Order Workflow & Automation</h1>
+      <p style="opacity: 0.9; margin-top: 0.5rem; font-size: 1.05rem;">Manage incoming orders, update workflow statuses, and monitor transactional emails.</p>
+    </div>
+  </div>
+
+  <!-- KPI Grid -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <span class="kpi-title">Total Orders</span>
+      <span class="kpi-val" id="kpi-total-orders">0</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-title">Total Revenue</span>
+      <span class="kpi-val" id="kpi-total-rev">₹0</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-title">In Progress / Dispatch</span>
+      <span class="kpi-val" id="kpi-pending">0</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-title">Delivered Orders</span>
+      <span class="kpi-val" id="kpi-delivered">0</span>
+    </div>
+  </div>
+
+  <!-- Order Table Section -->
+  <div class="table-card">
+    <div class="filter-bar">
+      <div>
+        <h2 style="font-size: 1.5rem; color: var(--primary-dark);">Customer Orders</h2>
+        <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.2rem;">Live order pipeline with automated email notification logs.</p>
+      </div>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--text-light);fill:none;stroke-width:2;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="order-search" placeholder="Search by Order ID or Name..." onkeyup="renderOrdersTable()">
+        </div>
+        <select id="status-filter" onchange="renderOrdersTable()" style="padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.15); background: white; font-family: 'Inter', sans-serif;">
+          <option value="All">All Statuses</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Processing">Processing</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Delivered">Delivered</option>
+        </select>
+        <button onclick="addDemoOrder()" class="btn btn-secondary" style="border-radius: 10px; padding: 0.6rem 1.2rem; font-size: 0.9rem;">+ Test New Order</button>
+      </div>
+    </div>
+
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date & Time</th>
+          <th>Customer Info</th>
+          <th>Items Ordered</th>
+          <th>Total Amount</th>
+          <th>Payment</th>
+          <th>Workflow Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="orders-tbody">
+        <!-- Rendered by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Order Detail Receipt Modal -->
+  <div class="modal-backdrop" id="order-modal">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.6rem; color: var(--primary-dark);" id="modal-order-id">Order Details</h3>
+        <button onclick="closeOrderModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light);">✕</button>
+      </div>
+      <div id="modal-order-content"></div>
+      <div style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+        <button onclick="window.print()" class="btn btn-secondary" style="border-radius: 10px; padding: 0.7rem 1.5rem;">Print Receipt</button>
+        <button onclick="closeOrderModal()" class="btn btn-primary" style="border-radius: 10px; padding: 0.7rem 1.5rem;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content" style="max-width: 1200px; margin: 0 auto; text-align: center; padding: 2rem 0;">
+      <p style="color: var(--text-light); font-size: 0.9rem;">&copy; 2026 EarthenKnot • Automated Order Management & Transactional Emails</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize default test orders if empty
+    function loadOrders() {
+      let saved = localStorage.getItem('earthenknot_orders');
+      if (!saved) {
+        const demoOrders = [
+          {
+            id: '#EK-849201',
+            date: new Date(Date.now() - 3600000 * 5).toLocaleString(),
+            customer: {
+              name: 'Ananya Sharma',
+              email: 'ananya.sharma@example.com',
+              phone: '+91 98201 44521',
+              address: 'Flat 402, Green Meadows, Bandra West, Mumbai 400050'
+            },
+            items: [
+              { name: 'Alpine Chunky Crochet Throw', qty: 1, price: 4999 }
+            ],
+            total: 4999,
+            paymentMethod: 'UPI QR Code',
+            status: 'Processing',
+            customerEmailSent: true,
+            merchantEmailSent: true
+          },
+          {
+            id: '#EK-713482',
+            date: new Date(Date.now() - 3600000 * 24).toLocaleString(),
+            customer: {
+              name: 'Rohan Mehta',
+              email: 'rohan.mehta@example.com',
+              phone: '+91 99102 33419',
+              address: '18-B, Civil Lines, Koramangala, Bengaluru 560034'
+            },
+            items: [
+              { name: 'Boho Macrame Wall Hanging', qty: 1, price: 2199 },
+              { name: 'Sage Green Crochet Pillow Cover', qty: 2, price: 899 }
+            ],
+            total: 3997,
+            paymentMethod: 'Cash on Delivery',
+            status: 'Delivered',
+            customerEmailSent: true,
+            merchantEmailSent: true
+          }
+        ];
+        localStorage.setItem('earthenknot_orders', JSON.stringify(demoOrders));
+        return demoOrders;
+      }
+      return JSON.parse(saved);
+    }
+
+    function saveOrders(orders) {
+      localStorage.setItem('earthenknot_orders', JSON.stringify(orders));
+      updateKPIs(orders);
+    }
+
+    function updateKPIs(orders) {
+      document.getElementById('kpi-total-orders').textContent = orders.length;
+      const totalRev = orders.reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+      document.getElementById('kpi-total-rev').textContent = '₹' + totalRev.toLocaleString('en-IN');
+      const pendingCount = orders.filter(o => o.status === 'Confirmed' || o.status === 'Processing').length;
+      document.getElementById('kpi-pending').textContent = pendingCount;
+      const deliveredCount = orders.filter(o => o.status === 'Delivered').length;
+      document.getElementById('kpi-delivered').textContent = deliveredCount;
+    }
+
+    function renderOrdersTable() {
+      const orders = loadOrders();
+      updateKPIs(orders);
+      const searchVal = (document.getElementById('order-search').value || '').toLowerCase();
+      const statusFilter = document.getElementById('status-filter').value;
+      const tbody = document.getElementById('orders-tbody');
+      tbody.innerHTML = '';
+
+      const filtered = orders.filter(order => {
+        const matchesSearch = order.id.toLowerCase().includes(searchVal) ||
+                              (order.customer?.name || '').toLowerCase().includes(searchVal) ||
+                              (order.customer?.email || '').toLowerCase().includes(searchVal);
+        const matchesStatus = statusFilter === 'All' || order.status === statusFilter;
+        return matchesSearch && matchesStatus;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 3rem; color: var(--text-light);">No matching orders found.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach((o, index) => {
+        const tr = document.createElement('tr');
+        const itemsSummary = (o.items || []).map(i => `${i.name} (x${i.qty})`).join(', ') || 'Crochet Creation';
+        tr.innerHTML = `
+          <td><strong style="color: var(--primary-dark);">${o.id}</strong></td>
+          <td style="font-size: 0.85rem; color: var(--text-light);">${o.date}</td>
+          <td>
+            <strong>${o.customer?.name || 'Customer'}</strong><br>
+            <span style="font-size: 0.82rem; color: var(--text-light);">${o.customer?.email || ''}</span><br>
+            <span style="font-size: 0.82rem; color: var(--text-light);">${o.customer?.phone || ''}</span>
+          </td>
+          <td style="max-width: 220px;">${itemsSummary}</td>
+          <td><strong>₹${Number(o.total || 0).toLocaleString('en-IN')}</strong></td>
+          <td>
+            <span style="font-size: 0.82rem; background: rgba(0,0,0,0.05); padding: 0.3rem 0.6rem; border-radius: 8px;">
+              ${o.paymentMethod}
+            </span>
+          </td>
+          <td>
+            <select class="status-select status-${o.status}" onchange="changeOrderStatus('${o.id}', this.value)">
+              <option value="Confirmed" ${o.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+              <option value="Processing" ${o.status === 'Processing' ? 'selected' : ''}>Processing</option>
+              <option value="Shipped" ${o.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+              <option value="Delivered" ${o.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+              <option value="Cancelled" ${o.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+            </select>
+          </td>
+          <td>
+            <button onclick="viewOrderDetails('${o.id}')" style="background: none; border: 1px solid var(--primary); color: var(--primary-dark); padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+              Receipt
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function changeOrderStatus(orderId, newStatus) {
+      const orders = loadOrders();
+      const order = orders.find(o => o.id === orderId);
+      if (order) {
+        order.status = newStatus;
+        saveOrders(orders);
+        renderOrdersTable();
+      }
+    }
+
+    function viewOrderDetails(orderId) {
+      const orders = loadOrders();
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      document.getElementById('modal-order-id').textContent = `Receipt • ${order.id}`;
+      const contentEl = document.getElementById('modal-order-content');
+      const itemsHtml = (order.items || []).map(i => `
+        <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid #f0f0f0;">
+          <span>${i.name} × ${i.qty}</span>
+          <strong>₹${(i.price * i.qty).toLocaleString('en-IN')}</strong>
+        </div>
+      `).join('');
+
+      contentEl.innerHTML = `
+        <div style="background:rgba(108,120,92,0.08); padding:1.2rem; border-radius:12px; margin-bottom:1.5rem;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+            <span style="color:var(--text-light); font-size:0.85rem;">Date & Time</span>
+            <strong>${order.date}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+            <span style="color:var(--text-light); font-size:0.85rem;">Payment Mode</span>
+            <strong>${order.paymentMethod}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-light); font-size:0.85rem;">Order Status</span>
+            <strong style="color:var(--primary-dark);">${order.status}</strong>
+          </div>
+        </div>
+
+        <h4 style="font-size:1rem; color:var(--primary-dark); margin-bottom:0.5rem;">Customer & Shipping Address</h4>
+        <div style="border:1px solid #eee; padding:1rem; border-radius:12px; margin-bottom:1.5rem;">
+          <strong>${order.customer?.name}</strong><br>
+          <span style="font-size:0.9rem; color:var(--text);">${order.customer?.email} • ${order.customer?.phone}</span><br>
+          <p style="font-size:0.9rem; color:var(--text); margin-top:0.5rem; margin-bottom:0;">${order.customer?.address}</p>
+        </div>
+
+        <h4 style="font-size:1rem; color:var(--primary-dark); margin-bottom:0.5rem;">Order Items</h4>
+        <div style="border:1px solid #eee; padding:1rem; border-radius:12px; margin-bottom:1.5rem;">
+          ${itemsHtml}
+          <div style="display:flex; justify-content:space-between; padding-top:0.8rem; font-size:1.15rem; font-weight:700;">
+            <span>Total Amount Paid</span>
+            <span>₹${Number(order.total).toLocaleString('en-IN')}</span>
+          </div>
+        </div>
+
+        <div style="background:#f8fafc; border-left:4px solid #2563eb; padding:1rem; border-radius:8px; font-size:0.85rem;">
+          <strong>Automated Transactional Emails Log:</strong><br>
+          ✅ Customer Order Confirmation sent to <code>${order.customer?.email}</code><br>
+          ✅ Merchant Notification sent to store admin
+        </div>
+      `;
+      document.getElementById('order-modal').style.display = 'flex';
+    }
+
+    function closeOrderModal() {
+      document.getElementById('order-modal').style.display = 'none';
+    }
+
+    function addDemoOrder() {
+      const orders = loadOrders();
+      const newOrder = {
+        id: '#EK-' + Math.floor(100000 + Math.random() * 900000),
+        date: new Date().toLocaleString(),
+        customer: {
+          name: 'Priya Nair',
+          email: 'priya.nair@example.com',
+          phone: '+91 98450 11234',
+          address: '42, Lotus Grove, Indiranagar, Bengaluru 560038'
+        },
+        items: [
+          { name: 'Earthen Heritage Blanket', qty: 1, price: 3499 }
+        ],
+        total: 3499,
+        paymentMethod: 'UPI QR Code',
+        status: 'Confirmed',
+        customerEmailSent: true,
+        merchantEmailSent: true
+      };
+      orders.unshift(newOrder);
+      saveOrders(orders);
+      renderOrdersTable();
+      alert('Simulated new order ' + newOrder.id + ' placed! Transactional emails triggered.');
+    }
+
+    document.addEventListener('DOMContentLoaded', renderOrdersTable);
+  </script>
+</body>
+</html>

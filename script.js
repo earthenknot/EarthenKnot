@@ -2,15 +2,96 @@
  * EarthenKnot Global Script
  */
 
-// Initialize Cart from Session Storage if available
-let cartCount = sessionStorage.getItem('cartCount') ? parseInt(sessionStorage.getItem('cartCount')) : 0;
+// Initialize Cart from LocalStorage or SessionStorage
+function getCartItems() {
+  try {
+    const saved = localStorage.getItem('earthenknot_cart');
+    if (saved) return JSON.parse(saved);
+  } catch (e) {}
+  return [];
+}
+
+function saveCartItems(items) {
+  localStorage.setItem('earthenknot_cart', JSON.stringify(items));
+  const totalQty = items.reduce((sum, item) => sum + (item.qty || 1), 0);
+  sessionStorage.setItem('cartCount', totalQty);
+  cartCount = totalQty;
+  updateCartBadge();
+}
+
+let cartItems = getCartItems();
+let cartCount = cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
 updateCartBadge();
 
-function addToCart() {
-  cartCount++;
-  sessionStorage.setItem('cartCount', cartCount);
-  updateCartBadge();
+function addToCart(name, price, img) {
+  cartItems = getCartItems();
+  const itemName = typeof name === 'string' && name ? name : 'Handcrafted Earth Crochet Creation';
+  const itemPrice = typeof price === 'number' ? price : 2499;
+  const itemImg = typeof img === 'string' && img ? img : 'assets/hero-bag.jpg';
+
+  const existing = cartItems.find(item => item.name === itemName);
+  if (existing) {
+    existing.qty = (existing.qty || 1) + 1;
+  } else {
+    cartItems.push({
+      id: 'ek-' + Date.now().toString(36),
+      name: itemName,
+      price: itemPrice,
+      qty: 1,
+      img: itemImg
+    });
+  }
+
+  saveCartItems(cartItems);
   animateCartBadge();
+  showCartToast(itemName);
+}
+
+function showCartToast(itemName) {
+  let toast = document.getElementById('cart-toast-msg');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'cart-toast-msg';
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: rgba(44, 53, 36, 0.95);
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `
+    <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#A3B18A;stroke-width:2.5;">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span>Added <strong>${itemName}</strong> to cart!</span>
+    <a href="checkout.html" style="color:#A3B18A;font-weight:600;margin-left:8px;text-decoration:underline;">View Cart</a>
+  `;
+  setTimeout(() => {
+    toast.style.transform = 'translateY(0)';
+    toast.style.opacity = '1';
+  }, 10);
+
+  clearTimeout(window._cartToastTimer);
+  window._cartToastTimer = setTimeout(() => {
+    toast.style.transform = 'translateY(100px)';
+    toast.style.opacity = '0';
+  }, 3500);
 }
 
 function updateCartBadge() {
