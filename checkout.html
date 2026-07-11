@@ -200,12 +200,13 @@
         
         <!-- STEP 1: ORDER SUMMARY ON THE TOP -->
         <div class="glass-panel fade-in delay-1" style="padding: 2.5rem; border: 1px solid rgba(108, 120, 92, 0.25); background: rgba(255, 255, 255, 0.9);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <h2 style="font-size: 1.55rem; color: var(--primary-dark); margin: 0; display: flex; align-items: center; gap: 0.6rem;">
-              <span>🛍️ Order Summary</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 1rem;">
+            <h2 style="font-size: 1.5rem; color: var(--primary-dark); margin: 0; display: flex; align-items: center; gap: 0.75rem; font-family: 'Playfair Display', serif;">
+              <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span>Order Summary</span>
             </h2>
-            <span style="background: rgba(108, 120, 92, 0.15); color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; padding: 0.35rem 0.9rem; border-radius: 20px;">
-              <span id="checkout-cart-count">0</span> Items
+            <span style="background: rgba(108, 120, 92, 0.12); color: var(--primary-dark); font-weight: 600; font-size: 0.82rem; padding: 0.35rem 0.9rem; border-radius: 20px; letter-spacing: 0.5px;">
+              <span id="checkout-cart-count">0</span> ITEMS
             </span>
           </div>
 
@@ -236,7 +237,12 @@
         <form id="checkout-order-form" style="display: flex; flex-direction: column; gap: 2rem;">
           <!-- STEP 2: CUSTOMER DELIVERY DETAILS -->
           <div class="glass-panel fade-in delay-2" style="padding: 2.5rem;">
-            <h2 style="font-size: 1.55rem; margin-bottom: 1.5rem; color: var(--primary-dark);">📦 Customer Delivery Details</h2>
+            <div style="border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+              <h2 style="font-size: 1.5rem; margin: 0; color: var(--primary-dark); display: flex; align-items: center; gap: 0.75rem; font-family: 'Playfair Display', serif;">
+                <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Customer Delivery Details</span>
+              </h2>
+            </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
                 <label>Full Name *</label>
@@ -265,7 +271,12 @@
 
           <!-- STEP 3: SELECT PAYMENT METHOD & ORDER PLACEMENT -->
           <div class="glass-panel fade-in delay-3" style="padding: 2.5rem;">
-            <h2 style="font-size: 1.55rem; margin-bottom: 1.5rem; color: var(--primary-dark);">💳 Select Payment Method</h2>
+            <div style="border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+              <h2 style="font-size: 1.5rem; margin: 0; color: var(--primary-dark); display: flex; align-items: center; gap: 0.75rem; font-family: 'Playfair Display', serif;">
+                <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                <span>Select Payment Method</span>
+              </h2>
+            </div>
 
             <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
               <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 1rem 1.25rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 12px; transition: all 0.3s;">
@@ -374,7 +385,8 @@
           <!-- Automated Email Status Log -->
           <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 1.25rem; margin-bottom: 2rem;">
             <h4 style="font-size: 0.95rem; color: #166534; margin: 0 0 0.6rem 0; display:flex; align-items:center; gap:0.5rem;">
-              <span>⚡ Transactional Email Automation Log</span>
+              <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span>Transactional Email Automation Log</span>
             </h4>
             <div style="font-size: 0.88rem; color: #15803d; line-height: 1.6;" id="email-automation-log">
               <!-- Rendered dynamically -->
@@ -387,11 +399,13 @@
           </div>
 
           <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-            <button onclick="window.print()" class="btn btn-secondary" style="border-radius: 12px; padding: 0.9rem 1.8rem; font-weight: 600;">
-              🖨️ Print / Save PDF Receipt
+            <button onclick="window.print()" class="btn btn-secondary" style="border-radius: 12px; padding: 0.9rem 1.8rem; font-weight: 600; display:flex; align-items:center; gap:0.5rem;">
+              <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              <span>Print / Save PDF Receipt</span>
             </button>
-            <a href="orders.html" class="btn btn-secondary" style="border-radius: 12px; padding: 0.9rem 1.8rem; font-weight: 600; color: var(--primary-dark);">
-              📋 Open Orders Admin Dashboard
+            <a href="orders.html" class="btn btn-secondary" style="border-radius: 12px; padding: 0.9rem 1.8rem; font-weight: 600; color: var(--primary-dark); display:flex; align-items:center; gap:0.5rem;">
+              <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <span>Open Orders Admin Dashboard</span>
             </a>
             <a href="collections.html" class="btn btn-primary" style="border-radius: 12px; padding: 0.9rem 2rem; font-weight: 600;">
               Continue Shopping →
@@ -505,8 +519,8 @@
         row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding: 0.8rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); gap: 0.75rem;';
         row.innerHTML = `
           <div style="display:flex; align-items:center; gap:0.75rem;">
-            <div style="width:46px; height:46px; border-radius:8px; background:rgba(108,120,92,0.12); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--primary-dark); font-size:0.9rem;">
-              🧶
+            <div style="width:48px; height:48px; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); flex-shrink:0;">
+              <img src="${item.img || 'assets/hero-bag.jpg'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div>
               <strong style="font-size:0.92rem; color:var(--text); display:block;">${item.name}</strong>
@@ -634,10 +648,10 @@
 
       const logEl = document.getElementById('email-automation-log');
       logEl.innerHTML = `
-        <strong>[Transactional Email Engine Dispatch Report]</strong><br>
-        📧 <strong>Customer Confirmation Email:</strong> Successfully formatted & dispatched to <code>${order.customer.email}</code><br>
-        📧 <strong>Merchant Notification Email:</strong> Order details sent to store admin email ID<br>
-        🔄 <strong>Workflow Pipeline:</strong> Added to <strong>Order Management Dashboard</strong> with status <span style="background:#dcfce7; color:#166534; padding:0.15rem 0.5rem; border-radius:6px; font-weight:700;">Confirmed</span>
+        <strong style="display:block; margin-bottom:0.4rem;">Transactional Email Engine Dispatch Report:</strong>
+        • <strong>Customer Confirmation Email:</strong> Formatted & dispatched to <code>${order.customer.email}</code><br>
+        • <strong>Merchant Notification Email:</strong> Order details sent to store admin email ID<br>
+        • <strong>Workflow Pipeline:</strong> Added to <strong>Order Management Dashboard</strong> with status <span style="background:#dcfce7; color:#166534; padding:0.15rem 0.5rem; border-radius:6px; font-weight:700;">Confirmed</span>
       `;
 
       const itemsHtml = order.items.map(i => `
