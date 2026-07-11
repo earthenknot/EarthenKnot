@@ -8,8 +8,9 @@
   <style>
     .checkout-grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 3rem;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
     }
     .form-group {
       margin-bottom: 1.5rem;
@@ -112,9 +113,10 @@
       background: var(--primary);
       color: white;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       .checkout-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
       }
       .qr-card {
         grid-template-columns: 1fr;
@@ -188,7 +190,7 @@
   </nav>
 
   <main class="main-wrapper" style="padding: 4rem 5%;">
-    <section class="container" style="max-width: 1000px;">
+    <section class="container" style="max-width: 1200px;">
       <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 3rem; color: var(--primary-dark); text-align: center;">Secure Checkout</h1>
       
       <div class="checkout-grid">
