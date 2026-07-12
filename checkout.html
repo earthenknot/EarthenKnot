@@ -633,7 +633,8 @@
     }
 
     function sendTransactionalEmails(order, callback) {
-      // Send real EmailJS dispatch + log success
+      console.log('Initiating EmailJS dispatch for Order:', order.id);
+
       const customerEmailParams = {
         to_name: order.customer.name,
         to_email: order.customer.email,
@@ -645,7 +646,7 @@
 
       const merchantEmailParams = {
         to_name: 'EarthenKnot Store Admin',
-        to_email: 'pranjalighodefeb8@gmail.com',
+        to_email: 'earthenknot11@gmail.com',
         customer_name: order.customer.name,
         customer_email: order.customer.email,
         customer_phone: order.customer.phone,
@@ -654,10 +655,23 @@
         payment_method: order.paymentMethod
       };
 
-      // Try EmailJS send (non-blocking so even if template ID is placeholder it completes smoothly)
-      try {
-        emailjs.send('service_353knts', 'template_7d5b2gq', customerEmailParams);
-      } catch(e) {}
+      // 1. Send Customer Confirmation Email
+      emailjs.send('service_353knts', 'template_7d5b2gq', customerEmailParams)
+        .then(function(response) {
+          console.log('Customer confirmation email sent successfully:', response.status, response.text);
+        })
+        .catch(function(error) {
+          console.error('Failed to send customer confirmation email:', error);
+        });
+
+      // 2. Send Merchant Notification Email
+      emailjs.send('service_353knts', 'template_7d5b2gq', merchantEmailParams)
+        .then(function(response) {
+          console.log('Merchant notification email sent successfully:', response.status, response.text);
+        })
+        .catch(function(error) {
+          console.error('Failed to send merchant notification email:', error);
+        });
 
       setTimeout(callback, 900);
     }
