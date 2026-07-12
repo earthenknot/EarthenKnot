@@ -370,6 +370,13 @@ const productsData = {
     videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
     story: "Handcrafted with intricate vintage lace motifs in natural ivory cotton yarn, this artisan crochet cushion cover brings timeless texture and warmth to your living sanctuary. Each pillow cover features exquisite shell stitches, dimensional floral clusters, and delicate openwork lacework inspired by heirloom crochet artistry. Soft to the touch yet beautifully structured with a crisp cotton lining, it adds instant cozy elegance to any sofa, armchair, or bedroom retreat."
   },
+  'macrame-weave-crochet-pillow': {
+    name: 'Macramé Weave Crochet Pillow Cover',
+    price: '₹2,800.00',
+    image: 'assets/pillow-crochet-1.jpg',
+    images: ['assets/pillow-crochet-1.jpg', 'assets/pillow-crochet-2.jpg'],
+    story: "A stunning handcrafted pillow cover woven in a delicate open-grid macramé pattern using soft natural ivory cotton yarn. Each knot is tied by hand, creating a beautifully textured lattice that lets light filter through the weave. The subtle cream tones and organic cotton feel make it a versatile piece that complements any bohemian, minimal, or nature-inspired interior. A cozy, artisan touch for your sofa, bed, or reading nook."
+  },
   'striped-crochet-sweatshirt': {
     name: 'Ocean Blue Striped Crochet Sweatshirt',
     price: '₹4,800.00',
