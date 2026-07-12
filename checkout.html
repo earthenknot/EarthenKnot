@@ -642,30 +642,48 @@
         order_number: order.id,
         order_id: order.id,
         id: order.id,
+        orderNumber: order.id,
+        orderId: order.id,
+        
+        order_date: order.date,
+        orderDate: order.date,
+        date: order.date,
         
         customer_name: order.customer.name,
         to_name: order.customer.name,
         name: order.customer.name,
+        customerName: order.customer.name,
         
         customer_email: order.customer.email,
         to_email: order.customer.email,
         email: order.customer.email,
+        customerEmail: order.customer.email,
         
         customer_phone: order.customer.phone,
         phone: order.customer.phone,
+        customerPhone: order.customer.phone,
         
         shipping_address: `${order.customer.address} (${order.customer.pincode})`,
         customer_address: `${order.customer.address} (${order.customer.pincode})`,
         address: `${order.customer.address} (${order.customer.pincode})`,
+        shippingAddress: `${order.customer.address} (${order.customer.pincode})`,
+        customerAddress: `${order.customer.address} (${order.customer.pincode})`,
         
         items: itemsText,
         order_items: itemsText,
         items_list: itemsText,
+        items_ordered: itemsText,
+        itemsOrdered: itemsText,
         
         order_total: '₹' + order.total.toLocaleString('en-IN'),
         total: '₹' + order.total.toLocaleString('en-IN'),
         total_amount: '₹' + order.total.toLocaleString('en-IN'),
-        amount: '₹' + order.total.toLocaleString('en-IN')
+        amount: '₹' + order.total.toLocaleString('en-IN'),
+        orderTotal: '₹' + order.total.toLocaleString('en-IN'),
+        totalAmount: '₹' + order.total.toLocaleString('en-IN'),
+        
+        payment_method: order.paymentMethod,
+        paymentMethod: order.paymentMethod
       };
 
       const customerEmailParams = {
