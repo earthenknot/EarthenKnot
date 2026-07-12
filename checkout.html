@@ -636,27 +636,19 @@
       console.log('Initiating EmailJS dispatch for Order:', order.id);
 
       const customerEmailParams = {
-        to_name: order.customer.name,
         to_email: order.customer.email,
-        order_id: order.id,
-        order_total: '₹' + order.total.toLocaleString('en-IN'),
-        payment_method: order.paymentMethod,
-        shipping_address: `${order.customer.address} (${order.customer.pincode})`
+        customer_name: order.customer.name,
+        order_number: order.id
       };
 
       const merchantEmailParams = {
-        to_name: 'EarthenKnot Store Admin',
-        to_email: 'earthenknot11@gmail.com',
         customer_name: order.customer.name,
         customer_email: order.customer.email,
-        customer_phone: order.customer.phone,
-        order_id: order.id,
-        order_total: '₹' + order.total.toLocaleString('en-IN'),
-        payment_method: order.paymentMethod
+        order_number: order.id
       };
 
       // 1. Send Customer Confirmation Email
-      emailjs.send('service_vtumu9a', 'template_7d5b2gq', customerEmailParams)
+      emailjs.send('service_vtumu9a', 'template_customer123', customerEmailParams)
         .then(function(response) {
           console.log('Customer confirmation email sent successfully:', response.status, response.text);
         })
@@ -665,7 +657,7 @@
         });
 
       // 2. Send Merchant Notification Email
-      emailjs.send('service_vtumu9a', 'template_7d5b2gq', merchantEmailParams)
+      emailjs.send('service_vtumu9a', 'template_owner456', merchantEmailParams)
         .then(function(response) {
           console.log('Merchant notification email sent successfully:', response.status, response.text);
         })
