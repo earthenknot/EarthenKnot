@@ -644,36 +644,55 @@
         id: order.id,
         orderNumber: order.id,
         orderId: order.id,
+        "Order Number": order.id,
+        "Order ID": order.id,
+        Order_Number: order.id,
+        Order_ID: order.id,
         
         order_date: order.date,
         orderDate: order.date,
         date: order.date,
+        "Order Date": order.date,
+        Order_Date: order.date,
         
         customer_name: order.customer.name,
         to_name: order.customer.name,
         name: order.customer.name,
         customerName: order.customer.name,
+        "Customer Name": order.customer.name,
+        Customer_Name: order.customer.name,
         
         customer_email: order.customer.email,
         to_email: order.customer.email,
         email: order.customer.email,
         customerEmail: order.customer.email,
+        "Customer Email": order.customer.email,
+        Customer_Email: order.customer.email,
         
         customer_phone: order.customer.phone,
         phone: order.customer.phone,
         customerPhone: order.customer.phone,
+        "Customer Phone": order.customer.phone,
+        Customer_Phone: order.customer.phone,
         
         shipping_address: `${order.customer.address} (${order.customer.pincode})`,
         customer_address: `${order.customer.address} (${order.customer.pincode})`,
         address: `${order.customer.address} (${order.customer.pincode})`,
         shippingAddress: `${order.customer.address} (${order.customer.pincode})`,
         customerAddress: `${order.customer.address} (${order.customer.pincode})`,
+        "Shipping Address": `${order.customer.address} (${order.customer.pincode})`,
+        "Customer Address": `${order.customer.address} (${order.customer.pincode})`,
+        Shipping_Address: `${order.customer.address} (${order.customer.pincode})`,
+        Customer_Address: `${order.customer.address} (${order.customer.pincode})`,
         
         items: itemsText,
         order_items: itemsText,
         items_list: itemsText,
         items_ordered: itemsText,
         itemsOrdered: itemsText,
+        "Items Ordered": itemsText,
+        "Items": itemsText,
+        Items_Ordered: itemsText,
         
         order_total: '₹' + order.total.toLocaleString('en-IN'),
         total: '₹' + order.total.toLocaleString('en-IN'),
@@ -681,9 +700,16 @@
         amount: '₹' + order.total.toLocaleString('en-IN'),
         orderTotal: '₹' + order.total.toLocaleString('en-IN'),
         totalAmount: '₹' + order.total.toLocaleString('en-IN'),
+        "Order Total": '₹' + order.total.toLocaleString('en-IN'),
+        "Total Amount": '₹' + order.total.toLocaleString('en-IN'),
+        "Total": '₹' + order.total.toLocaleString('en-IN'),
+        Order_Total: '₹' + order.total.toLocaleString('en-IN'),
+        Total_Amount: '₹' + order.total.toLocaleString('en-IN'),
         
         payment_method: order.paymentMethod,
-        paymentMethod: order.paymentMethod
+        paymentMethod: order.paymentMethod,
+        "Payment Method": order.paymentMethod,
+        Payment_Method: order.paymentMethod
       };
 
       const customerEmailParams = {
