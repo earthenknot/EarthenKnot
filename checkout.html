@@ -524,6 +524,9 @@
     function resolveItemLink(item) {
       if (item && item.url) return item.url;
       const name = (item && item.name) ? item.name.toLowerCase() : '';
+      if (name.includes('macrame') || name.includes('macramé')) {
+        return 'product.html?id=macrame-weave-crochet-pillow';
+      }
       if (name.includes('pillow') || name.includes('cushion') || name.includes('ivory')) {
         return 'product.html?id=ivory-lace-crochet-pillow';
       }
@@ -647,8 +650,12 @@
     function sendTransactionalEmails(order, callback) {
       console.log('Initiating EmailJS dispatch for Order:', order.id);
 
-      // Format items list as a readable text block
-      const itemsText = order.items.map(item => `- ${item.name} (Qty: ${item.qty}) - ₹${(item.price * item.qty).toLocaleString('en-IN')}`).join('\n');
+      // Format items list as a readable text block with absolute links
+      const itemsText = order.items.map(item => {
+        const localLink = resolveItemLink(item);
+        const absoluteLink = `https://earthenknot.github.io/EarthenKnot/${localLink}`;
+        return `- ${item.name} (Qty: ${item.qty}) - ₹${(item.price * item.qty).toLocaleString('en-IN')}\n  View product: ${absoluteLink}`;
+      }).join('\n');
 
       const commonParams = {
         order_number: order.id,
