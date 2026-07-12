@@ -136,7 +136,7 @@
     (function(){
       // Initialize EmailJS with Public Key placeholder
       emailjs.init({
-        publicKey: "lC9nEwf9szxI7rDZy",
+        publicKey: "0g6F6xrRH6nOT5Q5R",
       });
     })();
   </script>
@@ -656,7 +656,7 @@
       };
 
       // 1. Send Customer Confirmation Email
-      emailjs.send('service_353knts', 'template_7d5b2gq', customerEmailParams)
+      emailjs.send('service_vtumu9a', 'template_7d5b2gq', customerEmailParams)
         .then(function(response) {
           console.log('Customer confirmation email sent successfully:', response.status, response.text);
         })
@@ -665,7 +665,7 @@
         });
 
       // 2. Send Merchant Notification Email
-      emailjs.send('service_353knts', 'template_7d5b2gq', merchantEmailParams)
+      emailjs.send('service_vtumu9a', 'template_7d5b2gq', merchantEmailParams)
         .then(function(response) {
           console.log('Merchant notification email sent successfully:', response.status, response.text);
         })
