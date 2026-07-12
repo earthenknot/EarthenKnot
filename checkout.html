@@ -635,29 +635,47 @@
     function sendTransactionalEmails(order, callback) {
       console.log('Initiating EmailJS dispatch for Order:', order.id);
 
-      const customerEmailParams = {
-        to_email: order.customer.email,
-        customer_email: order.customer.email,
+      // Format items list as a readable text block
+      const itemsText = order.items.map(item => `- ${item.name} (Qty: ${item.qty}) - ₹${(item.price * item.qty).toLocaleString('en-IN')}`).join('\n');
+
+      const commonParams = {
+        order_number: order.id,
+        order_id: order.id,
+        id: order.id,
+        
         customer_name: order.customer.name,
         to_name: order.customer.name,
         name: order.customer.name,
-        order_number: order.id,
-        order_id: order.id,
+        
+        customer_email: order.customer.email,
+        to_email: order.customer.email,
+        email: order.customer.email,
+        
+        customer_phone: order.customer.phone,
+        phone: order.customer.phone,
+        
+        shipping_address: `${order.customer.address} (${order.customer.pincode})`,
+        customer_address: `${order.customer.address} (${order.customer.pincode})`,
+        address: `${order.customer.address} (${order.customer.pincode})`,
+        
+        items: itemsText,
+        order_items: itemsText,
+        items_list: itemsText,
+        
         order_total: '₹' + order.total.toLocaleString('en-IN'),
         total: '₹' + order.total.toLocaleString('en-IN'),
-        shipping_address: `${order.customer.address} (${order.customer.pincode})`
+        total_amount: '₹' + order.total.toLocaleString('en-IN'),
+        amount: '₹' + order.total.toLocaleString('en-IN')
+      };
+
+      const customerEmailParams = {
+        ...commonParams,
+        to_email: order.customer.email
       };
 
       const merchantEmailParams = {
-        to_email: 'earthenknot11@gmail.com',
-        customer_name: order.customer.name,
-        customer_email: order.customer.email,
-        customer_phone: order.customer.phone,
-        order_number: order.id,
-        order_id: order.id,
-        order_total: '₹' + order.total.toLocaleString('en-IN'),
-        total: '₹' + order.total.toLocaleString('en-IN'),
-        shipping_address: `${order.customer.address} (${order.customer.pincode})`
+        ...commonParams,
+        to_email: 'earthenknot11@gmail.com'
       };
 
       // 1. Send Customer Confirmation Email
