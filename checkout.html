@@ -637,14 +637,27 @@
 
       const customerEmailParams = {
         to_email: order.customer.email,
+        customer_email: order.customer.email,
         customer_name: order.customer.name,
-        order_number: order.id
+        to_name: order.customer.name,
+        name: order.customer.name,
+        order_number: order.id,
+        order_id: order.id,
+        order_total: '₹' + order.total.toLocaleString('en-IN'),
+        total: '₹' + order.total.toLocaleString('en-IN'),
+        shipping_address: `${order.customer.address} (${order.customer.pincode})`
       };
 
       const merchantEmailParams = {
+        to_email: 'earthenknot11@gmail.com',
         customer_name: order.customer.name,
         customer_email: order.customer.email,
-        order_number: order.id
+        customer_phone: order.customer.phone,
+        order_number: order.id,
+        order_id: order.id,
+        order_total: '₹' + order.total.toLocaleString('en-IN'),
+        total: '₹' + order.total.toLocaleString('en-IN'),
+        shipping_address: `${order.customer.address} (${order.customer.pincode})`
       };
 
       // 1. Send Customer Confirmation Email
