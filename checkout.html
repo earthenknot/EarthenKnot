@@ -721,7 +721,33 @@
         payment_method: order.paymentMethod,
         paymentMethod: order.paymentMethod,
         "Payment Method": order.paymentMethod,
-        Payment_Method: order.paymentMethod
+        Payment_Method: order.paymentMethod,
+        
+        // Nested structures in case template uses dotted notation (e.g. {{order.id}} or {{customer.name}})
+        order: {
+          id: order.id,
+          number: order.id,
+          order_number: order.id,
+          orderNumber: order.id,
+          date: order.date,
+          order_date: order.date,
+          orderDate: order.date,
+          total: '₹' + order.total.toLocaleString('en-IN'),
+          order_total: '₹' + order.total.toLocaleString('en-IN'),
+          orderTotal: '₹' + order.total.toLocaleString('en-IN'),
+          paymentMethod: order.paymentMethod,
+          payment_method: order.paymentMethod,
+          items: itemsText,
+          items_ordered: itemsText,
+          itemsOrdered: itemsText
+        },
+        customer: {
+          name: order.customer.name,
+          email: order.customer.email,
+          phone: order.customer.phone,
+          address: order.customer.address,
+          pincode: order.customer.pincode
+        }
       };
 
       const customerEmailParams = {
@@ -742,7 +768,7 @@
       }
 
       // 1. Send Customer Confirmation Email
-      emailjs.send('service_vtumu9a', 'template_customer123', customerEmailParams)
+      emailjs.send('service_vtumu9a', 'template_customer123', customerEmailParams, '0g6F6xrRH6nOT5Q5R')
         .then(function(response) {
           console.log('Customer confirmation email sent successfully:', response.status, response.text);
           const el = document.getElementById('customer-email-status');
@@ -755,7 +781,7 @@
         });
 
       // 2. Send Merchant Notification Email
-      emailjs.send('service_vtumu9a', 'template_owner456', merchantEmailParams)
+      emailjs.send('service_vtumu9a', 'template_owner456', merchantEmailParams, '0g6F6xrRH6nOT5Q5R')
         .then(function(response) {
           console.log('Merchant notification email sent successfully:', response.status, response.text);
           const el = document.getElementById('merchant-email-status');
