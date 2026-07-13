@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pillows & Cushions - EarthenKnot</title>
+  <title>Scarves & Wraps - EarthenKnot</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     .search-container {
@@ -64,22 +64,6 @@
     }
     .product-card:hover img {
       transform: scale(1.04);
-    }
-    .multi-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(43, 49, 36, 0.75);
-      backdrop-filter: blur(8px);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
     }
     
     .no-results {
@@ -148,41 +132,26 @@
 
   <main class="main-wrapper">
     <section class="container" style="padding: 4rem 5%;">
-      <h1 class="fade-in" style="font-size: 3rem; margin-bottom: 0.8rem; text-align: center; color: var(--primary-dark);">Pillow Collection</h1>
+      <h1 class="fade-in" style="font-size: 3rem; margin-bottom: 0.8rem; text-align: center; color: var(--primary-dark);">Scarves & Wraps</h1>
       <p class="fade-in" style="text-align: center; color: var(--text-light); font-size: 1.15rem; max-width: 640px; margin: 0 auto 3rem auto;">
-        Handcrafted artisan crochet pillow and cushion covers designed to bring rich texture, heritage warmth, and organic elegance to your sanctuary.
+        Hand-knitted & crocheted luxury scarves, neck warmers, and wraps crafted in soft premium fibers for beautiful warmth.
       </p>
 
       <div id="product-grid" class="fade-in delay-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2.5rem;">
-        <div class="product-card glass-panel" data-name="ivory lace crochet pillow cover artisan cushion multi image" data-category="pillows" style="padding: 1.5rem; text-align: center;">
-          <a href="product.html?id=ivory-lace-crochet-pillow" style="display: flex; flex-direction: column; flex-grow: 1; color: inherit; text-decoration: none;">
+        
+        <!-- Scarf Product (Sold Out) -->
+        <div class="product-card glass-panel" data-name="lavender fringe crochet wrap scarf handmade sold out" data-category="scarves" style="padding: 1.5rem; text-align: center;">
+          <a href="product.html?id=lavender-fringe-crochet-scarf" style="display: flex; flex-direction: column; flex-grow: 1; color: inherit; text-decoration: none;">
             <div class="product-image-container">
-              <img src="assets/pillow-1.jpg" alt="Ivory Lace Crochet Pillow Cover">
-              <div class="multi-badge">
-                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                3 Photos
-              </div>
+              <img src="assets/lavender-fringe-crochet-scarf.jpg" alt="Lavender Fringe Crochet Scarf" style="opacity: 0.75;">
+              <div style="position: absolute; top: 12px; left: 12px; background: #ef4444; color: white; font-size: 0.72rem; padding: 0.3rem 0.7rem; border-radius: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Sold Out</div>
             </div>
-            <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Ivory Lace Crochet Pillow Cover</h3>
-            <p style="color: var(--primary-dark); font-weight: 600; font-size: 1.15rem; margin-bottom: 1.2rem; flex-grow: 1;">₹3,200.00</p>
+            <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Lavender Fringe Crochet Scarf</h3>
+            <p style="color: var(--primary-dark); font-weight: 600; font-size: 1.15rem; margin-bottom: 1.2rem; flex-grow: 1;">₹1,800.00</p>
           </a>
-          <button class="btn btn-secondary" style="width: 100%; border-radius: 8px; padding: 0.7rem;" onclick="addToCart(); event.preventDefault();">Add to Cart</button>
+          <button class="btn btn-secondary" style="width: 100%; border-radius: 8px; padding: 0.7rem; cursor: not-allowed; opacity: 0.6;" disabled>Sold Out</button>
         </div>
 
-        <div class="product-card glass-panel" data-name="macrame weave crochet pillow cover handmade cushion multi image" data-category="pillows" style="padding: 1.5rem; text-align: center;">
-          <a href="product.html?id=macrame-weave-crochet-pillow" style="display: flex; flex-direction: column; flex-grow: 1; color: inherit; text-decoration: none;">
-            <div class="product-image-container">
-              <img src="assets/pillow-crochet-1.jpg" alt="Macramé Weave Crochet Pillow Cover">
-              <div class="multi-badge">
-                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                2 Photos
-              </div>
-            </div>
-            <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Macramé Weave Crochet Pillow Cover</h3>
-            <p style="color: var(--primary-dark); font-weight: 600; font-size: 1.15rem; margin-bottom: 1.2rem; flex-grow: 1;">₹2,800.00</p>
-          </a>
-          <button class="btn btn-secondary" style="width: 100%; border-radius: 8px; padding: 0.7rem;" onclick="addToCart(); event.preventDefault();">Add to Cart</button>
-        </div>
       </div>
     </section>
   </main>

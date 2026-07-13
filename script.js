@@ -384,6 +384,13 @@ const productsData = {
     images: ['assets/sweatshirt-1.jpg', 'assets/sweatshirt-2.jpg'],
     videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
     story: "Handcrafted with soft ocean blue and cream cotton yarn, this striped crochet sweatshirt blends relaxed coastal charm with heirloom craftsmanship. Designed with an effortless drop-shoulder silhouette and airy open-weave stitches, it is perfect for layering year-round. Featuring ribbed trim and artisanal stitching throughout, each sweatshirt is woven with meticulous attention to detail."
+  },
+  'lavender-fringe-crochet-scarf': {
+    name: 'Lavender Fringe Crochet Scarf',
+    price: '₹1,800.00',
+    image: 'assets/lavender-fringe-crochet-scarf.jpg',
+    soldOut: true,
+    story: "Handcrafted with a wonderfully soft acrylic and wool blend yarn in beautiful gradient lavender and violet hues. This scarf features an intricate openwork chevron-lace stitch pattern that provides both warmth and a lightweight, flowing drape. Finished with a lush, hand-knotted fringe at both ends, it brings a pop of artisanal charm and cozy color to any chilly day outfit."
   }
 };
 
@@ -425,8 +432,15 @@ function renderProductPage() {
         </div>
         
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05); text-align: left;">
-          <p style="font-size: 1.8rem; color: var(--primary); font-weight: 600; margin: 0;">${product.price}</p>
-          <button class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; box-shadow: 0 4px 10px rgba(108, 120, 92, 0.2); white-space: nowrap;" onclick="addToCart()">Add to Cart</button>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <p style="font-size: 1.8rem; color: var(--primary); font-weight: 600; margin: 0;">${product.price}</p>
+            ${product.soldOut ? `<span style="background: #ef4444; color: white; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Sold Out</span>` : ''}
+          </div>
+          ${product.soldOut ? `
+            <button class="btn btn-secondary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; white-space: nowrap; cursor: not-allowed; opacity: 0.6;" disabled>Sold Out</button>
+          ` : `
+            <button class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; box-shadow: 0 4px 10px rgba(108, 120, 92, 0.2); white-space: nowrap;" onclick="addToCart()">Add to Cart</button>
+          `}
         </div>
       </div>
 
