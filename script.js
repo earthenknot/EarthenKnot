@@ -442,7 +442,7 @@ function renderProductPage() {
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05); text-align: left;">
           <div style="display: flex; align-items: center; gap: 1rem;">
             <p style="font-size: 1.8rem; color: var(--primary); font-weight: 600; margin: 0;">${product.price}</p>
-            ${product.soldOut ? `<span style="background: #ef4444; color: white; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Sold Out</span>` : ''}
+            ${product.soldOut ? `<span class="sold-out-badge" style="font-size: 0.8rem; padding: 0.25rem 0.75rem;">Sold Out</span>` : ''}
           </div>
           ${product.soldOut ? `
             <button class="btn btn-secondary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; white-space: nowrap; cursor: not-allowed; opacity: 0.6;" disabled>Sold Out</button>

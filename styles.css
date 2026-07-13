@@ -1041,3 +1041,16 @@ footer {
     font-size: 0.95rem;
   }
 }
+
+/* Sold Out Badge */
+.sold-out-badge {
+  background-color: var(--secondary);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  box-shadow: var(--shadow-sm);
+}
