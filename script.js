@@ -391,6 +391,14 @@ const productsData = {
     image: 'assets/lavender-fringe-crochet-scarf.jpg',
     soldOut: true,
     story: "Handcrafted with a wonderfully soft acrylic and wool blend yarn in beautiful gradient lavender and violet hues. This scarf features an intricate openwork chevron-lace stitch pattern that provides both warmth and a lightweight, flowing drape. Finished with a lush, hand-knotted fringe at both ends, it brings a pop of artisanal charm and cozy color to any chilly day outfit."
+  },
+  'midnight-mesh-crochet-top': {
+    name: 'Midnight Mesh Crochet Top',
+    price: '₹2,400.00',
+    image: 'assets/black-crochet-top-1.jpg',
+    images: ['assets/black-crochet-top-1.jpg', 'assets/black-crochet-top-2.jpg'],
+    soldOut: true,
+    story: "A beautifully detailed sleeveless crochet crop top handcrafted in deep midnight black cotton yarn. Featuring an open-mesh grid pattern across the upper chest and shoulders, transitioning into a dense, beautifully textured solid stitch bodice. Designed with a clean-cut scoop neck and a subtle open-knit border at the hem, this lightweight knit brings an effortless, sophisticated artisanal touch to any warm-weather style."
   }
 };
 
