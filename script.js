@@ -399,6 +399,14 @@ const productsData = {
     images: ['assets/black-crochet-top-1.jpg', 'assets/black-crochet-top-2.jpg'],
     soldOut: true,
     story: "A beautifully detailed sleeveless crochet crop top handcrafted in deep midnight black cotton yarn. Featuring an open-mesh grid pattern across the upper chest and shoulders, transitioning into a dense, beautifully textured solid stitch bodice. Designed with a clean-cut scoop neck and a subtle open-knit border at the hem, this lightweight knit brings an effortless, sophisticated artisanal touch to any warm-weather style."
+  },
+  'blossom-striped-crochet-sweater': {
+    name: 'Blossom Striped Crochet Sweater',
+    price: '₹4,200.00',
+    image: 'assets/pink-striped-sweater-1.jpg',
+    images: ['assets/pink-striped-sweater-1.jpg', 'assets/pink-striped-sweater-2.jpg'],
+    soldOut: true,
+    story: "A cozy and charming long-sleeve striped pullover handcrafted in soft bubblegum pink and ivory white premium cotton yarn. Woven in a beautiful openwork trellis crochet stitch that balances warmth with breathability, this sweater features a relaxed boat neckline, drop shoulders, and elegant solid ribbed borders at the cuffs and hem. Its cheerful colors and intricate stitchwork make it a standout artisan piece for any modern knitwear collection."
   }
 };
 
