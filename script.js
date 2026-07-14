@@ -367,7 +367,6 @@ const productsData = {
     price: '₹3,200.00',
     image: 'assets/pillow-1.jpg',
     images: ['assets/pillow-1.jpg', 'assets/pillow-2.jpg', 'assets/pillow-3.jpg'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
     story: "Handcrafted with intricate vintage lace motifs in natural ivory cotton yarn, this artisan crochet cushion cover brings timeless texture and warmth to your living sanctuary. Each pillow cover features exquisite shell stitches, dimensional floral clusters, and delicate openwork lacework inspired by heirloom crochet artistry. Soft to the touch yet beautifully structured with a crisp cotton lining, it adds instant cozy elegance to any sofa, armchair, or bedroom retreat."
   },
   'macrame-weave-crochet-pillow': {
@@ -382,7 +381,6 @@ const productsData = {
     price: '₹4,800.00',
     image: 'assets/sweatshirt-1.jpg',
     images: ['assets/sweatshirt-1.jpg', 'assets/sweatshirt-2.jpg'],
-    videoUrl: 'https://www.youtube.com/embed/5mzIEIuVyK8?start=245',
     story: "Handcrafted with soft ocean blue and cream cotton yarn, this striped crochet sweatshirt blends relaxed coastal charm with heirloom craftsmanship. Designed with an effortless drop-shoulder silhouette and airy open-weave stitches, it is perfect for layering year-round. Featuring ribbed trim and artisanal stitching throughout, each sweatshirt is woven with meticulous attention to detail."
   },
   'lavender-fringe-crochet-scarf': {
