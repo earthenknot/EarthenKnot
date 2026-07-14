@@ -971,11 +971,14 @@ footer {
   }
 
   .user-btn-label {
-    display: none;
+    display: inline-block;
+    font-size: 0.85rem;
   }
 
   .user-btn {
-    padding: 0.5rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(108, 120, 92, 0.25);
+    border-radius: 12px;
   }
 
   h1 {
