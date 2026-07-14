@@ -261,9 +261,19 @@
                 <input type="text" id="cust-pincode" placeholder="400001" required>
               </div>
             </div>
-            <div class="form-group" style="margin-bottom: 0;">
+            <div class="form-group" style="margin-bottom: 1.25rem;">
               <label>Complete Street Address *</label>
               <input type="text" id="cust-address" placeholder="House/Flat No, Apartment, Street Name, Area / Landmark, City, State" required>
+            </div>
+            <!-- Quality Tour Request Checkbox Option -->
+            <div style="padding: 1rem; border-radius: 12px; background: rgba(108, 120, 92, 0.05); border: 1.5px solid rgba(108, 120, 92, 0.12); margin-top: 1.25rem;">
+              <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; user-select: none;">
+                <input type="checkbox" id="request-order-tour" style="margin-top: 0.25rem; width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer;">
+                <span style="font-size: 0.88rem; color: var(--text); line-height: 1.45; font-weight: 500;">
+                  <strong style="color: var(--primary-dark); font-size: 0.92rem; display: block; margin-bottom: 0.15rem;">Request WhatsApp Quality Tour (Free)</strong>
+                  Check this box to request a photo or short video of your exact handcrafted items on WhatsApp before dispatch. Verify your custom order's craftsmanship prior to delivery!
+                </span>
+              </label>
             </div>
           </div>
 
@@ -677,6 +687,7 @@
       const upiTxId = window.currentPaymentMethod === 'upi' ? document.getElementById('upi-transaction-id').value.trim() : 'N/A';
       const formattedPaymentMethod = window.currentPaymentMethod === 'cod' ? 'Cash on Delivery (COD)' : `UPI QR Code (Ref ID: ${upiTxId})`;
       const totalAmount = window._currentCartTotal || 3499;
+      const orderTourChecked = document.getElementById('request-order-tour')?.checked || false;
 
       const newOrder = {
         id: orderId,
@@ -687,6 +698,7 @@
         paymentMethod: formattedPaymentMethod,
         upiTransactionId: upiTxId,
         status: window.currentPaymentMethod === 'upi' ? 'Pending Payment Verification' : 'Confirmed',
+        requestOrderTour: orderTourChecked,
         customerEmailSent: true,
         merchantEmailSent: true
       };
@@ -793,13 +805,18 @@
         Order_Total: '₹' + order.total.toLocaleString('en-IN'),
         Total_Amount: '₹' + order.total.toLocaleString('en-IN'),
         
-        payment_method: order.paymentMethod,
+         payment_method: order.paymentMethod,
         paymentMethod: order.paymentMethod,
         "Payment Method": order.paymentMethod,
         Payment_Method: order.paymentMethod,
         upi_transaction_id: order.upiTransactionId || 'N/A',
         upiTransactionId: order.upiTransactionId || 'N/A',
         "UPI Transaction ID": order.upiTransactionId || 'N/A',
+        
+        whatsapp_order_tour: order.requestOrderTour ? "Requested (Send photo/video quality review before dispatch)" : "Not Requested",
+        whatsappOrderTour: order.requestOrderTour ? "Requested (Send photo/video quality review before dispatch)" : "Not Requested",
+        "WhatsApp Order Tour": order.requestOrderTour ? "Requested" : "Not Requested",
+        order_tour: order.requestOrderTour ? "Yes" : "No",
         
         // Nested structures in case template uses dotted notation (e.g. {{order.id}} or {{customer.name}})
         order: {
@@ -908,6 +925,7 @@
               <strong>Mode:</strong> ${order.paymentMethod}<br>
               <strong>Order Status:</strong> ${order.status}<br>
               <strong>Order ID:</strong> ${order.id}<br>
+              <strong>WhatsApp Quality Tour:</strong> ${order.requestOrderTour ? '<span style="color:var(--primary); font-weight:600;">Requested ✓</span>' : 'Not Requested'}<br>
               <span style="font-size: 0.82rem; color: var(--secondary); font-weight: 600; display: block; margin-top: 0.4rem;">⚠️ Non-Refundable & Non-Exchangeable</span>
             </p>
           </div>
