@@ -471,6 +471,20 @@ const productsData = {
     image: 'assets/gray-ribbed-beanie.jpg',
     soldOut: true,
     story: "A classic ribbed-stitch beanie crocheted in a beautiful slate gray color. Handcrafted with thick, insulating acrylic-wool yarn, it features a thick folded brim and high elasticity for a comfortable, everyday fit."
+  },
+  'ivory-beanie': {
+    name: 'Ivory Ribbed Knit Beanie',
+    price: '₹899.00',
+    image: 'assets/ivory-beanie.jpg',
+    soldOut: true,
+    story: "A classic ribbed beanie handcrafted in a warm ivory-cream cotton yarn. Featuring a comfortable folded brim and a stretchy ribbed knit pattern, this beanie is perfect for everyday winter styling and outdoor coziness."
+  },
+  'scrunchies-set': {
+    name: 'Artisan Crochet Scrunchies Set',
+    price: '₹899.00',
+    image: 'assets/scrunchies-set.jpg',
+    soldOut: true,
+    story: "A beautiful set of three handmade crochet scrunchies, including two cream and one dusty rose/mauve scrunchie. Soft, gentle on hair, and handcrafted using premium organic cotton yarn."
   }
 };
 
