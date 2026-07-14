@@ -433,7 +433,7 @@ function renderProductPage() {
     }
 
     container.innerHTML = `
-      <div style="max-width: 850px; margin: 0 auto; margin-bottom: 4rem;">
+      <div style="max-width: 720px; margin: 0 auto; margin-bottom: 4rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.8rem;">
           <h1 style="font-size: 2.2rem; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 500; margin: 0;">${product.name}</h1>
           <button id="zoom-toggle-btn" style="padding: 0.5rem 1rem; font-size: 0.9rem; border-radius: 8px; border: 1px solid var(--secondary); background: transparent; color: var(--secondary); cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-sm);">🔍 Enable Zoom</button>
