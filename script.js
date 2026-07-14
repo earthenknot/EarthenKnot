@@ -409,35 +409,35 @@ document.addEventListener('DOMContentLoaded', () => {
 const productsData = {
   'ivory-lace-crochet-pillow': {
     name: 'Ivory Lace Crochet Pillow Cover',
-    price: '₹3,200.00',
+    price: '₹1,899.00',
     image: 'assets/pillow-1.jpg',
     images: ['assets/pillow-1.jpg', 'assets/pillow-2.jpg', 'assets/pillow-3.jpg'],
     story: "Handcrafted with intricate vintage lace motifs in natural ivory cotton yarn, this artisan crochet cushion cover brings timeless texture and warmth to your living sanctuary. Each pillow cover features exquisite shell stitches, dimensional floral clusters, and delicate openwork lacework inspired by heirloom crochet artistry. Soft to the touch yet beautifully structured with a crisp cotton lining, it adds instant cozy elegance to any sofa, armchair, or bedroom retreat."
   },
   'macrame-weave-crochet-pillow': {
     name: 'Macramé Weave Crochet Pillow Cover',
-    price: '₹2,800.00',
+    price: '₹1,899.00',
     image: 'assets/pillow-crochet-1.jpg',
     images: ['assets/pillow-crochet-1.jpg', 'assets/pillow-crochet-2.jpg'],
     story: "A stunning handcrafted pillow cover woven in a delicate open-grid macramé pattern using soft natural ivory cotton yarn. Each knot is tied by hand, creating a beautifully textured lattice that lets light filter through the weave. The subtle cream tones and organic cotton feel make it a versatile piece that complements any bohemian, minimal, or nature-inspired interior. A cozy, artisan touch for your sofa, bed, or reading nook."
   },
   'striped-crochet-sweatshirt': {
     name: 'Ocean Blue Striped Crochet Sweatshirt',
-    price: '₹1,800.00',
+    price: '₹1,899.00',
     image: 'assets/sweatshirt-1.jpg',
     images: ['assets/sweatshirt-1.jpg', 'assets/sweatshirt-2.jpg'],
     story: "Handcrafted with soft ocean blue and cream cotton yarn, this striped crochet sweatshirt blends relaxed coastal charm with heirloom craftsmanship. Designed with an effortless drop-shoulder silhouette and airy open-weave stitches, it is perfect for layering year-round. Featuring ribbed trim and artisanal stitching throughout, each sweatshirt is woven with meticulous attention to detail."
   },
   'lavender-fringe-crochet-scarf': {
     name: 'Lavender Fringe Crochet Scarf',
-    price: '₹1,800.00',
+    price: '₹1,899.00',
     image: 'assets/lavender-fringe-crochet-scarf.jpg',
     soldOut: true,
     story: "Handcrafted with a wonderfully soft acrylic and wool blend yarn in beautiful gradient lavender and violet hues. This scarf features an intricate openwork chevron-lace stitch pattern that provides both warmth and a lightweight, flowing drape. Finished with a lush, hand-knotted fringe at both ends, it brings a pop of artisanal charm and cozy color to any chilly day outfit."
   },
   'midnight-mesh-crochet-top': {
     name: 'Midnight Mesh Crochet Top',
-    price: '₹2,400.00',
+    price: '₹1,899.00',
     image: 'assets/black-crochet-top-1.jpg',
     images: ['assets/black-crochet-top-1.jpg', 'assets/black-crochet-top-2.jpg'],
     soldOut: true,
@@ -445,7 +445,7 @@ const productsData = {
   },
   'blossom-striped-crochet-sweater': {
     name: 'Blossom Striped Crochet Sweater',
-    price: '₹4,200.00',
+    price: '₹1,899.00',
     image: 'assets/pink-striped-sweater-1.jpg',
     images: ['assets/pink-striped-sweater-1.jpg', 'assets/pink-striped-sweater-2.jpg'],
     soldOut: true,
