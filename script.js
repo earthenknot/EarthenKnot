@@ -81,7 +81,7 @@ function addToCart(name, price, img, url) {
 
   const existing = cartItems.find(item => item.name === itemName);
   if (existing) {
-    showCartWarningToast(`Only 1 unit of "${itemName}" can be ordered.`);
+    showCartWarningToast(`Since each piece is hand-stitched one-by-one, you can only order 1 of this item! 🤎`);
     return;
   } else {
     cartItems.push({
@@ -127,7 +127,7 @@ function showCartWarningToast(message) {
     <div style="display:flex;align-items:center;gap:0.75rem;">
       <div style="background:var(--secondary);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.9rem;">!</div>
       <div>
-        <strong style="display:block;font-size:0.88rem;color:var(--secondary);">Order Limit</strong>
+        <strong style="display:block;font-size:0.88rem;color:var(--secondary);">Slow-Made Limit 🤎</strong>
         <span style="font-size:0.8rem;color:var(--text-light);">${message}</span>
       </div>
     </div>

@@ -192,7 +192,7 @@
     </div>
   </nav>  <main class="main-wrapper" style="padding: 4rem 5%;">
     <section class="container" style="max-width: 1200px; margin: 0 auto;">
-      <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 2.5rem; color: var(--primary-dark); text-align: center; font-family: 'Playfair Display', serif;">Secure Checkout & Order</h1>
+      <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 2.5rem; color: var(--primary-dark); text-align: center; font-family: 'Playfair Display', serif;">Let's wrap up your order 🤎</h1>
       
       <div class="checkout-vertical-stack" id="checkout-main-grid" style="max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem;">
         
@@ -201,18 +201,18 @@
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 1rem;">
             <h2 style="font-size: 1.5rem; color: var(--primary-dark); margin: 0; display: flex; align-items: center; gap: 0.75rem; font-family: 'Playfair Display', serif;">
               <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              <span>Order Summary</span>
+              <span>Your Treasures</span>
             </h2>
             <span style="background: rgba(108, 120, 92, 0.12); color: var(--primary-dark); font-weight: 600; font-size: 0.82rem; padding: 0.35rem 0.9rem; border-radius: 20px; letter-spacing: 0.5px;">
               <span id="checkout-cart-count">0</span> ITEMS
             </span>
           </div>
-
+ 
           <!-- Dynamic Cart List -->
           <div id="checkout-cart-items" style="max-height: 280px; overflow-y: auto; margin-bottom: 1.25rem; padding-right: 0.5rem;">
             <!-- Rendered via JS -->
           </div>
-
+ 
           <div style="background: rgba(144, 118, 97, 0.05); border-radius: 12px; padding: 1.25rem;">
             <div class="summary-row" style="margin-bottom: 0.6rem;">
               <span>Subtotal</span>
@@ -230,7 +230,7 @@
             </div>
           </div>
         </div>
-
+ 
         <!-- FORM WRAPPER FOR DELIVERY & PAYMENT -->
         <form id="checkout-order-form" style="display: flex; flex-direction: column; gap: 2rem;">
           <!-- STEP 2: CUSTOMER DELIVERY DETAILS -->
@@ -238,16 +238,16 @@
             <div style="border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 1rem; margin-bottom: 1.5rem;">
               <h2 style="font-size: 1.5rem; margin: 0; color: var(--primary-dark); display: flex; align-items: center; gap: 0.75rem; font-family: 'Playfair Display', serif;">
                 <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>Customer Delivery Details</span>
+                <span>Where should we send your parcel?</span>
               </h2>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div class="form-group">
-                <label>Full Name *</label>
-                <input type="text" id="cust-name" placeholder="Enter your full name" required>
+                <label>Your Name *</label>
+                <input type="text" id="cust-name" placeholder="Enter your name" required>
               </div>
               <div class="form-group">
-                <label>Email Address * <span style="font-size:0.75rem; color:var(--primary); font-weight:600;">(Confirmation sent here)</span></label>
+                <label>Email Address * <span style="font-size:0.75rem; color:var(--primary); font-weight:600;">(Confirmation details sent here)</span></label>
                 <input type="email" id="cust-email" placeholder="you@example.com" required>
               </div>
             </div>
@@ -270,19 +270,19 @@
               <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; user-select: none;">
                 <input type="checkbox" id="request-order-tour" style="margin-top: 0.25rem; width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer;">
                 <span style="font-size: 0.88rem; color: var(--text); line-height: 1.45; font-weight: 500;">
-                  <strong style="color: var(--primary-dark); font-size: 0.92rem; display: block; margin-bottom: 0.15rem;">Request WhatsApp Quality Tour (Free)</strong>
-                  Check this box to request a photo or short video of your exact handcrafted items on WhatsApp before dispatch. Verify your custom order's craftsmanship prior to delivery!
+                  <strong style="color: var(--primary-dark); font-size: 0.92rem; display: block; margin-bottom: 0.15rem;">See my items before dispatch (WhatsApp Tour) 📸</strong>
+                  Check this box if you'd like us to send you a quick photo or video of your exact items on WhatsApp before we ship! We want to make sure you absolutely love the quality.
                 </span>
               </label>
             </div>
           </div>
-
+ 
           <!-- STEP 3: SELECT PAYMENT METHOD & ORDER PLACEMENT -->
           <div class="glass-panel fade-in delay-3" style="padding: 2.5rem;">
             <div style="border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 1rem; margin-bottom: 1.5rem;">
               <h2 style="font-size: 1.5rem; margin: 0; color: var(--primary-dark); display: flex; align-items: center; gap: 0.75rem; font-family: 'Playfair Display', serif;">
                 <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                <span>Select Payment Method</span>
+                <span>How would you like to pay?</span>
               </h2>
             </div>
 
@@ -321,9 +321,9 @@
                   </svg>
                 </div>
                 <div style="flex: 1; min-width: 220px;">
-                  <strong style="font-size: 1.2rem; color: var(--primary-dark); display: block;">No Advance Payment Needed</strong>
+                  <strong style="font-size: 1.2rem; color: var(--primary-dark); display: block;">Pay at your doorstep</strong>
                   <p style="font-size: 0.92rem; color: var(--text); margin: 0.3rem 0 0 0; line-height: 1.5;">
-                    Complete your order and our artisan team will call within 3 hours to confirm dispatch details.
+                    Just place your order, and we will send you a quick text or call within 3 hours to confirm details before we wrap your package! 🤎
                   </p>
                 </div>
               </div>
@@ -336,7 +336,7 @@
                   <img id="upi-qr-image" src="" alt="EarthenKnot Payment QR Code" style="width: 170px; height: 170px; object-fit: contain; border-radius: 10px;">
                 </div>
                 <div>
-                  <span style="font-size: 0.85rem; color: var(--text-light); display: block;">Official Merchant Account</span>
+                  <span style="font-size: 0.85rem; color: var(--text-light); display: block;">Official Account</span>
                   <strong style="font-size: 1.35rem; color: var(--primary-dark);">EarthenKnot Official</strong>
                   <div style="margin-top: 0.4rem; display: inline-block; background: rgba(108, 120, 92, 0.12); padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.88rem; font-weight: 600; color: var(--primary-dark);">
                     UPI ID: earthenknot11@okhdfcbank
@@ -345,7 +345,7 @@
                     Amount to Pay: ₹0.00
                   </div>
                   <p style="font-size: 0.88rem; color: var(--text); margin: 0.6rem 0 0 0; line-height: 1.5;">
-                    Scan using any UPI app to pay. Once submitted, our team matches your payment and ships instantly.
+                    Please pay the exact amount. Once paid, type your 12-digit transaction ID below. This helps us match your payment and start packing your order immediately! 🤎
                   </p>
                 </div>
               </div>
@@ -353,14 +353,14 @@
               <!-- UPI Transaction Verification Input -->
               <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(108, 120, 92, 0.15);">
                 <label for="upi-transaction-id" style="display: block; font-weight: 600; color: var(--primary-dark); font-size: 0.95rem; margin-bottom: 0.5rem;">
-                  UPI Transaction / Reference ID (12 digits) <span style="color: red;">*</span>
+                  UPI Transaction ID (12 digits) <span style="color: red;">*</span>
                 </label>
                 <div class="input-wrapper" style="max-width: 400px; position: relative; display: flex; align-items: center;">
                   <svg class="input-icon" viewBox="0 0 24 24" style="position: absolute; left: 14px; width: 18px; height: 18px; fill: none; stroke: var(--text-light); stroke-width: 2;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                   <input type="text" id="upi-transaction-id" placeholder="Enter 12-digit UTR/Ref No." minlength="12" maxlength="12" pattern="\d{12}" style="width: 100%; padding: 0.85rem 1rem 0.85rem 2.8rem; border-radius: 12px; border: 1.5px solid rgba(0, 0, 0, 0.08); background: var(--surface); font-size: 0.95rem; color: var(--text); font-family: 'Inter', sans-serif; outline: none; transition: all 0.3s;" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                 </div>
                 <span style="font-size: 0.8rem; color: var(--text-light); display: block; margin-top: 0.4rem;">
-                  Scan the QR code, pay the exact amount, and paste the 12-digit transaction reference ID here to verify your payment.
+                  Scan the QR, pay the exact amount, and paste the 12-digit payment reference ID below.
                 </span>
               </div>
             </div>
@@ -373,12 +373,12 @@
                 <line x1="12" y1="16" x2="12.01" y2="16"/>
               </svg>
               <p style="margin: 0; font-size: 0.85rem; color: var(--secondary); line-height: 1.45; font-weight: 500;">
-                <strong>Important Policy Note:</strong> All of our items are carefully handcrafted by artisans. Consequently, all orders are <strong>non-refundable and non-exchangeable</strong>. Thank you for supporting handmade craftsmanship!
+                Just a friendly note: Since each of our items is lovingly hand-stitched by artisans, all orders are final (non-refundable & non-exchangeable). Thank you for supporting slow, handmade craft! 🤎
               </p>
             </div>
 
             <button type="submit" id="checkout-submit-btn" class="btn btn-primary" style="width: 100%; font-size: 1.15rem; font-weight: 600; padding: 1.15rem; border-radius: 14px; margin-top: 1.5rem; box-shadow: 0 4px 15px rgba(108, 120, 92, 0.25);">
-              Complete Order & Send Confirmations
+              Adopt & Confirm Order 🤎
             </button>
           </div>
         </form>
@@ -391,8 +391,8 @@
             <div style="width: 70px; height: 70px; background: #e8f5e9; color: #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem auto;">
               <svg viewBox="0 0 24 24" style="width: 40px; height: 40px; stroke: currentColor; fill: none; stroke-width: 2.5;"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-            <h2 style="font-size: 2.4rem; color: var(--primary-dark); margin: 0.8rem 0 0.4rem 0; font-family: 'Playfair Display', serif;">Thank You for Your Order!</h2>
-            <p style="color: var(--text-light); font-size: 1.05rem;" id="confirm-order-id-label">Order Reference: #EK-XXXXXX</p>
+            <h2 style="font-size: 2.4rem; color: var(--primary-dark); margin: 0.8rem 0 0.4rem 0; font-family: 'Playfair Display', serif;">Thank you for adopting our handmade craft! 🤎</h2>
+            <p style="color: var(--text-light); font-size: 1.05rem;" id="confirm-order-id-label">Order Code: #EK-XXXXXX</p>
           </div>
 
           <!-- Workflow Progress Tracker -->
@@ -497,7 +497,7 @@
           if (radioCod) radioCod.checked = true;
           if (secUpi) secUpi.style.display = 'none';
           if (secCod) secCod.style.display = 'block';
-          if (submitBtn) submitBtn.textContent = 'Complete Order & Send Confirmations';
+          if (submitBtn) submitBtn.textContent = 'Adopt & Confirm Order 🤎';
           if (upiInput) {
             upiInput.required = false;
             upiInput.value = '';
@@ -508,7 +508,7 @@
           if (radioUpi) radioUpi.checked = true;
           if (secCod) secCod.style.display = 'none';
           if (secUpi) secUpi.style.display = 'block';
-          if (submitBtn) submitBtn.textContent = 'Confirm UPI Payment & Place Order';
+          if (submitBtn) submitBtn.textContent = 'Confirm UPI & Place Order 🤎';
           if (upiInput) {
             upiInput.required = true;
           }
@@ -646,7 +646,7 @@
           submitBtn.style.opacity = '1';
           submitBtn.style.cursor = 'pointer';
           const isUpi = document.getElementById('payment-upi')?.checked;
-          submitBtn.textContent = isUpi ? 'Confirm UPI Payment & Place Order' : 'Complete Order & Send Confirmations';
+          submitBtn.textContent = isUpi ? 'Confirm UPI & Place Order 🤎' : 'Adopt & Confirm Order 🤎';
         }
       }
     }
@@ -661,7 +661,7 @@
     function processOrderSubmission() {
       const btn = document.getElementById('checkout-submit-btn');
       const origText = btn.textContent;
-      btn.textContent = 'Processing Order & Sending Emails...';
+      btn.textContent = 'Wrapping up your treasures...';
       btn.disabled = true;
       btn.style.opacity = '0.7';
 
