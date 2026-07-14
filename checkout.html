@@ -286,51 +286,8 @@
               </h2>
             </div>
 
-            <div class="payment-option-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-              <label class="payment-option-card" id="card-cod" onclick="switchPaymentMethod('cod')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 1rem 1.25rem; border: 2px solid var(--primary); background: rgba(108, 120, 92, 0.08); border-radius: 12px; transition: all 0.3s;">
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                  <input type="radio" name="payment_method" id="radio-cod" value="cod" checked style="width: 18px; height: 18px; accent-color: var(--primary);">
-                  <div>
-                    <strong style="font-size: 1.05rem; color: var(--primary-dark); display: block;">Cash on Delivery (COD)</strong>
-                    <span style="font-size: 0.82rem; color: var(--text-light); display: block;">Pay cash or scan UPI at doorstep</span>
-                  </div>
-                </div>
-                <span style="background: var(--primary); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.22rem 0.65rem; border-radius: 20px;">POPULAR</span>
-              </label>
-
-              <label class="payment-option-card" id="card-upi" onclick="switchPaymentMethod('upi')" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 1rem 1.25rem; border: 1px solid rgba(0,0,0,0.15); background: var(--surface); border-radius: 12px; transition: all 0.3s;">
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                  <input type="radio" name="payment_method" id="radio-upi" value="upi" style="width: 18px; height: 18px; accent-color: var(--primary);">
-                  <div>
-                    <strong style="font-size: 1.05rem; color: var(--primary-dark); display: block;">Pay via QR Code (UPI)</strong>
-                    <span style="font-size: 0.82rem; color: var(--secondary); display: block;">GPay • PhonePe • Paytm</span>
-                  </div>
-                </div>
-                <span style="background: rgba(144, 118, 97, 0.12); color: var(--secondary); font-size: 0.7rem; font-weight: 700; padding: 0.22rem 0.65rem; border-radius: 20px;">INSTANT</span>
-              </label>
-            </div>
-
-            <!-- COD Section -->
-            <div id="section-cod" class="payment-info-section">
-              <div class="qr-card" style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-                <div style="background: rgba(108, 120, 92, 0.15); border-radius: 14px; padding: 1.25rem; display: flex; align-items: center; justify-content: center;">
-                  <svg viewBox="0 0 24 24" style="width: 44px; height: 44px; stroke: var(--primary-dark); fill: none; stroke-width: 1.8;">
-                    <rect x="2" y="5" width="20" height="14" rx="2"/>
-                    <line x1="2" y1="10" x2="22" y2="10"/>
-                    <circle cx="12" cy="15" r="2"/>
-                  </svg>
-                </div>
-                <div style="flex: 1; min-width: 220px;">
-                  <strong style="font-size: 1.2rem; color: var(--primary-dark); display: block;">Pay at your doorstep</strong>
-                  <p style="font-size: 0.92rem; color: var(--text); margin: 0.3rem 0 0 0; line-height: 1.5;">
-                    Just place your order, and we will send you a quick text or call within 3 hours to confirm details before we wrap your package! 🤎
-                  </p>
-                </div>
-              </div>
-            </div>
-
             <!-- UPI Section -->
-            <div id="section-upi" class="payment-info-section" style="display: none;">
+            <div id="section-upi" class="payment-info-section">
               <div class="qr-card">
                 <div class="qr-image-box" style="background: white; padding: 6px; border-radius: 14px; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.06);">
                   <img id="upi-qr-image" src="" alt="EarthenKnot Payment QR Code" style="width: 170px; height: 170px; object-fit: contain; border-radius: 10px;">
@@ -479,41 +436,15 @@
     document.addEventListener('DOMContentLoaded', () => {
       renderCheckoutCart();
 
-      window.currentPaymentMethod = 'cod';
-      window.switchPaymentMethod = function(method) {
-        window.currentPaymentMethod = method;
-        const cardCod = document.getElementById('card-cod');
-        const cardUpi = document.getElementById('card-upi');
-        const radioCod = document.getElementById('radio-cod');
-        const radioUpi = document.getElementById('radio-upi');
-        const secUpi = document.getElementById('section-upi');
-        const secCod = document.getElementById('section-cod');
-        const submitBtn = document.getElementById('checkout-submit-btn');
-
-        const upiInput = document.getElementById('upi-transaction-id');
-        if (method === 'cod') {
-          if (cardCod) { cardCod.style.border = '2px solid var(--primary)'; cardCod.style.background = 'rgba(108, 120, 92, 0.08)'; }
-          if (cardUpi) { cardUpi.style.border = '1px solid rgba(0,0,0,0.15)'; cardUpi.style.background = 'var(--surface)'; }
-          if (radioCod) radioCod.checked = true;
-          if (secUpi) secUpi.style.display = 'none';
-          if (secCod) secCod.style.display = 'block';
-          if (submitBtn) submitBtn.textContent = 'Adopt & Confirm Order 🤎';
-          if (upiInput) {
-            upiInput.required = false;
-            upiInput.value = '';
-          }
-        } else {
-          if (cardUpi) { cardUpi.style.border = '2px solid var(--primary)'; cardUpi.style.background = 'rgba(108, 120, 92, 0.08)'; }
-          if (cardCod) { cardCod.style.border = '1px solid rgba(0,0,0,0.15)'; cardCod.style.background = 'var(--surface)'; }
-          if (radioUpi) radioUpi.checked = true;
-          if (secCod) secCod.style.display = 'none';
-          if (secUpi) secUpi.style.display = 'block';
-          if (submitBtn) submitBtn.textContent = 'Confirm UPI & Place Order 🤎';
-          if (upiInput) {
-            upiInput.required = true;
-          }
-        }
-      };
+      window.currentPaymentMethod = 'upi';
+      const upiInput = document.getElementById('upi-transaction-id');
+      if (upiInput) {
+        upiInput.required = true;
+      }
+      const submitBtn = document.getElementById('checkout-submit-btn');
+      if (submitBtn) {
+        submitBtn.textContent = 'Confirm UPI & Place Order 🤎';
+      }
 
       const orderForm = document.getElementById('checkout-order-form');
       if (orderForm) {
