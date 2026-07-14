@@ -322,8 +322,8 @@
             <!-- UPI Section -->
             <div id="section-upi" class="payment-info-section" style="display: none;">
               <div class="qr-card">
-                <div class="qr-image-box">
-                  <img src="assets/payment-qr.jpg?v=4" alt="EarthenKnot Payment QR Code" style="width: 170px; height: 170px; object-fit: contain; border-radius: 10px;">
+                <div class="qr-image-box" style="background: white; padding: 6px; border-radius: 14px; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.06);">
+                  <img id="upi-qr-image" src="" alt="EarthenKnot Payment QR Code" style="width: 170px; height: 170px; object-fit: contain; border-radius: 10px;">
                 </div>
                 <div>
                   <span style="font-size: 0.85rem; color: var(--text-light); display: block;">Official Merchant Account</span>
@@ -331,10 +331,27 @@
                   <div style="margin-top: 0.4rem; display: inline-block; background: rgba(108, 120, 92, 0.12); padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.88rem; font-weight: 600; color: var(--primary-dark);">
                     UPI ID: earthenknot11@okhdfcbank
                   </div>
+                  <div id="upi-amount-label" style="margin-top: 0.6rem; font-size: 1.15rem; font-weight: 700; color: var(--primary-dark);">
+                    Amount to Pay: ₹0.00
+                  </div>
                   <p style="font-size: 0.88rem; color: var(--text); margin: 0.6rem 0 0 0; line-height: 1.5;">
                     Scan using any UPI app to pay. Once submitted, our team matches your payment and ships instantly.
                   </p>
                 </div>
+              </div>
+
+              <!-- UPI Transaction Verification Input -->
+              <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(108, 120, 92, 0.15);">
+                <label for="upi-transaction-id" style="display: block; font-weight: 600; color: var(--primary-dark); font-size: 0.95rem; margin-bottom: 0.5rem;">
+                  UPI Transaction / Reference ID (12 digits) <span style="color: red;">*</span>
+                </label>
+                <div class="input-wrapper" style="max-width: 400px; position: relative; display: flex; align-items: center;">
+                  <svg class="input-icon" viewBox="0 0 24 24" style="position: absolute; left: 14px; width: 18px; height: 18px; fill: none; stroke: var(--text-light); stroke-width: 2;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <input type="text" id="upi-transaction-id" placeholder="Enter 12-digit UTR/Ref No." minlength="12" maxlength="12" pattern="\d{12}" style="width: 100%; padding: 0.85rem 1rem 0.85rem 2.8rem; border-radius: 12px; border: 1.5px solid rgba(0, 0, 0, 0.08); background: var(--surface); font-size: 0.95rem; color: var(--text); font-family: 'Inter', sans-serif; outline: none; transition: all 0.3s;" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+                <span style="font-size: 0.8rem; color: var(--text-light); display: block; margin-top: 0.4rem;">
+                  Scan the QR code, pay the exact amount, and paste the 12-digit transaction reference ID here to verify your payment.
+                </span>
               </div>
             </div>
 
@@ -461,6 +478,7 @@
         const secCod = document.getElementById('section-cod');
         const submitBtn = document.getElementById('checkout-submit-btn');
 
+        const upiInput = document.getElementById('upi-transaction-id');
         if (method === 'cod') {
           if (cardCod) { cardCod.style.border = '2px solid var(--primary)'; cardCod.style.background = 'rgba(108, 120, 92, 0.08)'; }
           if (cardUpi) { cardUpi.style.border = '1px solid rgba(0,0,0,0.15)'; cardUpi.style.background = 'var(--surface)'; }
@@ -468,6 +486,10 @@
           if (secUpi) secUpi.style.display = 'none';
           if (secCod) secCod.style.display = 'block';
           if (submitBtn) submitBtn.textContent = 'Complete Order & Send Confirmations';
+          if (upiInput) {
+            upiInput.required = false;
+            upiInput.value = '';
+          }
         } else {
           if (cardUpi) { cardUpi.style.border = '2px solid var(--primary)'; cardUpi.style.background = 'rgba(108, 120, 92, 0.08)'; }
           if (cardCod) { cardCod.style.border = '1px solid rgba(0,0,0,0.15)'; cardCod.style.background = 'var(--surface)'; }
@@ -475,6 +497,9 @@
           if (secCod) secCod.style.display = 'none';
           if (secUpi) secUpi.style.display = 'block';
           if (submitBtn) submitBtn.textContent = 'Confirm UPI Payment & Place Order';
+          if (upiInput) {
+            upiInput.required = true;
+          }
         }
       };
 
@@ -579,6 +604,19 @@
       document.getElementById('checkout-subtotal').textContent = '₹' + total.toLocaleString('en-IN');
       document.getElementById('checkout-final-total').textContent = '₹' + total.toLocaleString('en-IN');
       window._currentCartTotal = total;
+
+      // Update dynamic UPI Amount label & QR Code
+      const upiAmtLabel = document.getElementById('upi-amount-label');
+      if (upiAmtLabel) {
+        upiAmtLabel.textContent = 'Amount to Pay: ₹' + total.toLocaleString('en-IN');
+      }
+      const qrImg = document.getElementById('upi-qr-image');
+      if (qrImg) {
+        const upiId = 'earthenknot11@okhdfcbank';
+        const merchantName = 'EarthenKnot Official';
+        const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${total.toFixed(2)}&cu=INR&tn=EarthenKnot%20Order`;
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiUrl)}`;
+      }
     }
 
     window.changeItemQty = function(index, delta) {
@@ -609,7 +647,8 @@
         pincode: document.getElementById('cust-pincode').value.trim(),
         address: document.getElementById('cust-address').value.trim()
       };
-      const paymentMethod = window.currentPaymentMethod === 'cod' ? 'Cash on Delivery (COD)' : 'UPI QR Code';
+      const upiTxId = window.currentPaymentMethod === 'upi' ? document.getElementById('upi-transaction-id').value.trim() : 'N/A';
+      const formattedPaymentMethod = window.currentPaymentMethod === 'cod' ? 'Cash on Delivery (COD)' : `UPI QR Code (Ref ID: ${upiTxId})`;
       const totalAmount = window._currentCartTotal || 3499;
 
       const newOrder = {
@@ -618,8 +657,9 @@
         customer: customer,
         items: items,
         total: totalAmount,
-        paymentMethod: paymentMethod,
-        status: 'Confirmed',
+        paymentMethod: formattedPaymentMethod,
+        upiTransactionId: upiTxId,
+        status: window.currentPaymentMethod === 'upi' ? 'Pending Payment Verification' : 'Confirmed',
         customerEmailSent: true,
         merchantEmailSent: true
       };
@@ -730,6 +770,9 @@
         paymentMethod: order.paymentMethod,
         "Payment Method": order.paymentMethod,
         Payment_Method: order.paymentMethod,
+        upi_transaction_id: order.upiTransactionId || 'N/A',
+        upiTransactionId: order.upiTransactionId || 'N/A',
+        "UPI Transaction ID": order.upiTransactionId || 'N/A',
         
         // Nested structures in case template uses dotted notation (e.g. {{order.id}} or {{customer.name}})
         order: {
@@ -745,6 +788,8 @@
           orderTotal: '₹' + order.total.toLocaleString('en-IN'),
           paymentMethod: order.paymentMethod,
           payment_method: order.paymentMethod,
+          upiTransactionId: order.upiTransactionId || 'N/A',
+          upi_transaction_id: order.upiTransactionId || 'N/A',
           items: itemsText,
           items_ordered: itemsText,
           itemsOrdered: itemsText
@@ -834,7 +879,7 @@
             <span style="font-size:0.8rem; text-transform:uppercase; color:var(--text-light); font-weight:600;">Payment & Order Details</span>
             <p style="margin:0.3rem 0 0 0; font-size:0.95rem; line-height:1.6;">
               <strong>Mode:</strong> ${order.paymentMethod}<br>
-              <strong>Order Status:</strong> Confirmed (Processing)<br>
+              <strong>Order Status:</strong> ${order.status}<br>
               <strong>Order ID:</strong> ${order.id}
             </p>
           </div>
