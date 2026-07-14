@@ -355,6 +355,18 @@
               </div>
             </div>
 
+            <!-- Return / Exchange Policy Note -->
+            <div style="margin-top: 1.5rem; padding: 1rem; border-radius: 10px; background: rgba(144, 118, 97, 0.08); border: 1px dashed rgba(144, 118, 97, 0.3); display: flex; align-items: flex-start; gap: 0.6rem;">
+              <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: var(--secondary); stroke-width: 2; flex-shrink: 0; margin-top: 0.1rem;">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--secondary); line-height: 1.45; font-weight: 500;">
+                <strong>Important Policy Note:</strong> All of our items are carefully handcrafted by artisans. Consequently, all orders are <strong>non-refundable and non-exchangeable</strong>. Thank you for supporting handmade craftsmanship!
+              </p>
+            </div>
+
             <button type="submit" id="checkout-submit-btn" class="btn btn-primary" style="width: 100%; font-size: 1.15rem; font-weight: 600; padding: 1.15rem; border-radius: 14px; margin-top: 1.5rem; box-shadow: 0 4px 15px rgba(108, 120, 92, 0.25);">
               Complete Order & Send Confirmations
             </button>
@@ -880,7 +892,8 @@
             <p style="margin:0.3rem 0 0 0; font-size:0.95rem; line-height:1.6;">
               <strong>Mode:</strong> ${order.paymentMethod}<br>
               <strong>Order Status:</strong> ${order.status}<br>
-              <strong>Order ID:</strong> ${order.id}
+              <strong>Order ID:</strong> ${order.id}<br>
+              <span style="font-size: 0.82rem; color: var(--secondary); font-weight: 600; display: block; margin-top: 0.4rem;">⚠️ Non-Refundable & Non-Exchangeable</span>
             </p>
           </div>
         </div>
