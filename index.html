@@ -79,7 +79,28 @@
 
   <main class="main-wrapper">
 
-
+    <!-- Personalize Welcoming Banner -->
+    <div id="homepage-welcome-banner" style="display: none; align-items: center; justify-content: center; gap: 1rem; margin: 1.5rem auto 3rem auto; padding: 1rem 1.8rem; background: rgba(108, 120, 92, 0.06); border: 1.5px solid rgba(108, 120, 92, 0.12); border-radius: 16px; max-width: 600px; animation: fadeIn 0.6s ease; box-shadow: var(--shadow-sm);">
+      <!-- Leafy Face Sticker SVG -->
+      <svg viewBox="0 0 100 100" style="width: 44px; height: 44px; flex-shrink: 0; filter: drop-shadow(0 3px 5px rgba(108, 120, 92, 0.2));">
+        <!-- Leaf Shape -->
+        <path d="M50,10 C75,30 85,60 50,90 C15,60 25,30 50,10 Z" fill="#b7e4c7" stroke="#6C785C" stroke-width="2.5" />
+        <path d="M50,10 L50,90" stroke="#6C785C" stroke-width="2" stroke-dasharray="2,2" />
+        <!-- Eyes -->
+        <circle cx="40" cy="46" r="3.5" fill="#2d3748" />
+        <circle cx="60" cy="46" r="3.5" fill="#2d3748" />
+        <!-- Blush Cheeks -->
+        <circle cx="33" cy="52" r="3" fill="#ffb5a7" />
+        <circle cx="67" cy="52" r="3" fill="#ffb5a7" />
+        <!-- Smile -->
+        <path d="M45,54 Q50,58 55,54" stroke="#2d3748" stroke-width="2.5" stroke-linecap="round" fill="none" />
+        <!-- Little Sprout on Top -->
+        <path d="M50,10 Q53,3 47,2" stroke="#6C785C" stroke-width="2" fill="none" />
+      </svg>
+      <div style="font-family: 'Outfit', sans-serif; font-size: 1.15rem; color: var(--primary-dark); font-weight: 600;">
+        <span id="welcome-greeting">Hello, friend!</span>
+      </div>
+    </div>
     <!-- Featured Section -->
     <section class="featured fade-in delay-2">
       <div class="container">
