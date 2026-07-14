@@ -531,6 +531,20 @@
         if (saved) items = JSON.parse(saved);
       } catch (e) {}
 
+      // Auto-cap quantity of all items to 1 as a safety guard
+      let modified = false;
+      if (items && items.length > 0) {
+        items.forEach(item => {
+          if (item.qty > 1) {
+            item.qty = 1;
+            modified = true;
+          }
+        });
+        if (modified) {
+          localStorage.setItem('earthenknot_cart', JSON.stringify(items));
+        }
+      }
+
       // If empty, preload sample products linked directly to their product pages
       if (!items || items.length === 0) {
         items = [
@@ -601,11 +615,8 @@
             </a>
           </div>
           <div style="display:flex; align-items:center; gap:0.75rem;">
-            <div style="display:flex; align-items:center; border:1px solid #ddd; border-radius:8px; overflow:hidden;">
-              <button type="button" onclick="changeItemQty(${index}, -1)" style="padding:0.2rem 0.5rem; background:#f9f9f9; border:none; cursor:pointer;">-</button>
-              <span style="padding:0.2rem 0.6rem; font-size:0.88rem; font-weight:600;">${item.qty}</span>
-              <button type="button" onclick="changeItemQty(${index}, 1)" style="padding:0.2rem 0.5rem; background:#f9f9f9; border:none; cursor:pointer;">+</button>
-            </div>
+            <span style="font-size:0.88rem; color:var(--text-light); font-weight:500;">Qty: 1</span>
+            <button type="button" onclick="removeItemFromCheckout(${index})" style="background:none; border:none; color:#f87171; cursor:pointer; font-size:0.82rem; font-weight:600; padding:0.2rem 0.4rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Remove</button>
             <strong style="font-size:0.95rem; color:var(--primary-dark); min-width:70px; text-align:right;">₹${sub.toLocaleString('en-IN')}</strong>
           </div>
         `;
@@ -631,16 +642,11 @@
       }
     }
 
-    window.changeItemQty = function(index, delta) {
+    window.removeItemFromCheckout = function(index) {
       let items = getCheckoutItems();
-      if (items[index]) {
-        items[index].qty = (items[index].qty || 1) + delta;
-        if (items[index].qty <= 0) {
-          items.splice(index, 1);
-        }
-        localStorage.setItem('earthenknot_cart', JSON.stringify(items));
-        renderCheckoutCart();
-      }
+      items.splice(index, 1);
+      localStorage.setItem('earthenknot_cart', JSON.stringify(items));
+      renderCheckoutCart();
     };
 
     function processOrderSubmission() {

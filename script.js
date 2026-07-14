@@ -81,8 +81,8 @@ function addToCart(name, price, img, url) {
 
   const existing = cartItems.find(item => item.name === itemName);
   if (existing) {
-    existing.qty = (existing.qty || 1) + 1;
-    existing.url = itemUrl;
+    showCartWarningToast(`Only 1 unit of "${itemName}" can be ordered.`);
+    return;
   } else {
     cartItems.push({
       id: 'ek-' + Date.now().toString(36),
@@ -97,6 +97,51 @@ function addToCart(name, price, img, url) {
   saveCartItems(cartItems);
   animateCartBadge();
   showCartToast(itemName);
+}
+
+function showCartWarningToast(message) {
+  let toast = document.getElementById('cart-toast-msg');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'cart-toast-msg';
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: white;
+      color: var(--text);
+      border: 1.5px solid var(--secondary);
+      padding: 14px 22px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      z-index: 10000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <div style="background:var(--secondary);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.9rem;">!</div>
+      <div>
+        <strong style="display:block;font-size:0.88rem;color:var(--secondary);">Order Limit</strong>
+        <span style="font-size:0.8rem;color:var(--text-light);">${message}</span>
+      </div>
+    </div>
+  `;
+  setTimeout(() => {
+    toast.style.transform = 'translateY(0)';
+    toast.style.opacity = '1';
+  }, 50);
+  
+  if (window._toastTimeout) clearTimeout(window._toastTimeout);
+  window._toastTimeout = setTimeout(() => {
+    toast.style.transform = 'translateY(100px)';
+    toast.style.opacity = '0';
+  }, 4000);
 }
 
 function showCartToast(itemName) {
