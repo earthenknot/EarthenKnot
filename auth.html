@@ -251,7 +251,7 @@
       try {
         await signInWithEmailAndPassword(auth, email, password);
         showToast('Welcome back! Redirecting...', 'success');
-        setTimeout(() => window.location.href = 'index.html', 1200);
+        setTimeout(() => window.location.href = 'index.html', 500);
       } catch (error) {
         console.error('Firebase Auth sign in failed:', error);
         let msg = `Sign in failed: ${error.message} (${error.code})`;
@@ -291,23 +291,21 @@
       setLoading(btn, true);
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // Update display name in Firebase Auth
-        await updateProfile(userCredential.user, { displayName: name });
-        // Store profile in Firestore
-        try {
-          await setDoc(doc(db, 'users', userCredential.user.uid), {
+        
+        // Update Auth profile and Firestore database document in parallel for maximum speed!
+        Promise.all([
+          updateProfile(userCredential.user, { displayName: name }),
+          setDoc(doc(db, 'users', userCredential.user.uid), {
             name: name,
             email: email,
             createdAt: serverTimestamp()
-          });
-        } catch (firestoreError) {
-          console.error('Firestore profile save failed:', firestoreError);
-          // Don't crash the signup flow if auth succeeded but firestore failed,
-          // just warn them about database configuration.
-          showToast('Account authenticated, but profile failed to save in Firestore database.', 'warning');
-        }
+          })
+        ]).catch(err => {
+          console.error('Parallel registration write task failed:', err);
+        });
+
         showToast('Account created! Welcome to EarthenKnot!', 'success');
-        setTimeout(() => window.location.href = 'index.html', 1200);
+        setTimeout(() => window.location.href = 'index.html', 500);
       } catch (error) {
         console.error('Firebase Auth sign up failed:', error);
         let msg = `Account creation failed: ${error.message} (${error.code})`;
