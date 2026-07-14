@@ -545,28 +545,6 @@
         }
       }
 
-      // If empty, preload sample products linked directly to their product pages
-      if (!items || items.length === 0) {
-        items = [
-          {
-            id: 'ek-demo-1',
-            name: 'Ivory Lace Crochet Pillow Cover',
-            price: 1899,
-            qty: 1,
-            img: 'assets/pillow-1.jpg',
-            url: 'product.html?id=ivory-lace-crochet-pillow'
-          },
-          {
-            id: 'ek-demo-2',
-            name: 'Ocean Blue Striped Crochet Sweatshirt',
-            price: 1899,
-            qty: 1,
-            img: 'assets/sweatshirt-1.jpg',
-            url: 'product.html?id=striped-crochet-sweatshirt'
-          }
-        ];
-        localStorage.setItem('earthenknot_cart', JSON.stringify(items));
-      }
       return items;
     }
 
@@ -594,34 +572,48 @@
       let total = 0;
       let count = 0;
 
-      items.forEach((item, index) => {
-        const sub = (Number(item.price) || 0) * (Number(item.qty) || 1);
-        total += sub;
-        count += (Number(item.qty) || 1);
-        const itemHref = resolveItemLink(item);
-
-        const row = document.createElement('div');
-        row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding: 0.8rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); gap: 0.75rem;';
-        row.innerHTML = `
-          <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
-            <a href="${itemHref}" title="View ${item.name}" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:inherit; transition:opacity 0.2s; overflow:hidden;" onmouseover="this.style.opacity='0.78'" onmouseout="this.style.opacity='1'">
-              <div style="width:48px; height:48px; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); flex-shrink:0;">
-                <img src="${item.img || 'assets/hero-bag.jpg'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;">
-              </div>
-              <div style="overflow:hidden;">
-                <strong style="font-size:0.92rem; color:var(--primary-dark); display:block; text-decoration:underline; text-underline-offset:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.name}</strong>
-                <span style="font-size:0.8rem; color:var(--text-light); display:block;">₹${Number(item.price).toLocaleString('en-IN')} each</span>
-              </div>
-            </a>
-          </div>
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <span style="font-size:0.88rem; color:var(--text-light); font-weight:500;">Qty: 1</span>
-            <button type="button" onclick="removeItemFromCheckout(${index})" style="background:none; border:none; color:#f87171; cursor:pointer; font-size:0.82rem; font-weight:600; padding:0.2rem 0.4rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Remove</button>
-            <strong style="font-size:0.95rem; color:var(--primary-dark); min-width:70px; text-align:right;">₹${sub.toLocaleString('en-IN')}</strong>
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:3rem 1rem; color:var(--text-light);">
+            <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--text-light); stroke-width: 1.5; margin-bottom: 1rem; opacity: 0.7; display: inline-block;">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+            </svg>
+            <p style="margin: 0 0 1.2rem 0; font-size: 0.95rem; font-weight: 500;">Your cart is empty.</p>
+            <a href="collections.html" class="btn btn-secondary" style="font-size: 0.88rem; padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; display: inline-block;">Browse Collections</a>
           </div>
         `;
-        container.appendChild(row);
-      });
+      } else {
+        items.forEach((item, index) => {
+          const sub = (Number(item.price) || 0) * (Number(item.qty) || 1);
+          total += sub;
+          count += (Number(item.qty) || 1);
+          const itemHref = resolveItemLink(item);
+
+          const row = document.createElement('div');
+          row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding: 0.8rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); gap: 0.75rem;';
+          row.innerHTML = `
+            <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
+              <a href="${itemHref}" title="View ${item.name}" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:inherit; transition:opacity 0.2s; overflow:hidden;" onmouseover="this.style.opacity='0.78'" onmouseout="this.style.opacity='1'">
+                <div style="width:48px; height:48px; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.08); flex-shrink:0;">
+                  <img src="${item.img || 'assets/hero-bag.jpg'}" alt="${item.name}" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div style="overflow:hidden;">
+                  <strong style="font-size:0.92rem; color:var(--primary-dark); display:block; text-decoration:underline; text-underline-offset:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.name}</strong>
+                  <span style="font-size:0.8rem; color:var(--text-light); display:block;">₹${Number(item.price).toLocaleString('en-IN')} each</span>
+                </div>
+              </a>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:0.88rem; color:var(--text-light); font-weight:500;">Qty: 1</span>
+              <button type="button" onclick="removeItemFromCheckout(${index})" style="background:none; border:none; color:#f87171; cursor:pointer; font-size:0.82rem; font-weight:600; padding:0.2rem 0.4rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Remove</button>
+              <strong style="font-size:0.95rem; color:var(--primary-dark); min-width:70px; text-align:right;">₹${sub.toLocaleString('en-IN')}</strong>
+            </div>
+          `;
+          container.appendChild(row);
+        });
+      }
 
       document.getElementById('checkout-cart-count').textContent = count;
       document.getElementById('checkout-subtotal').textContent = '₹' + total.toLocaleString('en-IN');
@@ -639,6 +631,23 @@
         const merchantName = 'EarthenKnot Official';
         const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${total.toFixed(2)}&cu=INR&tn=EarthenKnot%20Order`;
         qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiUrl)}`;
+      }
+
+      // Update submit button states
+      const submitBtn = document.getElementById('checkout-submit-btn');
+      if (submitBtn) {
+        if (items.length === 0) {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '0.5';
+          submitBtn.style.cursor = 'not-allowed';
+          submitBtn.textContent = 'Cart is Empty';
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
+          submitBtn.style.cursor = 'pointer';
+          const isUpi = document.getElementById('payment-upi')?.checked;
+          submitBtn.textContent = isUpi ? 'Confirm UPI Payment & Place Order' : 'Complete Order & Send Confirmations';
+        }
       }
     }
 
