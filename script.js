@@ -423,7 +423,7 @@ const productsData = {
   },
   'striped-crochet-sweatshirt': {
     name: 'Ocean Blue Striped Crochet Sweatshirt',
-    price: '₹4,800.00',
+    price: '₹1,800.00',
     image: 'assets/sweatshirt-1.jpg',
     images: ['assets/sweatshirt-1.jpg', 'assets/sweatshirt-2.jpg'],
     story: "Handcrafted with soft ocean blue and cream cotton yarn, this striped crochet sweatshirt blends relaxed coastal charm with heirloom craftsmanship. Designed with an effortless drop-shoulder silhouette and airy open-weave stitches, it is perfect for layering year-round. Featuring ribbed trim and artisanal stitching throughout, each sweatshirt is woven with meticulous attention to detail."
