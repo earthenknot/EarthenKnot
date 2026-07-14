@@ -455,18 +455,21 @@ const productsData = {
     name: 'Sweetheart Crochet Pouch',
     price: '₹899.00',
     image: 'assets/heart-pouch.jpg',
+    soldOut: true,
     story: "A charming, handcrafted heart-pattern pouch woven with soft premium cotton yarn. Features a contrast lavender heart motif on a warm cream background, complete with a secure wood button closure at the top. Perfect as an artisan coin purse, makeup pouch, or style accessory."
   },
   'gray-cream-beanie': {
     name: 'Dual-Tone Ribbed Beanie',
     price: '₹899.00',
     image: 'assets/gray-cream-beanie.jpg',
+    soldOut: true,
     story: "A cozy, double-knit ribbed beanie handcrafted with premium acrylic wool blend. Features a modern split color scheme with a heather-gray crown and a wide, folded cream brim. Elastic fit ensures warmth and comfort for chilly weather."
   },
   'gray-ribbed-beanie': {
     name: 'Artisan Ribbed Knit Beanie',
     price: '₹899.00',
     image: 'assets/gray-ribbed-beanie.jpg',
+    soldOut: true,
     story: "A classic ribbed-stitch beanie crocheted in a beautiful slate gray color. Handcrafted with thick, insulating acrylic-wool yarn, it features a thick folded brim and high elasticity for a comfortable, everyday fit."
   }
 };
