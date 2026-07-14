@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders - EarthenKnot</title>
+  <meta name="description" content="View your order history, delivery details, and order tour status on EarthenKnot.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .order-card {
+      background: var(--glass-bg);
+      border: var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      animation: fadeIn 0.4s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .order-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .status-badge {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-pending {
+      background: rgba(144, 118, 97, 0.12);
+      color: var(--secondary);
+    }
+    .status-confirmed {
+      background: rgba(108, 120, 92, 0.12);
+      color: var(--primary-dark);
+    }
+    .tour-requested-badge {
+      background: rgba(108, 120, 92, 0.08);
+      color: var(--primary-dark);
+      border: 1px dashed var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="main-nav">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="EarthenKnot Logo">
+      EarthenKnot
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="collections.html" class="dropbtn">Collections ▾</a>
+        <div class="dropdown-content">
+          <a href="collections.html">All Collections</a>
+          <a href="home-decor.html">Home Decor</a>
+          <a href="pillows.html">Pillows</a>
+          <a href="tops.html">Tops</a>
+          <a href="hair-accessories.html">Hair Accessories</a>
+          <a href="bags.html">Bags</a>
+          <a href="scarves.html">Scarves</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="contact.html">Get in Touch</a>
+    </div>
+    <div class="nav-actions">
+      <div class="global-search-container" style="position: relative; display: flex; align-items: center;">
+        <input type="text" id="global-search-input" class="search-input-expand" placeholder="Search products...">
+        <button class="search-btn" id="global-search-btn" aria-label="Search" style="background: none; border: none; cursor: pointer; color: var(--text); padding: 0.5rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text)'">
+          <svg viewBox="0 0 24 24" style="width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          </svg>
+        </button>
+        <div id="search-results-dropdown" class="search-results-dropdown"></div>
+      </div>
+      <div class="user-auth-container" style="position: relative;">
+        <button class="user-btn" id="user-auth-btn" aria-label="Account" onclick="window.location.href='auth.html'">
+          <span class="user-btn-label">Sign In</span>
+        </button>
+        <div class="user-dropdown" id="user-dropdown"></div>
+      </div>
+      <button class="cart-btn" onclick="window.location.href='checkout.html'" aria-label="View Cart">
+        <svg viewBox="0 0 24 24">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main-wrapper" style="padding: 4rem 5%;">
+    <section class="container" style="max-width: 800px; margin: 0 auto;">
+      <h1 class="fade-in" style="font-size: 2.8rem; margin-bottom: 2.5rem; color: var(--primary-dark); text-align: center; font-family: 'Playfair Display', serif;">My Orders</h1>
+      
+      <!-- User Info Alert -->
+      <div id="auth-alert" style="display:none; padding:1.25rem; border-radius:12px; background:rgba(144, 118, 97, 0.08); border:1px solid rgba(144, 118, 97, 0.2); margin-bottom:2rem; text-align:center; font-size:0.95rem; color:var(--secondary);">
+        Please <a href="auth.html" style="font-weight:700; color:var(--secondary); text-decoration:underline;">Sign In</a> to view orders tied to your account email address. Below are guest orders placed on this device.
+      </div>
+
+      <div id="orders-container">
+        <!-- Rendered via JS -->
+        <div style="text-align:center; padding:5rem 0; color:var(--text-light);">
+          <p style="font-size:1.15rem; margin-bottom:1.5rem;">Loading your order history...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content" style="align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <div class="footer-logo">EarthenKnot</div>
+        <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.35rem;">Customer Support & Queries: <a href="mailto:earthenknot11@gmail.com" style="color: var(--primary); font-weight: 600; text-decoration: none;">earthenknot11@gmail.com</a></p>
+      </div>
+      <div class="social-links">
+        <a href="mailto:earthenknot11@gmail.com" aria-label="Email Us" title="Email Customer Support">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="https://www.instagram.com/earthenknot?igsh=MWgxZDl1OHk4azIwYg%3D%3D&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn3Fqxs9jquHzp9iJtX1-huufqHVpgfH1q6_JRTV1o7bSn4U84IYB3O2SXjVo_aem__3HvmuUOTBEClDd3VL_dmw" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/@EarthenKnot/videos" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2rem; color: var(--text-light); font-size: 0.9rem;">
+      &copy; 2026 EarthenKnot. Designed to wow.
+    </div>
+  </footer>
+
+  <!-- Firebase Auth State Logic to Populate Orders -->
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+    onAuthStateChanged(auth, (user) => {
+      const alertBox = document.getElementById('auth-alert');
+      let userEmail = null;
+
+      if (!user) {
+        if (alertBox) alertBox.style.display = 'block';
+      } else {
+        userEmail = user.email.toLowerCase();
+        if (alertBox) alertBox.style.display = 'none';
+      }
+
+      renderOrders(userEmail);
+    });
+
+    function resolveItemLink(item) {
+      const name = item.name ? item.name.toLowerCase() : '';
+      if (name.includes('sweetheart')) return 'product.html?id=sweetheart-crochet-pouch';
+      if (name.includes('dual-tone')) return 'product.html?id=gray-cream-beanie';
+      if (name.includes('artisan ribbed')) return 'product.html?id=gray-ribbed-beanie';
+      if (name.includes('ivory ribbed')) return 'product.html?id=ivory-beanie';
+      if (name.includes('scrunchies')) return 'product.html?id=scrunchies-set';
+      if (name.includes('macrame') || name.includes('macramé')) return 'product.html?id=macrame-weave-crochet-pillow';
+      if (name.includes('pillow') || name.includes('cushion') || name.includes('ivory')) return 'product.html?id=ivory-lace-crochet-pillow';
+      if (name.includes('sweatshirt') || name.includes('striped') || name.includes('ocean')) return 'product.html?id=striped-crochet-sweatshirt';
+      if (name.includes('scarf')) return 'product.html?id=lavender-fringe-crochet-scarf';
+      if (name.includes('midnight') || name.includes('mesh')) return 'product.html?id=midnight-mesh-crochet-top';
+      if (name.includes('blossom') || name.includes('pink')) return 'product.html?id=blossom-striped-crochet-sweater';
+      return 'collections.html';
+    }
+
+    function renderOrders(userEmail) {
+      const container = document.getElementById('orders-container');
+      if (!container) return;
+
+      let allOrders = [];
+      try {
+        const saved = localStorage.getItem('earthenknot_orders');
+        if (saved) allOrders = JSON.parse(saved);
+      } catch (e) {}
+
+      // Filter: If user is logged in, show only their orders. Otherwise show guest orders on this device.
+      let filteredOrders = allOrders;
+      if (userEmail) {
+        filteredOrders = allOrders.filter(o => o.customer && o.customer.email && o.customer.email.toLowerCase() === userEmail);
+      }
+
+      if (filteredOrders.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:4rem 1rem; color:var(--text-light);">
+            <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: none; stroke: var(--text-light); stroke-width: 1.5; margin-bottom: 1rem; opacity: 0.6; display: inline-block;">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <p style="font-size:1rem; margin:0 0 1rem 0; font-weight:500;">No order records found.</p>
+            <a href="collections.html" class="btn btn-secondary" style="font-size:0.88rem; padding:0.5rem 1.5rem; text-decoration:none; display:inline-block; border-radius:8px;">Shop Collections</a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filteredOrders.map(order => {
+        const dateStr = order.date || 'N/A';
+        const itemsHtml = (order.items || []).map(item => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid rgba(0,0,0,0.04); font-size:0.95rem;">
+            <div>
+              <a href="${resolveItemLink(item)}" style="font-weight:600; color:var(--primary-dark); text-decoration:underline; text-underline-offset:2px;">${item.name}</a>
+              <span style="color:var(--text-light); font-size:0.85rem; margin-left:0.5rem;">(Qty: ${item.qty})</span>
+            </div>
+            <strong style="color:var(--primary-dark);">₹${(Number(item.price || 0) * Number(item.qty || 1)).toLocaleString('en-IN')}</strong>
+          </div>
+        `).join('');
+
+        const statusClass = order.status === 'Confirmed' || order.status === 'Delivered' ? 'status-confirmed' : 'status-pending';
+
+        return `
+          <div class="order-card">
+            <div class="order-header">
+              <div>
+                <span style="font-size:0.8rem; color:var(--text-light); text-transform:uppercase; font-weight:600; display:block;">Order Placed</span>
+                <strong style="font-size:1.05rem; color:var(--primary-dark);">${dateStr}</strong>
+              </div>
+              <div style="text-align:right;">
+                <span class="status-badge ${statusClass}">${order.status || 'Processing'}</span>
+                <span style="display:block; font-size:0.82rem; color:var(--text-light); margin-top:0.25rem;">Ref: ${order.id}</span>
+              </div>
+            </div>
+
+            <div>
+              <span style="font-size:0.78rem; text-transform:uppercase; color:var(--text-light); font-weight:600; display:block; margin-bottom:0.4rem;">Items Ordered</span>
+              ${itemsHtml}
+            </div>
+
+            <div style="margin-top:1.25rem; display:grid; grid-template-columns:1fr 1.2fr; gap:1rem; font-size:0.9rem; border-top:1px solid rgba(0,0,0,0.05); padding-top:1rem; flex-wrap:wrap;">
+              <div>
+                <span style="font-size:0.75rem; text-transform:uppercase; color:var(--text-light); font-weight:600; display:block;">Shipping To</span>
+                <p style="margin:0.25rem 0 0 0; line-height:1.45; color:var(--text);">
+                  <strong>${order.customer?.name || 'Customer'}</strong><br>
+                  ${order.customer?.address || ''}<br>
+                  PIN: ${order.customer?.pincode || ''}
+                </p>
+              </div>
+              <div>
+                <span style="font-size:0.75rem; text-transform:uppercase; color:var(--text-light); font-weight:600; display:block;">Payment Info</span>
+                <p style="margin:0.25rem 0 0 0; line-height:1.45; color:var(--text);">
+                  <strong>Method:</strong> ${order.paymentMethod || 'N/A'}<br>
+                  <strong>Total Paid:</strong> ₹${Number(order.total || 0).toLocaleString('en-IN')}<br>
+                  <span style="font-size: 0.8rem; color: var(--secondary); font-weight:600;">⚠️ Non-Refundable & Non-Exchangeable</span>
+                </p>
+              </div>
+            </div>
+
+            ${order.requestOrderTour ? `
+              <div class="tour-requested-badge">
+                <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2;">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span>WhatsApp Quality Tour Requested (Verification pending dispatch)</span>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+  </script>
+  
+  <script src="script.js"></script>
+</body>
+</html>

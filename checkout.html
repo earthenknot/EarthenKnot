@@ -721,6 +721,15 @@
 
         // Show Confirmation Screen
         showConfirmationReceipt(newOrder);
+
+        // Open WhatsApp auto-confirmation in a new tab if opted in
+        if (newOrder.requestOrderTour && newOrder.customer && newOrder.customer.phone) {
+          const cleanPhone = newOrder.customer.phone.replace(/[^0-9]/g, '');
+          const recipientPhone = cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone;
+          const msgText = `Hello ${newOrder.customer.name}, we've received your request for an Order Quality Tour for EarthenKnot Order ${newOrder.id}. Our artisan team will reach out to you here within 3 hours! Thank you for choosing EarthenKnot.`;
+          const waUrl = `https://api.whatsapp.com/send?phone=${recipientPhone}&text=${encodeURIComponent(msgText)}`;
+          window.open(waUrl, '_blank');
+        }
       });
     }
 

@@ -62,6 +62,8 @@ onAuthStateChanged(auth, (user) => {
           <span class="user-dropdown-email">${user.email}</span>
         </div>
         <div class="user-dropdown-divider"></div>
+        <button class="user-dropdown-item" onclick="window.location.href='my-orders.html'">My Orders</button>
+        <div class="user-dropdown-divider"></div>
         <button class="user-dropdown-logout" id="logout-btn">Sign Out</button>`;
       
       const logoutBtn = userDropdown.querySelector('#logout-btn');
