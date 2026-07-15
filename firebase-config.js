@@ -96,7 +96,7 @@ onAuthStateChanged(auth, (user) => {
 
     const rawName = user ? (user.displayName || user.email.split('@')[0]) : "friend";
     const firstName = rawName.trim().split(/\s+/)[0];
-    welcomeText.textContent = `${greeting}, ${firstName}! 🍃`;
+    welcomeText.textContent = `${greeting}, ${firstName}!`;
     welcomeBanner.style.display = 'flex';
   }
 });
