@@ -47,6 +47,10 @@
       background: rgba(108, 120, 92, 0.12);
       color: var(--primary-dark);
     }
+    .status-cancelled {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+    }
     .tour-requested-badge {
       background: rgba(108, 120, 92, 0.08);
       color: var(--primary-dark);
@@ -163,6 +167,27 @@
     import { auth } from './firebase-config.js';
     import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
+    window.cancelUserOrder = function(orderId) {
+      if (!confirm("Are you sure you want to cancel this order? This action cannot be undone.")) return;
+
+      let allOrders = [];
+      try {
+        const saved = localStorage.getItem('earthenknot_orders');
+        if (saved) allOrders = JSON.parse(saved);
+      } catch (e) {}
+
+      const index = allOrders.findIndex(o => o.id === orderId);
+      if (index !== -1) {
+        allOrders[index].status = 'Cancelled';
+        localStorage.setItem('earthenknot_orders', JSON.stringify(allOrders));
+        
+        // Re-render based on current logged in user state
+        const user = auth.currentUser;
+        const userEmail = user ? user.email.toLowerCase() : null;
+        renderOrders(userEmail);
+      }
+    };
+
     onAuthStateChanged(auth, (user) => {
       const alertBox = document.getElementById('auth-alert');
       let userEmail = null;
@@ -237,10 +262,18 @@
           </div>
         `).join('');
 
-        const statusClass = order.status === 'Confirmed' || order.status === 'Delivered' ? 'status-confirmed' : 'status-pending';
+        let statusClass = 'status-pending';
+        if (order.status === 'Confirmed' || order.status === 'Delivered') {
+          statusClass = 'status-confirmed';
+        } else if (order.status === 'Cancelled') {
+          statusClass = 'status-cancelled';
+        }
+
+        const canCancel = order.status !== 'Delivered' && order.status !== 'Dispatched' && order.status !== 'Shipped' && order.status !== 'Cancelled';
+        const isCancelled = order.status === 'Cancelled';
 
         return `
-          <div class="order-card">
+          <div class="order-card" style="${isCancelled ? 'opacity: 0.85;' : ''}">
             <div class="order-header">
               <div>
                 <span style="font-size:0.8rem; color:var(--text-light); text-transform:uppercase; font-weight:600; display:block;">Order Placed</span>
@@ -271,7 +304,7 @@
                 <p style="margin:0.25rem 0 0 0; line-height:1.45; color:var(--text);">
                   <strong>Method:</strong> ${order.paymentMethod || 'N/A'}<br>
                   <strong>Total Paid:</strong> ₹${Number(order.total || 0).toLocaleString('en-IN')}<br>
-                  <strong>Delivery:</strong> 10-12 days (lovingly handmade)<br>
+                  <strong>Delivery:</strong> ${isCancelled ? 'Cancelled' : '10-12 days (lovingly handmade)'}<br>
                   <span style="font-size: 0.8rem; color: var(--secondary); font-weight:600;">⚠️ Non-Refundable & Non-Exchangeable</span>
                 </p>
               </div>
@@ -286,6 +319,17 @@
                 <span>WhatsApp Quality Tour Requested (Verification pending dispatch)</span>
               </div>
             ` : ''}
+
+            <!-- Cancellation Trigger -->
+            <div style="margin-top:1rem; display:flex; justify-content:flex-end;">
+              ${canCancel ? `
+                <button onclick="cancelUserOrder('${order.id}')" class="btn btn-secondary" style="font-size:0.82rem; padding:0.4rem 1rem; border-radius:8px; border-color:#f87171; color:#ef4444; cursor:pointer;" onmouseover="this.style.background='rgba(239, 68, 68, 0.08)'" onmouseout="this.style.background='transparent'">Cancel Order</button>
+              ` : (isCancelled ? `
+                <span style="font-size:0.85rem; color:#ef4444; font-weight:600; letter-spacing:0.5px;">✓ ORDER CANCELLED</span>
+              ` : `
+                <span style="font-size:0.82rem; color:var(--text-light); font-weight:500;">✓ Dispatched (Cannot cancel)</span>
+              `)}
+            </div>
           </div>
         `;
       }).join('');
