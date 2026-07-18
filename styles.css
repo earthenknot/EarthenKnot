@@ -1108,3 +1108,28 @@ footer {
   letter-spacing: 0.6px;
   box-shadow: var(--shadow-sm);
 }
+
+/* Collection Reorder Custom Note */
+.collection-note {
+  max-width: 650px;
+  margin: 0 auto 3rem auto;
+  padding: 1.2rem 1.8rem;
+  background: rgba(144, 118, 97, 0.06);
+  border-left: 4px solid var(--secondary);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  box-shadow: var(--shadow-sm);
+}
+
+.collection-note-title {
+  color: var(--secondary);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
