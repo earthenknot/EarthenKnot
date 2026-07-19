@@ -536,11 +536,6 @@ function renderProductPage() {
             <button class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; box-shadow: 0 4px 10px rgba(108, 120, 92, 0.2); white-space: nowrap;" onclick="addToCart()">Add to Cart</button>
           `}
         </div>
-        ${product.soldOut ? `
-        <div class="collection-note" style="margin-top: 2rem; margin-bottom: 0;">
-          <span class="collection-note-title">Note!</span> Loved something that’s sold out? Just <a href="contact.html" style="text-decoration: underline; color: inherit; font-weight: 500; transition: color 0.3s ease;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='inherit'">drop us a message</a> and let us know — you can always request a reorder
-        </div>
-        ` : ''}
       </div>
 
       <div class="product-bio-wrapper" style="max-width: 800px; margin: 0 auto; padding: 3rem 0; border-top: 1px solid rgba(0,0,0,0.05); text-align: center;">
