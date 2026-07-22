@@ -1276,3 +1276,133 @@ footer {
   margin-bottom: 0.25rem;
 }
 
+/* === Smooth Layout Transitions === */
+.navbar,
+.main-wrapper,
+section,
+.logo,
+.logo img,
+.product-card,
+.btn,
+.nav-links,
+.hero-product-img {
+  transition: padding 0.3s ease, margin 0.3s ease, height 0.3s ease, font-size 0.3s ease, gap 0.3s ease, grid-template-columns 0.3s ease;
+}
+
+/* === Home Page Main Wrapper margin settings === */
+.home-page-main {
+  margin-top: 140px;
+}
+@media (max-width: 1024px) {
+  .home-page-main {
+    margin-top: 110px;
+  }
+}
+@media (max-width: 768px) {
+  .home-page-main {
+    margin-top: 90px;
+  }
+}
+@media (max-width: 600px) {
+  .home-page-main {
+    margin-top: 65px;
+  }
+}
+
+/* === Mobile Menu Scrollbar Fix === */
+@media (max-width: 850px) {
+  .nav-links {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* === Phone Landscape Optimizations (max-height: 500px) === */
+@media (max-height: 500px) and (orientation: landscape) {
+  .navbar {
+    padding: 0.5rem 4% !important;
+  }
+  
+  .logo {
+    font-size: 1.3rem !important;
+  }
+  
+  .logo img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .main-wrapper {
+    margin-top: 55px !important;
+  }
+  
+  .home-page-main {
+    margin-top: 55px !important;
+  }
+  
+  .nav-links {
+    max-height: calc(100vh - 55px) !important;
+  }
+  
+  section {
+    padding: 2rem 4% !important;
+  }
+  
+  h1 {
+    font-size: 1.8rem !important;
+    margin-bottom: 1.2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.6rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .hero-product-img {
+    height: 180px !important;
+  }
+  
+  /* Optimize product details page gallery in landscape */
+  .product-gallery {
+    flex-direction: row !important;
+    gap: 1rem !important;
+    align-items: center !important;
+  }
+  
+  .main-image-container {
+    max-height: 240px !important;
+  }
+  
+  .main-image-container img {
+    max-height: 240px !important;
+  }
+  
+  .thumbnails {
+    max-height: 240px !important;
+    flex-direction: column !important;
+  }
+  
+  .thumbnail {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  /* Adjust margins and font sizes of headings/stories in landscape */
+  .product-bio-wrapper {
+    padding: 1.5rem 0 !important;
+  }
+  
+  .story-text {
+    font-size: 1.05rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Grid sizes adjustments in landscape */
+  #product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 1rem !important;
+  }
+}
+
