@@ -7,7 +7,7 @@
   <meta name="description" content="EarthenKnot offers premium, handcrafted crochet creations inspired by nature's earthy tones. Shop warm blankets, cute amigurumis, and more.">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Hero specific animation */
+      /* Hero specific animation */
     .hero {
       background: linear-gradient(135deg, rgba(235, 232, 226, 0.4) 0%, rgba(206, 199, 182, 0.3) 100%);
     }
@@ -23,6 +23,23 @@
     }
     .product-card:hover img {
       transform: scale(1.02);
+    }
+    /* Hero card images */
+    .hero-product-img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .hero-product-img { height: 260px; }
+    }
+    @media (max-width: 480px) {
+      .hero-product-img { height: 200px; }
+    }
+    /* Responsive main wrapper top offset */
+    @media (max-width: 600px) {
+      main.main-wrapper[style] { margin-top: 65px !important; }
     }
   </style>
 </head>
@@ -111,19 +128,19 @@
         <!-- Little Happy Sparkle Star -->
         <path d="M78,25 L80,29 L84,30 L80,31 L78,35 L76,31 L72,30 L76,29 Z" fill="#FCE38A" />
       </svg>
-      <span id="welcome-greeting" style="font-size: 1.15rem; color: var(--primary-dark); font-family: 'Outfit', sans-serif; margin: 0; font-weight: 600; letter-spacing: 0.3px;">Hello, friend!</span>
+      <span id="welcome-greeting" style="font-size: 1.15rem; color: var(--primary-dark); font-family: 'Outfit', sans-serif; margin: 0; font-weight: 600; letter-spacing: 0.3px;">Hello!</span>
     </section>
     <!-- Featured Section -->
     <section class="featured fade-in delay-2">
       <div class="container">
         <h2 style="font-size: 2.5rem; margin-bottom: 3rem; text-align: center; color: var(--text);">Hand-picked for you</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 2.5rem;">
           
           <!-- Product Card 1 -->
           <div class="product-card glass-panel" style="padding: 1.5rem; text-align: center; overflow: hidden;">
             <a href="product.html?id=striped-crochet-sweatshirt" style="display: block; color: inherit; text-decoration: none;">
               <div style="border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.5rem;">
-                <img src="assets/sweatshirt-1.jpg" alt="Ocean Blue Striped Crochet Sweatshirt" style="width: 100%; height: 380px; object-fit: cover; display: block;">
+                <img src="assets/sweatshirt-1.jpg" alt="Ocean Blue Striped Crochet Sweatshirt" class="hero-product-img">
               </div>
               <h3 style="margin-bottom: 0.5rem; font-size: 1.3rem;">Ocean Blue Striped Crochet Sweatshirt</h3>
               <p style="color: var(--primary-dark); font-weight: 600; font-size: 1.2rem; margin-bottom: 1.2rem;">₹1,899.00</p>
@@ -135,7 +152,7 @@
           <div class="product-card glass-panel" style="padding: 1.5rem; text-align: center; overflow: hidden;">
             <a href="product.html?id=ivory-lace-crochet-pillow" style="display: block; color: inherit; text-decoration: none;">
               <div style="border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.5rem;">
-                <img src="assets/pillow-1.jpg" alt="Ivory Lace Crochet Pillow Cover" style="width: 100%; height: 380px; object-fit: cover; display: block;">
+                <img src="assets/pillow-1.jpg" alt="Ivory Lace Crochet Pillow Cover" class="hero-product-img">
               </div>
               <h3 style="margin-bottom: 0.5rem; font-size: 1.3rem;">Ivory Lace Crochet Pillow Cover</h3>
               <p style="color: var(--primary-dark); font-weight: 600; font-size: 1.2rem; margin-bottom: 1.2rem;">₹1,899.00</p>
@@ -147,7 +164,7 @@
           <div class="product-card glass-panel" style="padding: 1.5rem; text-align: center; overflow: hidden;">
             <a href="product.html?id=macrame-weave-crochet-pillow" style="display: block; color: inherit; text-decoration: none;">
               <div style="border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 1.5rem;">
-                <img src="assets/pillow-crochet-1.jpg" alt="Macramé Weave Crochet Pillow Cover" style="width: 100%; height: 380px; object-fit: cover; display: block;">
+                <img src="assets/pillow-crochet-1.jpg" alt="Macramé Weave Crochet Pillow Cover" class="hero-product-img">
               </div>
               <h3 style="margin-bottom: 0.5rem; font-size: 1.3rem;">Macramé Weave Crochet Pillow Cover</h3>
               <p style="color: var(--primary-dark); font-weight: 600; font-size: 1.2rem; margin-bottom: 1.2rem;">₹1,899.00</p>

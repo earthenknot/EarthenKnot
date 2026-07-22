@@ -94,9 +94,7 @@ onAuthStateChanged(auth, (user) => {
     else if (hour >= 17 && hour < 21) greeting = "Good evening";
     else if (hour >= 21 || hour < 5) greeting = "Good night";
 
-    const rawName = user ? (user.displayName || user.email.split('@')[0]) : "friend";
-    const firstName = rawName.trim().split(/\s+/)[0];
-    welcomeText.textContent = `${greeting}, ${firstName}!`;
+    welcomeText.textContent = `${greeting}!`;
     welcomeBanner.style.display = 'flex';
   }
 });
