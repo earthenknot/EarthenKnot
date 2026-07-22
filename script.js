@@ -531,7 +531,7 @@ function renderProductPage() {
             ${product.soldOut ? `<span class="sold-out-badge" style="font-size: 0.8rem; padding: 0.25rem 0.75rem;">Sold Out</span>` : ''}
           </div>
           ${product.soldOut ? `
-            <button class="btn btn-secondary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; white-space: nowrap; cursor: not-allowed; opacity: 0.6;" disabled>Sold Out</button>
+            <button class="btn btn-secondary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; white-space: nowrap; cursor: pointer; transition: all 0.3s;" onclick="addToCart()">Request a Remake</button>
           ` : `
             <button class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; box-shadow: 0 4px 10px rgba(108, 120, 92, 0.2); white-space: nowrap;" onclick="addToCart()">Add to Cart</button>
           `}
