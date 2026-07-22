@@ -54,7 +54,8 @@ function addToCart(name, price, img, url) {
     if (card) {
       if (!itemName) itemName = card.querySelector('h3')?.textContent?.trim();
       if (!itemPrice) {
-        const priceTxt = card.querySelector('p')?.textContent?.trim();
+        const priceEl = card.querySelector('.discount-price') || card.querySelector('p');
+        const priceTxt = priceEl?.textContent?.trim();
         if (priceTxt) itemPrice = Number(priceTxt.replace(/[^0-9.]/g, ''));
       }
       if (!itemImg) itemImg = card.querySelector('img')?.getAttribute('src');
@@ -409,35 +410,40 @@ document.addEventListener('DOMContentLoaded', () => {
 const productsData = {
   'ivory-lace-crochet-pillow': {
     name: 'Ivory Lace Crochet Pillow Cover',
-    price: '₹1,899.00',
+    price: '₹1,299.00',
+    originalPrice: '₹1,899.00',
     image: 'assets/pillow-1.jpg',
     images: ['assets/pillow-1.jpg', 'assets/pillow-2.jpg', 'assets/pillow-3.jpg'],
     story: "Handcrafted with intricate vintage lace motifs in natural ivory cotton yarn, this artisan crochet cushion cover brings timeless texture and warmth to your living sanctuary. Each pillow cover features exquisite shell stitches, dimensional floral clusters, and delicate openwork lacework inspired by heirloom crochet artistry. Soft to the touch yet beautifully structured with a crisp cotton lining, it adds instant cozy elegance to any sofa, armchair, or bedroom retreat."
   },
   'macrame-weave-crochet-pillow': {
     name: 'Macramé Weave Crochet Pillow Cover',
-    price: '₹1,899.00',
+    price: '₹1,299.00',
+    originalPrice: '₹1,899.00',
     image: 'assets/pillow-crochet-1.jpg',
     images: ['assets/pillow-crochet-1.jpg', 'assets/pillow-crochet-2.jpg'],
     story: "A stunning handcrafted pillow cover woven in a delicate open-grid macramé pattern using soft natural ivory cotton yarn. Each knot is tied by hand, creating a beautifully textured lattice that lets light filter through the weave. The subtle cream tones and organic cotton feel make it a versatile piece that complements any bohemian, minimal, or nature-inspired interior. A cozy, artisan touch for your sofa, bed, or reading nook."
   },
   'striped-crochet-sweatshirt': {
     name: 'Ocean Blue Striped Crochet Sweatshirt',
-    price: '₹1,899.00',
+    price: '₹1,299.00',
+    originalPrice: '₹1,899.00',
     image: 'assets/sweatshirt-1.jpg',
     images: ['assets/sweatshirt-1.jpg', 'assets/sweatshirt-2.jpg'],
     story: "Handcrafted with soft ocean blue and cream cotton yarn, this striped crochet sweatshirt blends relaxed coastal charm with heirloom craftsmanship. Designed with an effortless drop-shoulder silhouette and airy open-weave stitches, it is perfect for layering year-round. Featuring ribbed trim and artisanal stitching throughout, each sweatshirt is woven with meticulous attention to detail."
   },
   'lavender-fringe-crochet-scarf': {
     name: 'Lavender Fringe Crochet Scarf',
-    price: '₹1,899.00',
+    price: '₹1,299.00',
+    originalPrice: '₹1,899.00',
     image: 'assets/lavender-fringe-crochet-scarf.jpg',
     soldOut: true,
     story: "Handcrafted with a wonderfully soft acrylic and wool blend yarn in beautiful gradient lavender and violet hues. This scarf features an intricate openwork chevron-lace stitch pattern that provides both warmth and a lightweight, flowing drape. Finished with a lush, hand-knotted fringe at both ends, it brings a pop of artisanal charm and cozy color to any chilly day outfit."
   },
   'midnight-mesh-crochet-top': {
     name: 'Midnight Mesh Crochet Top',
-    price: '₹1,899.00',
+    price: '₹1,299.00',
+    originalPrice: '₹1,899.00',
     image: 'assets/black-crochet-top-1.jpg',
     images: ['assets/black-crochet-top-1.jpg', 'assets/black-crochet-top-2.jpg'],
     soldOut: true,
@@ -445,7 +451,8 @@ const productsData = {
   },
   'blossom-striped-crochet-sweater': {
     name: 'Blossom Striped Crochet Sweater',
-    price: '₹1,899.00',
+    price: '₹1,299.00',
+    originalPrice: '₹1,899.00',
     image: 'assets/pink-striped-sweater-1.jpg',
     images: ['assets/pink-striped-sweater-1.jpg', 'assets/pink-striped-sweater-2.jpg'],
     soldOut: true,
@@ -526,8 +533,10 @@ function renderProductPage() {
         </div>
         
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05); text-align: left;">
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <p style="font-size: 1.8rem; color: var(--primary); font-weight: 600; margin: 0;">${product.price}</p>
+          <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+            ${product.originalPrice ? `<span style="font-size: 1.25rem; color: var(--text-light); text-decoration: line-through; opacity: 0.75;">${product.originalPrice}</span>` : ''}
+            <p style="font-size: 1.8rem; color: var(--primary); font-weight: 700; margin: 0;">${product.price}</p>
+            ${product.originalPrice ? `<span style="background: rgba(163, 177, 138, 0.25); color: var(--primary-dark); font-size: 0.85rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: 6px; border: 1px solid rgba(163, 177, 138, 0.4);">Save ₹600</span>` : ''}
             ${product.soldOut ? `<span class="sold-out-badge" style="font-size: 0.8rem; padding: 0.25rem 0.75rem;">Sold Out</span>` : ''}
           </div>
           ${product.soldOut ? `
